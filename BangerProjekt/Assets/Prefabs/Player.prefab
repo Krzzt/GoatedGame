@@ -254,6 +254,6 @@ MonoBehaviour:
   shootingMiddle: {fileID: 59159877725182599}
   fireRate: 2
   canShoot: 1
-  bullet: {fileID: 3131984643514835129, guid: 6f23d7785a8902b46a2a9daa14d9c42f, type: 3}
+  bulletPrefab: {fileID: 3131984643514835129, guid: 6f23d7785a8902b46a2a9daa14d9c42f, type: 3}
   shotSpeed: 5
   bulletAmount: 1
