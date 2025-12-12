@@ -11,7 +11,7 @@ public class UnitHealth //we do not inherit from "MonoBehaivour" here, so this i
     //these are private and should only be touched via the "Health" and "MaxHealth" integers declared below
 
 
-    public int Health //our current health via simple get/set
+    public int CurrentHealth //our current health via simple get/set
     {
         get
         {
@@ -22,7 +22,7 @@ public class UnitHealth //we do not inherit from "MonoBehaivour" here, so this i
             currentHealth = value;
         }
     }
-    public int MaxHealth //Same for maxHealth
+    public int CurrentMaxHealth //Same for maxHealth
     {
         get
         {
