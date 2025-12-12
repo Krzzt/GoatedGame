@@ -12,7 +12,7 @@ public class Weapon : MonoBehaviour
     //private float ShootingCooldown; //the cooldown until you can shoot again --> 1/fireRate
     public bool canShoot;
 
-    public GameObject bullet; //the bullet you shoot as a prefab
+    public GameObject bulletPrefab; //the bullet you shoot as a prefab
     public int shotSpeed; //the shotspeed (force it gets shot with)
 
     public int bulletAmount; //amount of bullets you shoot
@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour
         {
 
 
-            GameObject newBullet = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation); //instantiate new bullet from the Prefab, and set its position and rotation
+            GameObject newBullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation); //instantiate new bullet from the Prefab, and set its position and rotation
             newBullet.GetComponent<Rigidbody2D>().AddForce(shootingPoint.up * shotSpeed, ForceMode2D.Impulse); //add the velocity in the direction it should go
 
 
@@ -54,9 +54,9 @@ public class Weapon : MonoBehaviour
             }
             //we just rotate left and right from the initial point, so we get a bit of a "Spread" although it is not random spread but set spread
         }
-        Debug.Log(gameObject.transform.rotation);
         shootingMiddle.transform.rotation = new Quaternion(0, 0, 0, 0); //reset the rotation in the end so the rotation isnt all messed up next time we want to shoot a bullet
-        Debug.Log("2: " + gameObject.transform.rotation);
+        //we also use "ShootingMiddle" and not just the PlayerObject because we dont want to reset the players rotation
+        //that would look very choppy
         StartCoroutine(StartShootCooldown());
     }
 
