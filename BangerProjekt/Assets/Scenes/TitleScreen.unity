@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 90175699}
   - component: {fileID: 90175698}
   m_Layer: 5
-  m_Name: Quit (TitelButten)
+  m_Name: Quit (TitleButten)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5265fdf95dc5c9840b9fac1cb722ffcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionspanel: {fileID: 1511959327}
+  optionsPanel: {fileID: 1511959327}
 --- !u!1 &809856436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,8 +1125,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 745471449}
-        m_TargetAssemblyTypeName: TiteleScreenManger, Assembly-CSharp
-        m_MethodName: HideOptionsPanel
+        m_TargetAssemblyTypeName: TitleScreenManager, Assembly-CSharp
+        m_MethodName: ChangeOptionsPanelState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1721,7 +1721,7 @@ GameObject:
   - component: {fileID: 1617070690}
   - component: {fileID: 1617070689}
   m_Layer: 5
-  m_Name: Setting (TitelButten)
+  m_Name: Options (TitleButten)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1792,8 +1792,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 745471449}
-        m_TargetAssemblyTypeName: TiteleScreenManger, Assembly-CSharp
-        m_MethodName: ShowOptionsPanel
+        m_TargetAssemblyTypeName: TitleScreenManager, Assembly-CSharp
+        m_MethodName: ChangeOptionsPanelState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1854,7 +1854,7 @@ GameObject:
   - component: {fileID: 1680580686}
   - component: {fileID: 1680580685}
   m_Layer: 5
-  m_Name: Start (TitelButten)
+  m_Name: Start (TitleButten)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

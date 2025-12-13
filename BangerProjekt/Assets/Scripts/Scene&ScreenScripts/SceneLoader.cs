@@ -1,4 +1,4 @@
-//UnityEngine.SceneManagement wird benötigt um szenen zu laden??
+//UnityEngine.SceneManagement is it needed to load scenes??
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
