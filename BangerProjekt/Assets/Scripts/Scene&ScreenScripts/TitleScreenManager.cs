@@ -18,5 +18,5 @@ public class TitleScreenManager : MonoBehaviour
         {
             Debug.LogError("TitleScreenManager: Option panel is not assigned!");
         }   
-}
+    }
 }
