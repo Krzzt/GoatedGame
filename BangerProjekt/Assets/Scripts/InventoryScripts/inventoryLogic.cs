@@ -1,53 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UIElements;
 
-public class item // Creating a item class for the standart item
+
+
+
+public class DynamicInventory : MonoBehaviour // Creating an inventory class for an dynamic Inventory
 {
-
-    public enum itemCategory
-    {
-        weapon,
-        armour
-    }   // Item Categories include armour, weapons
-    public string itemName;
-    public Sprite icon;
-    [TextArea]
-
-    public string description;
-    
-
-}
-
-public class armour : item // creating a armour class with the required information for armour
-{
-    
-    public float defense;
-
-    public float healthBonus;
-
-}
-
-
-
- public class weapon : item // creating the weapon class withe the required information about a weapon
-{
-    
-    public float fireRate;
-
-    public float damage;
-
-    public float reloadTime;
-
-    public int maxAmmunition;
-    
-
-}
-
-public class dynamicInventory : MonoBehaviour // Creating an inventory class for an dynamic Inventory
-{
-    public int maxInventorySize = 20; 
+    [SerializeField]public int maxInventorySize; 
     public List<itemInstance> items = new();
 
     public bool addItem(){ // a Function to add an item to the inventory with a test if there is enough inventory space
@@ -78,11 +40,11 @@ public class dynamicInventory : MonoBehaviour // Creating an inventory class for
 
     public void removeItem()
     {
-        items.Remove(itemToRemove);
+     items.Remove(itemToRemove);
     }
 }
 
-public class inventoryDisplay : MonoBehaviour
+public class InventoryDisplay : MonoBehaviour
 {
     
     public dynamicInventory inventory;
@@ -90,10 +52,10 @@ public class inventoryDisplay : MonoBehaviour
 
     private void Start()
     {
-        updateInventory();
+     updateInventory();
     }
 
-    void updateInventory() // a function that iterates thru the entire inventory to update the display of the items
+   private void updateInventory() // a function that iterates thru the entire inventory to update the display of the items
     {
         for(int i = 0; i < slots.Length; i++){
             
@@ -111,4 +73,3 @@ public class inventoryDisplay : MonoBehaviour
         }
     }
 }
-
