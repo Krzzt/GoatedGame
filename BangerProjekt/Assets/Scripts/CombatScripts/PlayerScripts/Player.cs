@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        for (int i = 0; i < 10; i++) // forypes testing, we initialize the entire deck with 5 cards of 2 different t
+        for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
         {
             if (i % 2 == 0)
             {
