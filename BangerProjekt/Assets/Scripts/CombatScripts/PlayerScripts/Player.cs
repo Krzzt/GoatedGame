@@ -7,16 +7,16 @@ public class Player : MonoBehaviour
 {
     public UnitHealth PlayerHealth = new UnitHealth(100); //Player starts with 100HP (just example, can be changed anytime)
 
-    public List<Card> entireDeck = new List<Card>();
-    public List <Card> drawPile = new List<Card>();
-    public List <Card> cardsInHand = new List<Card>();
-    public List <Card> discardPile = new List<Card>();
+    private List<Card> entireDeck = new List<Card>();
+    private List <Card> drawPile = new List<Card>();
+    private List <Card> cardsInHand = new List<Card>();
+    private List <Card> discardPile = new List<Card>();
 
-    public int handSize;
+     [SerializeField] private int handSize = 5;
 
     void Awake()
     {
-        for (int i = 0; i < 10; i++) // forypes testing, we initialize the entire deck with 5 cards of 2 different t
+        for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
         {
             if (i % 2 == 0)
             {
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
             }
         }
         drawPile = entireDeck; //all cards go into the drawPile
-        ShuffleDeck();
+        ShuffleDrawPile();
         DrawCards(handSize); //we fill the hand with cards
         
     }
@@ -56,32 +56,27 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < amount && cardsInHand.Count < handSize; i++) //for every amount, we draw 1 Card. Alternatively, stop if the hand is "full"
         {
-            if (drawPile.Count > 0) //if the drawPile is not empty
+            if (drawPile.Count <= 0) //if the drawPile is empty
             {
-                cardsInHand.Add(drawPile[0]); 
-                drawPile.RemoveAt(0);
-                //we draw a card by adding it to our HandList and removing index 0 from the draw List
-            }
-            else //if the drawPile is empty
-            {
-                RecycleDeck();
-                cardsInHand.Add(drawPile[0]); 
-                drawPile.RemoveAt(0);
+                RecycleDiscardPile(); //Recycle the Discard Pile
 
+              
             }
+            cardsInHand.Add(drawPile[0]);  //we draw a card by adding it to our HandList and removing index 0 from the draw List
+            drawPile.RemoveAt(0);
 
         }
-        DebugHand();
+        //DebugHand();
     }
 
-    public void RecycleDeck() //to shuffle the discard pile back into the drawPile
+    public void RecycleDiscardPile() //to shuffle the discard pile back into the drawPile
     {
         drawPile.AddRange(discardPile); //this adds the entire discardPile List to the drawPile List (List.AddRange)
         discardPile.Clear(); //this clears the discardPile List
-        ShuffleDeck();
+        ShuffleDrawPile();
     }
 
-    public void ShuffleDeck()
+    public void ShuffleDrawPile()
     {
         for (int i = 0; i < drawPile.Count-1 ; i++) 
         {
@@ -115,7 +110,7 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < cardsInHand.Count ; i++)
         {
-            Debug.Log("Card " + i + ": " + cardsInHand[i].name);
+            Debug.Log("Card " + i + ": " + cardsInHand[i].Name);
         }
     }
 }
