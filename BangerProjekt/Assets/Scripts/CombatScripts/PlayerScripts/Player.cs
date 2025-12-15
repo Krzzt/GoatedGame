@@ -7,13 +7,42 @@ public class Player : MonoBehaviour
 {
     public UnitHealth PlayerHealth = new UnitHealth(100, 100); //Player starts with 100HP (just example, can be changed anytime)
 
+    //Card Lists --------------------------------------------
     public List<Card> entireDeck = new List<Card>();
     public List <Card> drawPile = new List<Card>();
     public List <Card> cardsInHand = new List<Card>();
     public List <Card> discardPile = new List<Card>();
 
     public int handSize;
+    //End of Card variables ---------------------------------
 
+    //Start of level variables -----------------------------
+    private int level;
+    private int currentExp = 0;
+    public int CurrentExp
+    {
+        get
+        {
+            return currentExp;
+        }
+        set
+        {
+            currentExp = value;
+        }
+    }
+    private int requiredExp = 10;
+    public int RequiredExp
+    {
+        get
+        {
+            return requiredExp;
+        }
+        set
+        {
+            requiredExp = value;
+        }
+    }
+    //End of level variables -------------------------------
     void Awake()
     {
         for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
@@ -34,6 +63,13 @@ public class Player : MonoBehaviour
     }
 
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AddExp(3);
+        }
+    }
 
 
     public void TakeDamage(int amount)
@@ -51,7 +87,7 @@ public class Player : MonoBehaviour
     }
 
 
-
+    //Start of Card functions -------------------------------------
     public void DrawCards(int amount)
     {
         for (int i = 0; i < amount && cardsInHand.Count < handSize; i++) //for every amount, we draw 1 Card. Alternatively, stop if the hand is "full"
@@ -71,7 +107,7 @@ public class Player : MonoBehaviour
             }
 
         }
-        DebugHand();
+        //DebugHand();
     }
 
     public void RecycleDeck() //to shuffle the discard pile back into the drawPile
@@ -118,4 +154,28 @@ public class Player : MonoBehaviour
             Debug.Log("Card " + i + ": " + cardsInHand[i].name);
         }
     }
+
+    //End of Card functions -------------------------------------------------
+
+    //Start of exp related functions -----------------------------------------
+
+    public void AddExp(int amount)
+    {
+        CurrentExp += amount;
+        while(CurrentExp >= RequiredExp)
+        {
+            CurrentExp -= RequiredExp;
+            LevelUp();
+        }
+        
+    }
+
+    public void LevelUp()
+    {
+        level++;
+        RequiredExp = (int)(RequiredExp * 1.5f);
+        //Increase stats
+    }
+
+    //End of exp related functions
 }
