@@ -21,29 +21,7 @@ public class Player : MonoBehaviour
     //Start of level variables ------------------------------
     private int level;
     private int currentExp = 0;
-    public int CurrentExp
-    {
-        get
-        {
-            return currentExp;
-        }
-        set
-        {
-            currentExp = value;
-        }
-    }
     private int requiredExp = 10;
-    public int RequiredExp
-    {
-        get
-        {
-            return requiredExp;
-        }
-        set
-        {
-            requiredExp = value;
-        }
-    }
     //End of level variables -------------------------------
 
 
@@ -67,7 +45,7 @@ public class Player : MonoBehaviour
             }
         }
         drawPile = entireDeck; //all cards go into the drawPile
-        ShuffleDeck();
+        ShuffleDrawPile();
         DrawCards(handSize); //we fill the hand with cards
         
     }
@@ -75,10 +53,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            AddExp(3);
-        }
+        
     }
     //End of Unity specific functions ----------------------------
 
@@ -161,5 +136,30 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Card " + i + ": " + cardsInHand[i].Name);
         }
+    }
+
+    //End of card related functions
+
+
+    //Start of exp Related functions
+
+    public void AddExp(int amount)
+    {
+        currentExp += amount;
+        while (currentExp >= requiredExp)
+        {
+            currentExp -= requiredExp;
+            LevelUp();
+        }
+        //this while loop is here to make multiple level ups possible
+    }
+
+    public void LevelUp()
+    {
+        level++;
+        requiredExp = (int)(requiredExp * 1.5f);
+        //for now, this is just a number going up and the exp also going up
+
+        //stat increase probably
     }
 }
