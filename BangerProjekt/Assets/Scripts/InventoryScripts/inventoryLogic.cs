@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
+using UnityEngine.EventSystems;
 
 
-
-
+public class InventoryItem : MonoBehaviour //, IPointerClickHandler
+{ /*
+    public CanvasGroup canvasGroup;
+    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        
+    }
+    
+}
 public class DynamicInventory : MonoBehaviour // Creating an inventory class for an dynamic Inventory
 {
     [SerializeField]public int maxInventorySize; 
-    public List<itemInstance> items = new();
+    public List<Item> items = new();
 
     public bool addItem(){ // a Function to add an item to the inventory with a test if there is enough inventory space
         
@@ -44,11 +53,16 @@ public class DynamicInventory : MonoBehaviour // Creating an inventory class for
     }
 }
 
+public class ItemDisplay
+{
+    
+}
+
 public class InventoryDisplay : MonoBehaviour
 {
     
-    public dynamicInventory inventory;
-    public itemDisplay[] slots;
+    public DynamicInventory inventory;
+    public ItemDisplay[] slots;
 
     private void Start()
     {
@@ -72,4 +86,5 @@ public class InventoryDisplay : MonoBehaviour
             }
         }
     }
+*/
 }
