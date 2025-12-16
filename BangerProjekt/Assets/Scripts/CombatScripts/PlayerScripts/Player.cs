@@ -5,15 +5,32 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    //Start of Health variables --------------------------------
     public UnitHealth PlayerHealth = new UnitHealth(100); //Player starts with 100HP (just example, can be changed anytime)
+    //End of Health variables ----------------------------------
 
+    //Start of Card variables --------------------------------
     private List<Card> entireDeck = new List<Card>();
     private List <Card> drawPile = new List<Card>();
     private List <Card> cardsInHand = new List<Card>();
     private List <Card> discardPile = new List<Card>();
 
-     [SerializeField] private int handSize = 5;
+    [SerializeField] private int handSize;
+    //End of Card variables ---------------------------------
 
+    //Start of level variables ------------------------------
+    private int level;
+    private int currentExp = 0;
+    private int requiredExp = 10;
+    //End of level variables -------------------------------
+
+
+
+
+    //_______________________________________________________________________________________________________________
+    //START OF FUNCTIONS
+
+    //Start of Unity specific functions ----------------------------
     void Awake()
     {
         for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
@@ -34,8 +51,14 @@ public class Player : MonoBehaviour
     }
 
 
+    void Update()
+    {
+        
+    }
+    //End of Unity specific functions ----------------------------
 
 
+    //Start of HP related functions -----------------------------
     public void TakeDamage(int amount)
     {
         PlayerHealth.DamageUnit(amount);
@@ -50,8 +73,9 @@ public class Player : MonoBehaviour
         PlayerHealth.HealUnit(amount);
     }
 
+    //End of HP related functions --------------------------------
 
-
+    //Start of Card functions -------------------------------------
     public void DrawCards(int amount)
     {
         for (int i = 0; i < amount && cardsInHand.Count < handSize; i++) //for every amount, we draw 1 Card. Alternatively, stop if the hand is "full"
@@ -113,4 +137,31 @@ public class Player : MonoBehaviour
             Debug.Log("Card " + i + ": " + cardsInHand[i].Name);
         }
     }
+
+    //End of card related functions
+
+
+    //Start of exp Related functions
+
+    public void AddExp(int amount)
+    {
+        currentExp += amount;
+        while (currentExp >= requiredExp)
+        {
+            currentExp -= requiredExp;
+            LevelUp();
+        }
+        //this while loop is here to make multiple level ups possible
+    }
+
+    public void LevelUp()
+    {
+        level++;
+        requiredExp = (int)(requiredExp * 1.5f);
+        //for now, this is just a number going up and the exp also going up
+
+        //stat increase probably
+    }
+
+    //end of exp related functions -----------------------
 }

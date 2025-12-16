@@ -37,9 +37,9 @@ public class UnitHealth //we do not inherit from "MonoBehaivour" here, so this i
     public UnitHealth(int health) //if we create an Object of class "UnitHealth" we need to set currentHealth and maxHealth
     {
         maxHealth = health;
-        currentHealth = maxHealth;
-    }
+        health = maxHealth;
 
+    }
     public void DamageUnit(int damageAmount)
     {
         if (currentHealth > 0)
@@ -56,23 +56,26 @@ public class UnitHealth //we do not inherit from "MonoBehaivour" here, so this i
         maxHealth = healthToAdd + maxHealth; //add to maxHealth
         if (healthToAdd > 0)
         {
-            currentHealth += healthToAdd; //currentHP also increase when maxHP increase. This does NOT happen when maxHP decrease
+            currentHealth += healthToAdd; //currentHP also increases when maxHP increases. This does not happen when maxHP decreases
         }
         if (currentHealth > maxHealth)
         {
-                currentHealth = maxHealth;
-            //afterwards check if currHP are higher than maxHP (especially for MaxHP DECREASES)
+            currentHealth = maxHealth;
         }
-        
-
     }
     public void HealUnit(int healAmount)
     {
-        if (currentHealth+healAmount< maxHealth)//Checking if there is Overheal before healing
+        if (currentHealth + healAmount < maxHealth) //check for overheal before healing
         {
             currentHealth += healAmount;
         }
-        else currentHealth = maxHealth; 
-        
+        else currentHealth = maxHealth;
     }
+
+
+
+
+
+
+
 }
