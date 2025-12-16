@@ -5,15 +5,54 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public UnitHealth PlayerHealth = new UnitHealth(100); //Player starts with 100HP (just example, can be changed anytime)
+    //Start of Health variables --------------------------------
+    public UnitHealth PlayerHealth = new UnitHealth(100, 100); //Player starts with 100HP (just example, can be changed anytime)
+    //End of Health variables ----------------------------------
 
-    private List<Card> entireDeck = new List<Card>();
-    private List <Card> drawPile = new List<Card>();
-    private List <Card> cardsInHand = new List<Card>();
-    private List <Card> discardPile = new List<Card>();
+    //Start of Card variables --------------------------------
+    public List<Card> entireDeck = new List<Card>();
+    public List <Card> drawPile = new List<Card>();
+    public List <Card> cardsInHand = new List<Card>();
+    public List <Card> discardPile = new List<Card>();
 
-     [SerializeField] private int handSize = 5;
+    public int handSize;
+    //End of Card variables ---------------------------------
 
+    //Start of level variables ------------------------------
+    private int level;
+    private int currentExp = 0;
+    public int CurrentExp
+    {
+        get
+        {
+            return currentExp;
+        }
+        set
+        {
+            currentExp = value;
+        }
+    }
+    private int requiredExp = 10;
+    public int RequiredExp
+    {
+        get
+        {
+            return requiredExp;
+        }
+        set
+        {
+            requiredExp = value;
+        }
+    }
+    //End of level variables -------------------------------
+
+
+
+
+    //_______________________________________________________________________________________________________________
+    //START OF FUNCTIONS
+
+    //Start of Unity specific functions ----------------------------
     void Awake()
     {
         for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
@@ -28,14 +67,23 @@ public class Player : MonoBehaviour
             }
         }
         drawPile = entireDeck; //all cards go into the drawPile
-        ShuffleDrawPile();
+        ShuffleDeck();
         DrawCards(handSize); //we fill the hand with cards
         
     }
 
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AddExp(3);
+        }
+    }
+    //End of Unity specific functions ----------------------------
 
 
+    //Start of HP related functions -----------------------------
     public void TakeDamage(int amount)
     {
         PlayerHealth.DamageUnit(amount);
@@ -50,8 +98,9 @@ public class Player : MonoBehaviour
         PlayerHealth.HealUnit(amount);
     }
 
+    //End of HP related functions --------------------------------
 
-
+    //Start of Card functions -------------------------------------
     public void DrawCards(int amount)
     {
         for (int i = 0; i < amount && cardsInHand.Count < handSize; i++) //for every amount, we draw 1 Card. Alternatively, stop if the hand is "full"
