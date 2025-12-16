@@ -6,16 +6,16 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     //Start of Health variables --------------------------------
-    public UnitHealth PlayerHealth = new UnitHealth(100, 100); //Player starts with 100HP (just example, can be changed anytime)
+    public UnitHealth PlayerHealth = new UnitHealth(100); //Player starts with 100HP (just example, can be changed anytime)
     //End of Health variables ----------------------------------
 
     //Start of Card variables --------------------------------
-    public List<Card> entireDeck = new List<Card>();
-    public List <Card> drawPile = new List<Card>();
-    public List <Card> cardsInHand = new List<Card>();
-    public List <Card> discardPile = new List<Card>();
+    private List<Card> entireDeck = new List<Card>();
+    private List <Card> drawPile = new List<Card>();
+    private List <Card> cardsInHand = new List<Card>();
+    private List <Card> discardPile = new List<Card>();
 
-    public int handSize;
+    [SerializeField] private int handSize;
     //End of Card variables ---------------------------------
 
     //Start of level variables ------------------------------
@@ -162,4 +162,6 @@ public class Player : MonoBehaviour
 
         //stat increase probably
     }
+
+    //end of exp related functions -----------------------
 }
