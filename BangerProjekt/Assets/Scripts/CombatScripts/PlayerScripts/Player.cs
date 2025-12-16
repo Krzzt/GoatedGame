@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    //Start of Health variables --------------------------------
     public UnitHealth PlayerHealth = new UnitHealth(100, 100); //Player starts with 100HP (just example, can be changed anytime)
+    //End of Health variables ----------------------------------
 
-    //Card Lists --------------------------------------------
+    //Start of Card variables --------------------------------
     public List<Card> entireDeck = new List<Card>();
     public List <Card> drawPile = new List<Card>();
     public List <Card> cardsInHand = new List<Card>();
@@ -16,7 +18,7 @@ public class Player : MonoBehaviour
     public int handSize;
     //End of Card variables ---------------------------------
 
-    //Start of level variables -----------------------------
+    //Start of level variables ------------------------------
     private int level;
     private int currentExp = 0;
     public int CurrentExp
@@ -43,6 +45,14 @@ public class Player : MonoBehaviour
         }
     }
     //End of level variables -------------------------------
+
+
+
+
+    //_______________________________________________________________________________________________________________
+    //START OF FUNCTIONS
+
+    //Start of Unity specific functions ----------------------------
     void Awake()
     {
         for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
@@ -70,8 +80,10 @@ public class Player : MonoBehaviour
             AddExp(3);
         }
     }
+    //End of Unity specific functions ----------------------------
 
 
+    //Start of HP related functions -----------------------------
     public void TakeDamage(int amount)
     {
         PlayerHealth.DamageUnit(amount);
@@ -86,6 +98,7 @@ public class Player : MonoBehaviour
         PlayerHealth.HealUnit(amount);
     }
 
+    //End of HP related functions --------------------------------
 
     //Start of Card functions -------------------------------------
     public void DrawCards(int amount)
@@ -161,11 +174,13 @@ public class Player : MonoBehaviour
 
     public void AddExp(int amount)
     {
-        CurrentExp += amount;
+        CurrentExp += amount; 
         while(CurrentExp >= RequiredExp)
         {
             CurrentExp -= RequiredExp;
             LevelUp();
+            //as long as a level up should happen, we let it happen (the required exp go up in the lvlup function)
+            //We also must subtract from the Current exp to prevent an infinite loop
         }
         
     }
@@ -173,9 +188,12 @@ public class Player : MonoBehaviour
     public void LevelUp()
     {
         level++;
-        RequiredExp = (int)(RequiredExp * 1.5f);
+        RequiredExp = (int)(RequiredExp * 1.5f); //for now, nothing happens on level up, its only a number going up
+        //and the required exp goes up by 1.5 (rounded down to the nearest integer)
+
+
         //Increase stats
     }
 
-    //End of exp related functions
+    //End of exp related functions --------------------------------------
 }

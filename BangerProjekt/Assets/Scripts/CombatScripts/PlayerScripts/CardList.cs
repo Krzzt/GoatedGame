@@ -9,38 +9,22 @@ public static class CardList //We inherit from nothing, since this class is mean
 {
     public static List<Card> allCards = new List<Card>
     {
-        new Card {ID = 0, name = "test0", description = "This card sucks ass" ,cardRarity = Card.Rarity.Common, playerClass = Card.Class.Universal },
-        new Card {ID = 1, name = "test1", description = "This card is insane" ,cardRarity = Card.Rarity.Rare, playerClass = Card.Class.Fighter },
+        new Card {ID = 0, name = "test0", description = "This card sucks ass" ,cardRarity = Enums.Rarity.Common, playerClass = Enums.Class.Universal },
+        new Card {ID = 1, name = "test1", description = "This card is insane" ,cardRarity = Enums.Rarity.Rare, playerClass = Enums.Class.Fighter },
     };
 }
 
 public class Card
 {
     public int ID;
-    public enum Rarity
-    {
-        Common, //0 = common
-        Uncommon, //1 = Uncommon
-        Rare, //2 = Rare
-        Epic, //3 = Epic
-        Legendary, //4 = Legendary
-        Mythic // 5 = Mythic
-        //for more Informations about enums, just google c# enums but they are set at 0,1,2... by default 
-    }
 
-    public Rarity cardRarity;
+    public Enums.Rarity cardRarity;
     public string name;
     public string description;
 
-    public enum Class //CAPITAL C means not class
-    {
-        Universal, //0 = Universal
-        Fighter, //1 = Fighter
-        Mage //2 = Mage
-        //This is currently just for testing purposes, these Classes are not depicting actual classes we want later
-    }
 
-    public Class playerClass;
+
+    public Enums.Class playerClass;
 
 
 }
