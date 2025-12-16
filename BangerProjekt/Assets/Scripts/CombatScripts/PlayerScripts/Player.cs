@@ -105,32 +105,27 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < amount && cardsInHand.Count < handSize; i++) //for every amount, we draw 1 Card. Alternatively, stop if the hand is "full"
         {
-            if (drawPile.Count > 0) //if the drawPile is not empty
+            if (drawPile.Count <= 0) //if the drawPile is empty
             {
-                cardsInHand.Add(drawPile[0]); 
-                drawPile.RemoveAt(0);
-                //we draw a card by adding it to our HandList and removing index 0 from the draw List
-            }
-            else //if the drawPile is empty
-            {
-                RecycleDeck();
-                cardsInHand.Add(drawPile[0]); 
-                drawPile.RemoveAt(0);
+                RecycleDiscardPile(); //Recycle the Discard Pile
 
+              
             }
+            cardsInHand.Add(drawPile[0]);  //we draw a card by adding it to our HandList and removing index 0 from the draw List
+            drawPile.RemoveAt(0);
 
         }
         //DebugHand();
     }
 
-    public void RecycleDeck() //to shuffle the discard pile back into the drawPile
+    public void RecycleDiscardPile() //to shuffle the discard pile back into the drawPile
     {
         drawPile.AddRange(discardPile); //this adds the entire discardPile List to the drawPile List (List.AddRange)
         discardPile.Clear(); //this clears the discardPile List
-        ShuffleDeck();
+        ShuffleDrawPile();
     }
 
-    public void ShuffleDeck()
+    public void ShuffleDrawPile()
     {
         for (int i = 0; i < drawPile.Count-1 ; i++) 
         {
@@ -164,36 +159,7 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < cardsInHand.Count ; i++)
         {
-            Debug.Log("Card " + i + ": " + cardsInHand[i].name);
+            Debug.Log("Card " + i + ": " + cardsInHand[i].Name);
         }
     }
-
-    //End of Card functions -------------------------------------------------
-
-    //Start of exp related functions -----------------------------------------
-
-    public void AddExp(int amount)
-    {
-        CurrentExp += amount; 
-        while(CurrentExp >= RequiredExp)
-        {
-            CurrentExp -= RequiredExp;
-            LevelUp();
-            //as long as a level up should happen, we let it happen (the required exp go up in the lvlup function)
-            //We also must subtract from the Current exp to prevent an infinite loop
-        }
-        
-    }
-
-    public void LevelUp()
-    {
-        level++;
-        RequiredExp = (int)(RequiredExp * 1.5f); //for now, nothing happens on level up, its only a number going up
-        //and the required exp goes up by 1.5 (rounded down to the nearest integer)
-
-
-        //Increase stats
-    }
-
-    //End of exp related functions --------------------------------------
 }
