@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 6547559521655480698}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ff3c914d62186c4a929a754facd37d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
   rb: {fileID: 2200496158168170814}
 --- !u!114 &4572829249393719904
 MonoBehaviour:
@@ -256,7 +255,8 @@ MonoBehaviour:
   fireRate: 2
   canShoot: 1
   bulletPrefab: {fileID: 3131984643514835129, guid: 6f23d7785a8902b46a2a9daa14d9c42f, type: 3}
-  shotSpeed: 5
+  shotSpeed: 8
+  damage: 3
   bulletAmount: 1
 --- !u!114 &6547559521655480698
 MonoBehaviour:
@@ -270,4 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1398ee7d4f83454dbd6a8d804747e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
+  moveSpeed: 5
   handSize: 5
