@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitleScreenManager : MonoBehaviour 
+public class PanelStateManager : MonoBehaviour 
 {
     //Panel that contains something like options
     [SerializeField] private GameObject PanelstateManager;
