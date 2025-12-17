@@ -5,6 +5,17 @@ using UnityEngine;
 public class Enemy : Unit
 {
     private float distance;
+    public float Distance
+    {
+        get
+        {
+            return distance;
+        }
+        set
+        {
+            distance = value;
+        }
+    }
 
     private GameObject playerObject;
 

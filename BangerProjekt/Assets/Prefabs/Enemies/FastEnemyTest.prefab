@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3969879900764794788}
   - component: {fileID: 6560514557922183781}
   m_Layer: 0
-  m_Name: EnemyTest
+  m_Name: FastEnemyTest
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.31185475, g: 0.9056604, b: 0.7478526, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb62a9f29ab8d0fac8aff1378130efaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
-  moveSpeed: 2
+  maxHealth: 10
+  moveSpeed: 3
   damage: 3
 --- !u!58 &6560514557922183781
 CircleCollider2D:
