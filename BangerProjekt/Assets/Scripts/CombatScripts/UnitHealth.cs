@@ -1,23 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Unit : MonoBehaviour
+public class UnitHealth //we do not inherit from "MonoBehaivour" here, so this is just a plain C# Class
 {
+    private int currentHealth;
+    private int maxHealth;
+    //these are private and should only be touched via the "Health" and "MaxHealth" integers declared below
 
 
-    public int CurrentHealth{get;set;} //our current health via simple get/set
-
-    [field:SerializeField] public int MaxHealth{get;set;} //Same for MaxHealth
-    [field:SerializeField] public float MoveSpeed{get;set;}
-    [field:SerializeField] public float InitialMoveSpeed{get;set;}
-
-
-
-
-    void Awake()
+    public int CurrentHealth //our current health via simple get/set
     {
-        CurrentHealth = MaxHealth;
+        get
+        {
+            return currentHealth;
+        }
+        set
+        {
+            currentHealth = value;
+        }
+    }
+    public int MaxHealth //Same for maxHealth
+    {
+        get
+        {
+            return maxHealth;
+        }
+        set
+        {
+            maxHealth = value;
+        }
+    }
+
+    public UnitHealth(int health) //if we create an Object of class "UnitHealth" we need to set currentHealth and maxHealth
+    {
+        maxHealth = health;
+        health = maxHealth;
+
     }
     public void DamageUnit(int damageAmount)
     {
@@ -50,6 +71,11 @@ public class Unit : MonoBehaviour
         }
         else CurrentHealth = MaxHealth;
     }
+
+
+
+
+
 
 
 }

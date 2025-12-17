@@ -63,8 +63,15 @@ public class Player : Unit
         //This damage currently does not involve something like immunity frames or shit like that
         //also every enemy damages you on collision, if you hug them forever, you only take damage once!
         DamageUnit(amount);
+        CurrentHealth -= amount;
+
+        //Clamp the health to be between 0 and MaxHealth
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         Debug.Log("took damage!");
-        //Update the Healthbar if existent
+
+        //trigger the health changed event
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+
         if (MaxHealth <= 0)
         {
             Debug.Log("you should be dead");
@@ -75,17 +82,27 @@ public class Player : Unit
     public void Heal(int amount)
     {
         HealUnit(amount);
-        //Update the healthbar if existent
+        
+         //trigger the health changed event
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
 
     //End of HP related functions --------------------------------
 
+//events for exp changes
+    public event Action<int, int> OnExpChanged;
+    
+    public event Action<int> OnLevelChanged;
 
     //Start of exp Related functions
 
     public void AddExp(int amount)
     {
         currentExp += amount;
+
+        //trigger the exp changed event
+        OnExpChanged?.Invoke(CurrentExp, RequiredExp);
+
         while (currentExp >= requiredExp)
         {
             currentExp -= requiredExp;
@@ -99,11 +116,14 @@ public class Player : Unit
         level++;
         requiredExp = (int)(requiredExp * 1.5f);
         //for now, this is just a number going up and the required exp also going up
+        //trigger the level up event
+        OnLevelChanged?.Invoke(Level);
 
         //stat increase probably
     }
 
     //end of exp related functions -----------------------
+    
     //start of Pickup related functions ------------------
     public void AddBuff(int pickupType, float pickupDuration) 
     {
