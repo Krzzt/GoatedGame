@@ -34,14 +34,11 @@ public class RangedEnemy : Enemy
         if (Distance > distanceForShooting) //if the enemy is further away than he should be for shooting
         {
             MoveToPlayer();
-            Debug.Log("Moving to Player");
         }
         else //if the enemy is close enough
         {
-            Debug.Log("Not shooting yet");
             if (canShoot) //do not put this in a "else if" above, unless you also want to specify that the distance has to be lower than the if above
             {
-                Debug.Log("SHOOT");
                 Shoot();
             }
 

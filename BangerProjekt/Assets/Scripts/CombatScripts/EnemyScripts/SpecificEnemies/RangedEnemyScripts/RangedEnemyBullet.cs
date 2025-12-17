@@ -12,7 +12,8 @@ public class RangedEnemyBullet : MonoBehaviour
     {
         damage = gameObject.transform.GetComponentInParent<RangedEnemy>().BulletDamage;
         gameObject.transform.parent = GameObject.Find("Game").transform;
-        StartCoroutine(killBulletTimer());
+        //we get the damage of the parent and set a new one
+        StartCoroutine(KillBulletTimer());
     }
 
 
@@ -24,9 +25,13 @@ public class RangedEnemyBullet : MonoBehaviour
             Destroy(gameObject); //no Pierce or stuff like that necessary since there is only 1 player
             //so why add pierce
         }
+        else if (collision.gameObject.CompareTag("Wall")) //if the bullet hits a wall
+        {
+            Destroy(gameObject); //Kill the bitch
+        }
     }
 
-    public IEnumerator killBulletTimer()
+    public IEnumerator KillBulletTimer()
     {
         yield return new WaitForSeconds(secondsToLive);
         Destroy(gameObject);
