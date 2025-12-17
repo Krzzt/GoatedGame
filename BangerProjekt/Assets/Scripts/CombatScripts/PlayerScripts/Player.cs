@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Unit
+public class Player : MonoBehaviour
 {
-
-    private Weapon weaponScript;
+    //Start of Health variables --------------------------------
+    public UnitHealth PlayerHealth = new UnitHealth(100); //Player starts with 100HP (just example, can be changed anytime)
+    //End of Health variables ----------------------------------
 
     //Start of Card variables --------------------------------
     private List<Card> entireDeck = new List<Card>();
@@ -23,28 +24,15 @@ public class Player : Unit
     private int requiredExp = 10;
     //End of level variables -------------------------------
 
-    //Start of Inventory variables -------------------------
-    [field:SerializeField] public List<Item> ItemsEquipped {get; set;} //Serialized for testing
-
-    private InventoryLogic inventoryScript;
-
-    //Start of general Player variables ----------------------
-
-    public int KillCount{get;set;}//THIS IS PUBLIC //Public Property bitch
 
 
-    //End of general Player variables -------------------------
 
     //_______________________________________________________________________________________________________________
     //START OF FUNCTIONS
 
     //Start of Unity specific functions ----------------------------
     void Awake()
-    {   
-        weaponScript = gameObject.GetComponent<Weapon>(); //gameObject with small g = this.GameObject
-        inventoryScript = GameObject.FindWithTag("InventoryManager").GetComponent<InventoryLogic>();
-
-        MaxHealth = CurrentHealth; //set ur health
+    {
         for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
         {
             if (i % 2 == 0)
@@ -63,36 +51,26 @@ public class Player : Unit
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision) //only calls if the collider collides with another collider (not trigger!!)
+    void Update()
     {
-        if (collision.gameObject.CompareTag("Enemy")) //if the collision is an enemy (as seen by its tag)
-        {
-            TakeDamage(collision.gameObject.GetComponent<Enemy>().Damage);
-        }
+        
     }
-
     //End of Unity specific functions ----------------------------
 
 
     //Start of HP related functions -----------------------------
     public void TakeDamage(int amount)
     {
-        //This damage currently does not involve something like immunity frames or shit like that
-        //also every enemy damages you on collision, if you hug them forever, you only take damage once!
-        DamageUnit(amount);
-        Debug.Log("took damage!");
-        //Update the Healthbar if existent
-        if (MaxHealth <= 0)
+        PlayerHealth.DamageUnit(amount);
+        if (PlayerHealth.MaxHealth <= 0)
         {
-            Debug.Log("you should be dead");
             //Die
         }
     }
 
     public void Heal(int amount)
     {
-        HealUnit(amount);
-        //Update the healthbar if existent
+        PlayerHealth.HealUnit(amount);
     }
 
     //End of HP related functions --------------------------------
@@ -180,103 +158,10 @@ public class Player : Unit
     {
         level++;
         requiredExp = (int)(requiredExp * 1.5f);
-        //for now, this is just a number going up and the required exp also going up
+        //for now, this is just a number going up and the exp also going up
 
         //stat increase probably
     }
 
     //end of exp related functions -----------------------
-    //start of Pickup related functions ------------------
-    public void AddBuff(int pickupType, float pickupDuration) 
-    {
-        
-            switch (pickupType) // determinate the typ of pickup 
-            {
-                case 0: // Speed
-                //print(MoveSpeed);
-                   MoveSpeed *= 1.5f; //multiplying the players speed for the duration of the buff
-                //print(MoveSpeed);
-                    StartCoroutine(EndBuff(pickupType,pickupDuration));
-                    break;
-                case 1: // Strength
-                //print(weaponScript.Damage);
-                    weaponScript.Damage *= 2; //multiplying the players weapon dmg for the duration of the buff
-                    StartCoroutine(EndBuff(pickupType,pickupDuration));
-                //print(weaponScript.Damage);
-                    break;
-                case 2: // Hp
-                    CurrentHealth += 20; // adding hp 
-                    break;
-            }
-        
-    }
-    public IEnumerator EndBuff(int pickupType, float pickupDuration)
-    {
-        yield return new WaitForSeconds(pickupDuration); // removing buff on time over
-
-        switch (pickupType)
-        {
-            case 0:
-                MoveSpeed /= 1.5f; // removing the speed buff
-                //print(MoveSpeed);
-                 break;
-            case 1:
-                weaponScript.Damage /= 2; // removing the weapons dmg buff
-                //print(weaponScript.Damage);
-                 break;
-        }
-    }
-
-    //end of Pickup related functions -------------------
-    //start of inventory functions -----------------------
-
-    public void EquipItem(int invIDToEquip)
-    {
-        Enums.SlotTag tagOfItem = inventoryScript.InventoryItems[invIDToEquip].itemTag; //we get the ItemTag
-        if (ItemsEquipped[(int)tagOfItem]) //if we already have something equipped at that tag
-        {
-            SubtractItemStats(ItemsEquipped[(int)tagOfItem]);
-            Item tempItemSave = ItemsEquipped[(int)tagOfItem];
-            ItemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
-            inventoryScript.InventoryItems[invIDToEquip] = tempItemSave;
-            AddItemStats(ItemsEquipped[(int)tagOfItem]);
-            //we just swap the 2 and the stats change with the add / subtract functions
-
-        }
-        else
-        {
-            ItemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
-            AddItemStats(ItemsEquipped[(int)tagOfItem]);
-            //if nothing is equipped, we equip the one we have and increase our stats accordingly
-        }
-
-
-    }
-
-    public void SubtractItemStats(Item itemToRemoveStats)
-    {
-        weaponScript.Damage -= itemToRemoveStats.damage;
-        weaponScript.FireRate -= itemToRemoveStats.fireRate; //because firerate is a frequency
-        //defense not implemented
-        AddMaxHealth(-itemToRemoveStats.healthBonus);
-        //if equipment adds / subtracts more stats, this has to be added here
-
-    }
-    
-    public void AddItemStats(Item itemToAddStats)
-    {
-        weaponScript.Damage += itemToAddStats.damage;
-        weaponScript.FireRate += itemToAddStats.fireRate; //because firerate is a frequency
-        //defense not implemented
-        AddMaxHealth(itemToAddStats.healthBonus);
-        //i am thinking of maybe moving subtract and add together with a bool parameter to either add or subtract
-    }
-
-    public void UnEquipItem(int tagOfItemInt)
-    {
-        inventoryScript.InventoryItems.Add(ItemsEquipped[tagOfItemInt]);
-        SubtractItemStats(ItemsEquipped[tagOfItemInt]);
-        ItemsEquipped[tagOfItemInt] = null;
-    }
- //end of inventory functions
 }
