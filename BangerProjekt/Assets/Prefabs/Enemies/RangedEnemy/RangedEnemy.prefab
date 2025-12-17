@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7300690833544514088
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 707774186870275870, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 707774186870275870, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9372549
+      objectReference: {fileID: 0}
+    - target: {fileID: 707774186870275870, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5456600339760424930, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_Name
+      value: EnemyParent Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5456600339760424930, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 116634397884239882}
+  m_SourcePrefab: {fileID: 100100000, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+--- !u!1 &3380231589268893130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5456600339760424930, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+  m_PrefabInstance: {fileID: 7300690833544514088}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &116634397884239882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3380231589268893130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7829db8bae7b4ac7eb9811da7b13436d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  moveSpeed: 2
+  damage: 4
+  distanceForShooting: 10
+  shotSpeed: 4
+  bulletDamage: 2
+  enemyBulletPrefab: {fileID: 3131984643514835129, guid: d5e133a4001bffe09b0d52af4d2a21c8, type: 3}
+  shootingPoint: {fileID: 1176633057987173507, guid: baccd56142c3984f486af42f37baeea7, type: 3}
+  fireRate: 0.5
