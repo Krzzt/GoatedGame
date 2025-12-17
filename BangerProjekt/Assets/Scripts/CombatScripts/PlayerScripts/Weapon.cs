@@ -13,44 +13,9 @@ public class Weapon : MonoBehaviour
     public bool canShoot;
 
     public GameObject bulletPrefab; //the bullet you shoot as a prefab
-    [SerializeField] private int shotSpeed; //the shotspeed (force it gets shot with)
-    public int ShotSpeed
-    {
-        get
-        {
-            return shotSpeed;
-        }
-        set
-        {
-            shotSpeed = value;
-        }
-    }
+    public int shotSpeed; //the shotspeed (force it gets shot with)
 
-    [SerializeField] private int damage;
-    public int Damage
-    {
-        get
-        {
-            return damage;
-        }
-        set
-        {
-            damage = value;
-        }
-    }
-
-    [SerializeField] private int bulletAmount; //amount of bullets you shoot
-    public int BulletAmount
-    {
-        get
-        {
-            return bulletAmount;
-        }
-        set
-        {
-            bulletAmount = value;
-        }
-    }
+    public int bulletAmount; //amount of bullets you shoot
 
     private void Awake()
     {
