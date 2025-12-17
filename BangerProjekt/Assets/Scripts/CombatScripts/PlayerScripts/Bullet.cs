@@ -9,11 +9,12 @@ public class PlayerBullet : MonoBehaviour
 
     public int RemainingPierce{get;set;} //the pierce this bullet still has left. We probably want to get this from the Weapon Script later down the line
 
-
+    private Weapon weaponScript;
 
     private void Awake()
     {
         timeAlive = 20;
+        weaponScript = GameObject.FindWithTag("Player").GetComponent<Weapon>();
     }
 
     private void Start()
@@ -34,6 +35,7 @@ public class PlayerBullet : MonoBehaviour
         {
 
             //Damage the Enemy
+            currObject.GetComponent<Enemy>().TakeDamage(weaponScript.Damage);
             remainingPierce--; //reduce the pierce
             if (remainingPierce <= 0) //and if there is no pierce left
             {

@@ -12,12 +12,10 @@ public class movement : MonoBehaviour
     private Vector2 mousePosition; //Vector in which we will save the mousePosition
 
     private Camera mainCamera; //Main Camera Reference for getting the MousePos
-
-    public float moveSpeed; 
     public Rigidbody2D rb; //RigidBody Reference (dont forget 2D!)
     private Vector2 moveDirection; //The Vector in which we save the movement direction as a Vector2
 
-    // Update is called once per frame
+    private Player playerScript;
 
     private bool canDash;
     private bool isDashing;
@@ -28,6 +26,7 @@ public class movement : MonoBehaviour
     {
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>(); //set the Reference to the Camera in "Awake" (before the first frame)
         //this is also not possible in inspector because we set the mainCamera to private (to avoid bloating the inspector and we dont need to reference this instance of the MainCamera anywhere
+        playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
 
@@ -52,7 +51,7 @@ public class movement : MonoBehaviour
     public void Move()
     {
 
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed); //rb is the Rigidbody, and its velocity is set in Vectors (Vector2 because we only need x and y because its a 2D game)
+        rb.velocity = new Vector2(moveDirection.x * playerScript.MoveSpeed, moveDirection.y * playerScript.MoveSpeed); //rb is the Rigidbody, and its velocity is set in Vectors (Vector2 because we only need x and y because its a 2D game)
         Vector2 aimDirection = mousePosition - rb.position; //by subtracting the current position of the playerObject (the rb is attached to it) from the mousePosition we got earlier, we can get a new Direction Vector
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f; //we use this lovely function to convert our vector2 to an angle
         rb.rotation = aimAngle; //and set the rotation of the character to this  new rotation (because the character technically always shoots "up", we just rotate this "up" position)
