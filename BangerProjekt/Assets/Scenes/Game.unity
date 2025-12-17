@@ -9723,7 +9723,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 6015798621427168709, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 971194413833246099, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
 --- !u!20 &1110227199488949289 stripped
 Camera:

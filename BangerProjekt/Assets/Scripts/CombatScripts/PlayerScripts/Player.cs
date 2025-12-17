@@ -6,7 +6,6 @@ using UnityEngine;
 public class Player : Unit
 {
 
-    private Weapon weaponScript;
 
     //Start of Card variables --------------------------------
 
@@ -20,8 +19,8 @@ public class Player : Unit
 
     //Start of general Player variables ----------------------
 
-    public int KillCount{get;set;}//THIS IS PUBLIC //Public Property bitch
-
+     [NonSerialized] public int killCount; //THIS IS PUBLIC
+    //like every enemy script wnats to access this it just makes sense
 
     //End of general Player variables -------------------------
 
@@ -30,29 +29,32 @@ public class Player : Unit
 
     //Start of Unity specific functions ----------------------------
     void Awake()
-    {   
-        weaponScript = gameObject.GetComponent<Weapon>(); //gameObject with small g = this.GameObject
-
-        MaxHealth = CurrentHealth; //set ur health      
+    {
+        MaxHealth = CurrentHealth; //set ur health
+        for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
+        {
+            if (i % 2 == 0)
+            {
+                entireDeck.Add(CardList.allCards[0]);
+            }
+            else
+            {
+                entireDeck.Add(CardList.allCards[1]);
+            }
+        }
+        drawPile = entireDeck; //all cards go into the drawPile
+        ShuffleDrawPile();
+        DrawCards(handSize); //we fill the hand with cards
+        
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision) //only calls if the collider collides with another collider (not trigger!!)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")) //if the collision is an enemy (as seen by its tag)
         {
             TakeDamage(collision.gameObject.GetComponent<Enemy>().Damage);
         }
-    }
-
-    private void OnEnable()
-    {
-        InventoryLogic.ChangeItemPlayerStats += ChangeItemStats;
-    }
-
-    private void OnDisable()
-    {
-        InventoryLogic.ChangeItemPlayerStats -= ChangeItemStats;
     }
     //End of Unity specific functions ----------------------------
 
@@ -123,7 +125,7 @@ public class Player : Unit
     }
 
     //end of exp related functions -----------------------
-    
+
     //start of Pickup related functions ------------------
     public void AddBuff(int pickupType, float pickupDuration) 
     {
