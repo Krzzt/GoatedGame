@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5456600339760424930, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
       propertyPath: m_Name
-      value: EnemyParent Variant
+      value: RangedEnemy
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
@@ -96,6 +96,11 @@ MonoBehaviour:
   distanceForShooting: 10
   shotSpeed: 4
   bulletDamage: 2
-  enemyBulletPrefab: {fileID: 3131984643514835129, guid: d5e133a4001bffe09b0d52af4d2a21c8, type: 3}
-  shootingPoint: {fileID: 1176633057987173507, guid: baccd56142c3984f486af42f37baeea7, type: 3}
+  enemyBulletPrefab: {fileID: 3183989685621491872, guid: 7d0bba7ad0f7bea68bd7ba4377878e5e, type: 3}
+  shootingPoint: {fileID: 6243785508027430299}
   fireRate: 0.5
+--- !u!4 &6243785508027430299 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+  m_PrefabInstance: {fileID: 7300690833544514088}
+  m_PrefabAsset: {fileID: 0}
