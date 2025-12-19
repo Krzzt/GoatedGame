@@ -35,7 +35,7 @@ public class Player : Unit
     //Start of Unity specific functions ----------------------------
     void Awake()
     {
-        MaxHealth = CurrentHealth; //set ur health
+        CurrentHealth = MaxHealth; //set ur health
         for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
         {
             if (i % 2 == 0)
@@ -65,14 +65,22 @@ public class Player : Unit
 
 
     //Start of HP related functions -----------------------------
+
+    public event Action<int, int> OnHealthChanged;
     public void TakeDamage(int amount)
     {
         //This damage currently does not involve something like immunity frames or shit like that
         //also every enemy damages you on collision, if you hug them forever, you only take damage once!
-        DamageUnit(amount);
+        //DamageUnit(amount);
+        CurrentHealth -= amount;
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         Debug.Log("took damage!");
+        
+    
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+
         //Update the Healthbar if existent
-        if (MaxHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Debug.Log("you should be dead");
             //Die
