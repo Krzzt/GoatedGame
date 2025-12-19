@@ -173,7 +173,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -190,8 +190,8 @@ Canvas:
   m_GameObject: {fileID: 1144017267}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1110227199488949290}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -217,7 +217,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1866338757}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1110227199488949289}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -421,16 +421,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8702124603432823220, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1144017271}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 971194413833246099, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
+--- !u!4 &1110227199488949289 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8702124603432823220, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
+  m_PrefabInstance: {fileID: 1110227199488949288}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1110227199488949290 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 9214148259096741737, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
+  m_PrefabInstance: {fileID: 1110227199488949288}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1110227199488949288}
-  - {fileID: 1144017271}
   - {fileID: 1627394914}

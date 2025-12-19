@@ -22,12 +22,21 @@ public class Player : Unit
     private int requiredExp = 10;
     //End of level variables -------------------------------
 
+    //Start of inventory variables
+
+    private Item[] itemsEquipped = new Item[4];
+
+    //End of inventory variables
+
+
+
     //Start of general Player variables ----------------------
 
      [NonSerialized] public int killCount; //THIS IS PUBLIC
     //like every enemy script wnats to access this it just makes sense
 
     //End of general Player variables -------------------------
+
 
     //_______________________________________________________________________________________________________________
     //START OF FUNCTIONS
@@ -176,4 +185,7 @@ public class Player : Unit
     }
 
     //end of exp related functions -----------------------
+
+    //start of inventory functions -----------------------
+    
 }
