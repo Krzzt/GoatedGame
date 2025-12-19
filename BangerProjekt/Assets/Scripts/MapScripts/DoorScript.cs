@@ -6,8 +6,17 @@ public class DoorScript : MonoBehaviour
 {
 
     public Room adjecentRoom = null; //The room this door leads to
-    public int doorId = 0;
-    public DoorState state = DoorState.Hidden;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
 
 //States a door can be in

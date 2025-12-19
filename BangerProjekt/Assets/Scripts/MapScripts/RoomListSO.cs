@@ -12,4 +12,3 @@ public class RoomListSO : ScriptableObject
         return allRooms.Find(r => r.roomID == id);
     }
 }
-

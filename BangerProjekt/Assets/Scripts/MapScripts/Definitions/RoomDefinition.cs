@@ -7,15 +7,17 @@ public class Room
 {
     public string roomName;
     public string roomID;
-   //TODO: public biomeType biome; //Biome type of the room. The biome defines the assets used (only visual)
-    public List<RoomScript> doors; //Doors connected to this room
+   //TODO public biomeType biome; //Biome type of the room. The biome defines the assets used (only visual)
+    public List<GameObject> roomTypes; //Types or themes of this room
+    public List<GameObject> doors; //Doors connected to this room
     
 
     public Room()
     {
         roomName = "DefaultRoom";
         roomID = "DefaultID";
-        doors = new List<RoomScript>();
+        roomTypes = new List<GameObject>();
+        doors = new List<GameObject>();
     }
 
 
@@ -23,7 +25,8 @@ public class Room
     {
         roomName = name;
         roomID = id;
-        doors = new List<RoomScript>();
+        roomTypes = new List<GameObject>();
+        doors = new List<GameObject>();
     }
 
 }
