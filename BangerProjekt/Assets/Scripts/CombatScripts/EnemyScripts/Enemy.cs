@@ -34,10 +34,10 @@ public class Enemy : Unit
 
 
 
-    void Awake()
+    new void Awake()
     {
+        base.Awake();
         playerObject = GameObject.FindWithTag("Player");
-        CurrentHealth = MaxHealth;
     }
     void FixedUpdate()
     {

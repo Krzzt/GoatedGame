@@ -44,7 +44,7 @@ public class Unit : MonoBehaviour
     }
 
 
-    void Awake()
+    public void Awake()
     {
         currentHealth = maxHealth;
     }

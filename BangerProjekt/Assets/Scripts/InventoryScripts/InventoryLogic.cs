@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class InventoryLogic : MonoBehaviour
 {
-    private List<Item> inventoryItems = new List<Item>();
+    public List<Item> InventoryItems {get; set;}
     [field:SerializeField] public int MaxInventorySlots {get; set;}
+    public int SelectedItem {get; set;}
 
     public void ObtainItem(Item itemToGet)
     {
-       if (inventoryItems.Count < MaxInventorySlots)
+       if (InventoryItems.Count < MaxInventorySlots)
         {
-            inventoryItems.Add(itemToGet);
+            InventoryItems.Add(itemToGet);
         }
         else
         {
@@ -21,11 +22,18 @@ public class InventoryLogic : MonoBehaviour
 
     public void RemoveItem(int idSlotToRemove)
     {
-        inventoryItems.RemoveAt(idSlotToRemove);
+        InventoryItems.RemoveAt(idSlotToRemove);
     }
 
+    public void SelectItem(int idToSet)
+    {
+        SelectedItem = idToSet;
+    }
 
-
+    public void EquipButton() //this should be used by the button that equips something
+    {
+        GameObject.FindWithTag("Player").GetComponent<Player>().EquipItem(SelectedItem);
+    }
 
 
 }

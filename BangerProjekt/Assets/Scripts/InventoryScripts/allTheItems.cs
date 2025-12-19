@@ -19,7 +19,7 @@ public class Item : ScriptableObject // Creating a item class for the standart i
     public float healthBonus;
     //item
     public int ID;
-    public Enums.slotTag itemtag;
+    public Enums.slotTag itemTag;
     public string itemName;
     public Sprite icon;
 
