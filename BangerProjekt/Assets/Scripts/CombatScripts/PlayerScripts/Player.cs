@@ -30,7 +30,7 @@ public class Player : Unit
     //Start of Unity specific functions ----------------------------
     void Awake()
     {
-        MaxHealth = CurrentHealth; //set ur health
+        CurrentHealth = MaxHealth; //set ur health
         for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
         {
             if (i % 2 == 0)
@@ -60,6 +60,8 @@ public class Player : Unit
 
 
     //Start of HP related functions -----------------------------
+
+    public event Action<int, int> OnHealthChanged;
     public void TakeDamage(int amount)
     {
         //This damage currently does not involve something like immunity frames or shit like that

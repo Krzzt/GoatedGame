@@ -2212,6 +2212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScensManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6368543720207380237, guid: 08be5e63827ae754e834b3fb36770cd5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
