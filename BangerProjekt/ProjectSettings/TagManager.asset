@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
   tags: []
+=======
+  tags:
+  - Wall
+  - Door
+>>>>>>> refs/remotes/origin/TLG-rooms-and-maps
   layers:
   - Default
   - TransparentFX

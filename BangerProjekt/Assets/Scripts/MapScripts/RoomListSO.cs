@@ -12,3 +12,7 @@ public class RoomListSO : ScriptableObject
         return allRooms.Find(r => r.roomID == id);
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/TLG-rooms-and-maps
