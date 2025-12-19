@@ -7,12 +7,12 @@ using UnityEngine;
 //this is not only used for dmg popups but for any popups
 public class PopUp : MonoBehaviour
 {
-    public float timeToLive; //time left until the text starts disappearing
+    public float TimeToLive{get;set;} //time left until the text starts disappearing
     private Color textColor; //the color of the text
     private TextMeshPro currTextMesh; //the textmesh of the popup
     private Vector3 moveVector; //the vector which is used to move the text up
 
-    public bool isRealPopUp; //this is here to prevent the lodaded in reference despawning
+    public bool IsRealPopUp{get;set;} //this is here to prevent the lodaded in reference despawning
     public static void Create(Vector3 position, string ThingToSay, Color PopUpColor) //used to create a popup. You need to add: The position of the popup, the text that should be displayed (damage in this case),if it is a crit or not, and the color of the popup
     {
         GameObject tempPopUp = GameObject.Find("PopUpPrefab"); //find the loaded in reference
@@ -29,17 +29,17 @@ public class PopUp : MonoBehaviour
         currTextMesh.color = textColor; //set the color 
         currTextMesh.SetText(ThingToSay); //set the text to the damage number
         currTextMesh.fontSize = 5; //smaller text
-        isRealPopUp = true; //it is not the reference so set it true
+        IsRealPopUp = true; //it is not the reference so set it true
         moveVector = new Vector3(0, 1) / 20; //small movevector
     }
     void FixedUpdate()
     {
-        if (isRealPopUp) //if its not the reference
+        if (IsRealPopUp) //if its not the reference
         {
             gameObject.transform.position += moveVector; //move it
-            timeToLive -= Time.fixedDeltaTime; //reduce its time to live
+            TimeToLive -= Time.fixedDeltaTime; //reduce its time to live
 
-            if (timeToLive <= 0) //if its 0
+            if (TimeToLive <= 0) //if its 0
             {
                 float disappearSpeed = 3f; //set a speed to disappear
                 textColor.a -= disappearSpeed * Time.deltaTime; //let it disappear

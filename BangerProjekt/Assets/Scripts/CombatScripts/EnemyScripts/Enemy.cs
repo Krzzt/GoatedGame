@@ -72,7 +72,7 @@ public class Enemy : Unit
        if (CurrentHealth <= 0)
         {
             Debug.Log("Enemy ded");
-            playerObject.GetComponent<Player>().killCount++; //killcount goes up by 1
+            playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
             Destroy(gameObject);
         } 
     }
