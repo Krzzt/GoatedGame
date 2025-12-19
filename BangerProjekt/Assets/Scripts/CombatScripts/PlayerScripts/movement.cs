@@ -19,6 +19,7 @@ public class movement : MonoBehaviour
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>(); //set the Reference to the Camera in "Awake" (before the first frame)
         //this is also not possible in inspector because we set the mainCamera to private (to avoid bloating the inspector and we dont need to reference this instance of the MainCamera anywhere
         playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
+        //playerScript = this.GetComponent<Player>();
     }
 
 

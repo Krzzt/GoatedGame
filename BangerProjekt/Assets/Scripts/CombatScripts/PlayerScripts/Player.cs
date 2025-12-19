@@ -24,7 +24,7 @@ public class Player : Unit
 
     //Start of general Player variables ----------------------
 
-     [NonSerialized] public int killCount; //THIS IS PUBLIC
+    public int KillCount{get;set;}//THIS IS PUBLIC //Public Property bitch
     //like every enemy script wnats to access this it just makes sense
 
     //End of general Player variables -------------------------

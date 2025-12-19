@@ -4,55 +4,26 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    private int currentHealth;
-    [SerializeField] private int maxHealth;
-    //these are private and should only be touched via the "Health" and "MaxHealth" integers declared below
-    public int CurrentHealth //our current health via simple get/set
-    {
-        get
-        {
-            return currentHealth;
-        }
-        set
-        {
-            currentHealth = value;
-        }
-    }
-    public int MaxHealth //Same for maxHealth
-    {
-        get
-        {
-            return maxHealth;
-        }
-        set
-        {
-            maxHealth = value;
-        }
-    }
 
-       [SerializeField] private float moveSpeed;
-    public float MoveSpeed
-    {
-        get
-        {
-            return moveSpeed;
-        }
-        set
-        {
-            moveSpeed = value;
-        }
-    }
+
+    public int CurrentHealth{get;set;} //our current health via simple get/set
+
+    [field:SerializeField] public int MaxHealth{get;set;} //Same for MaxHealth
+
+
+    [field:SerializeField] public float MoveSpeed{get;set;}
+
 
 
     void Awake()
     {
-        currentHealth = maxHealth;
+        CurrentHealth = MaxHealth;
     }
     public void DamageUnit(int damageAmount)
     {
-        if (currentHealth > 0)
+        if (CurrentHealth > 0)
         {
-            currentHealth -= damageAmount;
+            CurrentHealth -= damageAmount;
         }
         //subtract damage Taken from the currentHealth
         //this Script does NOT handle dying!!!! Dying needs to be handled in different scripts
@@ -61,23 +32,23 @@ public class Unit : MonoBehaviour
 
     public void AddMaxHealth(int healthToAdd)
     {
-        maxHealth = healthToAdd + maxHealth; //add to maxHealth
+        MaxHealth = healthToAdd + MaxHealth; //add to MaxHealth
         if (healthToAdd > 0)
         {
-            currentHealth += healthToAdd; //currentHP also increases when maxHP increases. This does not happen when maxHP decreases
+            CurrentHealth += healthToAdd; //currentHP also increases when maxHP increases. This does not happen when maxHP decreases
         }
-        if (currentHealth > maxHealth)
+        if (CurrentHealth > MaxHealth)
         {
-            currentHealth = maxHealth;
+            CurrentHealth = MaxHealth;
         }
     }
     public void HealUnit(int healAmount)
     {
-        if (currentHealth + healAmount < maxHealth) //check for overheal before healing
+        if (CurrentHealth + healAmount < MaxHealth) //check for overheal before healing
         {
-            currentHealth += healAmount;
+            CurrentHealth += healAmount;
         }
-        else currentHealth = maxHealth;
+        else CurrentHealth = MaxHealth;
     }
 
 
