@@ -9,14 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 957eb7491c197a0e18d9be5295462519, type: 3}
   m_Name: Rusty Helmet
-  m_EditorClassIdentifier: Assembly-CSharp::Armour
+  m_EditorClassIdentifier: 
+  fireRate: 0
+  damage: 0
+  defense: 1
+  healthBonus: 2
   ID: 0
   itemtag: 1
   itemName: Rusty Helmet
   icon: {fileID: 0}
-  itemRarity: 7
-  description: A bit of rust in the shape of an helmet
-  defense: 0.1
-  healthBonus: 0
+  itemRarity: 0
+  description: Cool

@@ -26,10 +26,10 @@ public static class Enums
     }
     public enum slotTag
 {
-    none,
     head,
     chest,
     legs,
-    feet
+    feet,
+    none
 }
 }
