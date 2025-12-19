@@ -4,14 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public enum slotTag
-{
-    none,
-    head,
-    chest,
-    legs,
-    feet
-}
+
 
 public class inventorySlot : MonoBehaviour //, IPointerClickHandler
 {
