@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Unit
 {
-    //Start of Health variables --------------------------------
-    public UnitHealth PlayerHealth = new UnitHealth(100); //Player starts with 100HP (just example, can be changed anytime)
-    //End of Health variables ----------------------------------
+
 
     //Start of Card variables --------------------------------
     private List<Card> entireDeck = new List<Card>();
@@ -24,15 +22,34 @@ public class Player : MonoBehaviour
     private int requiredExp = 10;
     //End of level variables -------------------------------
 
+    //Start of inventory variables
+
+    private Item[] itemsEquipped = new Item[4];
+
+    //End of inventory variables
 
 
+
+    //Start of general Player variables ----------------------
+
+     [NonSerialized] public int killCount; //THIS IS PUBLIC
+    //like every enemy script wnats to access this it just makes sense
+
+    //End of general Player variables -------------------------
+
+    //start of other Script references
+    private InventoryLogic inventoryScript;
+    //end of ither script references
 
     //_______________________________________________________________________________________________________________
     //START OF FUNCTIONS
 
     //Start of Unity specific functions ----------------------------
-    void Awake()
+    new void Awake()
     {
+        inventoryScript = GameObject.FindWithTag("InventoryManager").GetComponent<InventoryLogic>();
+        base.Awake();
+        MaxHealth = CurrentHealth; //set ur health
         for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
         {
             if (i % 2 == 0)
@@ -51,9 +68,12 @@ public class Player : MonoBehaviour
     }
 
 
-    void Update()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        if (collision.gameObject.CompareTag("Enemy")) //if the collision is an enemy (as seen by its tag)
+        {
+            TakeDamage(collision.gameObject.GetComponent<Enemy>().Damage);
+        }
     }
     //End of Unity specific functions ----------------------------
 
@@ -61,16 +81,22 @@ public class Player : MonoBehaviour
     //Start of HP related functions -----------------------------
     public void TakeDamage(int amount)
     {
-        PlayerHealth.DamageUnit(amount);
-        if (PlayerHealth.MaxHealth <= 0)
+        //This damage currently does not involve something like immunity frames or shit like that
+        //also every enemy damages you on collision, if you hug them forever, you only take damage once!
+        DamageUnit(amount);
+        Debug.Log("took damage!");
+        //Update the Healthbar if existent
+        if (MaxHealth <= 0)
         {
+            Debug.Log("you should be dead");
             //Die
         }
     }
 
     public void Heal(int amount)
     {
-        PlayerHealth.HealUnit(amount);
+        HealUnit(amount);
+        //Update the healthbar if existent
     }
 
     //End of HP related functions --------------------------------
@@ -164,4 +190,26 @@ public class Player : MonoBehaviour
     }
 
     //end of exp related functions -----------------------
+
+    //start of inventory functions -----------------------
+
+    public void EquipItem(int invIDToEquip)
+    {
+        Enums.slotTag tagOfItem = inventoryScript.InventoryItems[invIDToEquip].itemTag;
+        if (itemsEquipped[(int)tagOfItem])
+        {
+            Item tempItemSave = itemsEquipped[(int)tagOfItem];
+            itemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
+            inventoryScript.InventoryItems[invIDToEquip] = tempItemSave;
+            
+        }
+        else
+        {
+            itemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
+        }
+
+    }
+
+    //end of inventory functions
+    
 }
