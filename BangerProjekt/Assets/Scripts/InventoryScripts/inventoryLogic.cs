@@ -1,90 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using UnityEngine.UIElements;
-using UnityEngine.EventSystems;
 
-
-public class InventoryItem : MonoBehaviour //, IPointerClickHandler
-{ /*
-    public CanvasGroup canvasGroup;
-    
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        
-    }
-    
-}
-public class DynamicInventory : MonoBehaviour // Creating an inventory class for an dynamic Inventory
+public class InventoryLogic : MonoBehaviour
 {
-    [SerializeField]public int maxInventorySize; 
-    public List<Item> items = new();
+    public List<Item> InventoryItems {get; set;}
+    [field:SerializeField] public int MaxInventorySlots {get; set;}
+    public int SelectedItem {get; set;}
 
-    public bool addItem(){ // a Function to add an item to the inventory with a test if there is enough inventory space
-        
-        for (int i = 0; i < items.Count; i++)
+    public void ObtainItem(Item itemToGet)
+    {
+       if (InventoryItems.Count < MaxInventorySlots)
         {
-            if (items[i] == null) 
-            {
-                
-                items[i] = itemToAdd;
-                return true;
-            }
+            InventoryItems.Add(itemToGet);
         }
-
-    if(items.Count < maxInventorySize)
-    {
-
-        items.Add(itemToAdd);
-        return true;
-    }
-
-
-    Debug.Log("No Space in the inventory");
-    return false;
-
-    }
-
-
-    public void removeItem()
-    {
-     items.Remove(itemToRemove);
-    }
-}
-
-public class ItemDisplay
-{
-    
-}
-
-public class InventoryDisplay : MonoBehaviour
-{
-    
-    public DynamicInventory inventory;
-    public ItemDisplay[] slots;
-
-    private void Start()
-    {
-     updateInventory();
-    }
-
-   private void updateInventory() // a function that iterates thru the entire inventory to update the display of the items
-    {
-        for(int i = 0; i < slots.Length; i++){
-            
-            if(i < inventory.items.Count)
-            {
-                
-                slots[i].gameObject.SetActive(true);
-                slots[i].UpdateItemDisplay(inventory.items[i].itemType.icon, i);
-
-            }
-            else
-            {
-                slots[i].gameObject.SetActive(false);
-            }
+        else
+        {
+            Debug.Log("inv is full!");
         }
     }
-*/
+
+    public void RemoveItem(int idSlotToRemove)
+    {
+        InventoryItems.RemoveAt(idSlotToRemove);
+    }
+
+    public void SelectItem(int idToSet)
+    {
+        SelectedItem = idToSet;
+    }
+
+    public void EquipButton() //this should be used by the button that equips something
+    {
+        GameObject.FindWithTag("Player").GetComponent<Player>().EquipItem(SelectedItem);
+    }
+
+
 }
