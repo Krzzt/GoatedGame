@@ -163,9 +163,17 @@ public class Player : Unit
 
     //Start of exp Related functions
 
+
+    public int CurrentExp => currentExp;
+    public int RequiredExp => requiredExp;
+    public int Level => level;
+    public event Action<int, int> OnExpChanged;
+    
+    public event Action<int> OnLevelChanged;
     public void AddExp(int amount)
     {
         currentExp += amount;
+        OnExpChanged?.Invoke(CurrentExp, RequiredExp);
         while (currentExp >= requiredExp)
         {
             currentExp -= requiredExp;
@@ -179,7 +187,7 @@ public class Player : Unit
         level++;
         requiredExp = (int)(requiredExp * 1.5f);
         //for now, this is just a number going up and the exp also going up
-
+        OnLevelChanged?.Invoke(Level);
         //stat increase probably
     }
 
