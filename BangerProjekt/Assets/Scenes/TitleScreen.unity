@@ -1125,8 +1125,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TitleScreenManager, Assembly-CSharp
+      - m_Target: {fileID: 1795355766}
+        m_TargetAssemblyTypeName: PanelStateManager, Assembly-CSharp
         m_MethodName: ChangePanelState
         m_Mode: 1
         m_Arguments:
@@ -1312,6 +1312,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016287685}
   m_CullTransparentMesh: 1
+--- !u!1 &1031996075 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1619000807126975041, guid: 6d6956e8b5f5fcd41a84c656141678b9, type: 3}
+  m_PrefabInstance: {fileID: 5496689017627399777}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1228940307
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,8 +1813,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TitleScreenManager, Assembly-CSharp
+      - m_Target: {fileID: 1795355766}
+        m_TargetAssemblyTypeName: PanelStateManager, Assembly-CSharp
         m_MethodName: ChangePanelState
         m_Mode: 1
         m_Arguments:
@@ -2071,6 +2076,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8275004030957892535, guid: 6d6956e8b5f5fcd41a84c656141678b9, type: 3}
   m_PrefabInstance: {fileID: 5496689017627399777}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1795355766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031996075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5265fdf95dc5c9840b9fac1cb722ffcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PanelstateManager: {fileID: 1511959327}
 --- !u!1001 &5496689017627399777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2142,7 +2160,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1619000807126975041, guid: 6d6956e8b5f5fcd41a84c656141678b9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1795355766}
   m_SourcePrefab: {fileID: 100100000, guid: 6d6956e8b5f5fcd41a84c656141678b9, type: 3}
 --- !u!1001 &5673330456790654063
 PrefabInstance:
@@ -2152,10 +2173,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 599904062}
     m_Modifications:
-    - target: {fileID: 6368543720207380237, guid: 08be5e63827ae754e834b3fb36770cd5, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 631260002348695795, guid: 3fcbcd91c3bad9b4c96d29781770f746, type: 3}
       propertyPath: m_LocalScale.x
       value: 108
