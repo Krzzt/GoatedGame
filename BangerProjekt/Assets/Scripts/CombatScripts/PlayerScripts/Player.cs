@@ -100,6 +100,13 @@ public class Player : Unit
 
     //Start of exp Related functions
 
+
+    public int CurrentExp => currentExp;
+    public int RequiredExp => requiredExp;
+    public int Level => level;
+    public event Action<int, int> OnExpChanged;
+    
+    public event Action<int> OnLevelChanged;
     public void AddExp(int amount)
     {
         currentExp += amount;
