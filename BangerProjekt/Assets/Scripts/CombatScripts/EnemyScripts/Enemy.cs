@@ -4,39 +4,21 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
-    private float distance;
-    public float Distance
-    {
-        get
-        {
-            return distance;
-        }
-        set
-        {
-            distance = value;
-        }
-    }
+    [SerializeField] private GameObject xp;
+    [SerializeField] private readonly int minXP;
+    [SerializeField] private readonly int maxXP; //exclusive
 
-    private GameObject playerObject;
+    public float Distance{get;set;}
 
-    [SerializeField] private int damage;
-    public int Damage
-    {
-        get
-        {
-            return damage;
-        }
-        set
-        {
-            damage = value;
-        }
-    }
+    [SerializeField] GameObject playerObject;
+
+    [field:SerializeField] public int Damage{get;set;}
+
 
 
 
     void Awake()
     {
-        playerObject = GameObject.FindWithTag("Player");
         CurrentHealth = MaxHealth;
     }
     void FixedUpdate()
@@ -46,7 +28,7 @@ public class Enemy : Unit
     }
     public void TurnToPlayer()
     {
-        distance = Vector2.Distance(transform.position, playerObject.transform.position);
+        Distance = Vector2.Distance(transform.position, playerObject.transform.position);
         Vector2 direction = playerObject.transform.position - transform.position;
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -73,6 +55,8 @@ public class Enemy : Unit
         {
             Debug.Log("Enemy ded");
             playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
+            xp = Instantiate(xp, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
+            xp.GetComponent<XP>().Amount = UnityEngine.Random.Range(minXP, maxXP);  //Edit the XP amount of the Created XP object instance
             Destroy(gameObject);
         } 
     }

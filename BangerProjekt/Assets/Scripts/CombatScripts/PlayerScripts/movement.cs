@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Player))]
 public class movement : MonoBehaviour
 {
     private Vector2 mousePosition; //Vector in which we will save the mousePosition
@@ -18,8 +19,8 @@ public class movement : MonoBehaviour
     {
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>(); //set the Reference to the Camera in "Awake" (before the first frame)
         //this is also not possible in inspector because we set the mainCamera to private (to avoid bloating the inspector and we dont need to reference this instance of the MainCamera anywhere
-        playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
-        //playerScript = this.GetComponent<Player>();
+        //playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
+        playerScript = gameObject.GetComponent<Player>();
     }
 
 
