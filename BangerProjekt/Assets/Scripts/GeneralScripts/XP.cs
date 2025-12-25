@@ -5,14 +5,14 @@ using UnityEngine;
 public class XP : MonoBehaviour
 {
   public int Amount{get;set;}  
-  [SerializeField] private Player player;
+  [SerializeField] private Player playerScript;
   
 
   void OnTriggerEnter2D(Collider2D collision)
   {
     if (collision.gameObject.CompareTag("Player")) //If the player Entered the Collection Radius
     {
-      player.AddExp(Amount); //Give Player XP
+      playerScript.AddExp(Amount); //Give Player XP
       Destroy(gameObject);  //Destroy Object
     } 
   }

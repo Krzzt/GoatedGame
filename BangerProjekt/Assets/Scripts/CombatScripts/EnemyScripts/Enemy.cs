@@ -10,9 +10,12 @@ public class Enemy : Unit
 
     public float Distance{get;set;}
 
-    [SerializeField] GameObject playerObject;
+    private GameObject playerObject;
 
     [field:SerializeField] public int Damage{get;set;}
+
+    private Rigidbody2D rb;
+    private Vector2 direction;
 
 
 
@@ -20,6 +23,8 @@ public class Enemy : Unit
     void Awake()
     {
         CurrentHealth = MaxHealth;
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        playerObject = GameObject.FindWithTag("Player");
     }
     void FixedUpdate()
     {
@@ -29,7 +34,7 @@ public class Enemy : Unit
     public void TurnToPlayer()
     {
         Distance = Vector2.Distance(transform.position, playerObject.transform.position);
-        Vector2 direction = playerObject.transform.position - transform.position;
+        direction = playerObject.transform.position - transform.position;
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(Vector3.forward * angle) * Quaternion.Euler(0,0,-90);
@@ -39,9 +44,9 @@ public class Enemy : Unit
     public void MoveToPlayer()
     {
 
-        transform.position = Vector2.MoveTowards(this.transform.position, playerObject.transform.position, MoveSpeed * Time.fixedDeltaTime);
-        //math and moving stuff and bla bla bla 
-        //no but fr we just use the "Vector2.MoveTowards" function
+        //transform.position = Vector2.MoveTowards(gameObject.transform.position, playerObject.transform.position, MoveSpeed * Time.fixedDeltaTime);
+        rb.velocity = direction * MoveSpeed;
+        //instead of transform, we use the rigidbody
     }
 
 

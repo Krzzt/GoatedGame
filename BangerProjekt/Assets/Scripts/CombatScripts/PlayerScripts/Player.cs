@@ -35,7 +35,6 @@ public class Player : Unit
     //Start of Unity specific functions ----------------------------
     void Awake()
     {
-        UnityEngine.Debug.Log("TEST");
         MaxHealth = CurrentHealth; //set ur health
         for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
         {
