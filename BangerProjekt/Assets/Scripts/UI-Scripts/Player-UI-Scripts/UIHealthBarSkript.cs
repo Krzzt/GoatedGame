@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//UI library is needed for Image elements
 using UnityEngine.UI;
 
 public class UIBarSetSkript : MonoBehaviour
@@ -40,6 +41,7 @@ public class UIBarSetSkript : MonoBehaviour
     {
         if (maxHealth <= 0)
         {
+            //prevent division by zero
             barFillImage.fillAmount = 0f;
             return;
         }

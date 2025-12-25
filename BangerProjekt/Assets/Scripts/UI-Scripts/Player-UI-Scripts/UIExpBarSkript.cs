@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+//Unity specific libraries
 using UnityEngine;
+//UI library is needed for Image elements
 using UnityEngine.UI;
+//TextMeshPro is needed for text elements
 using TMPro;
 using TMPro.EditorUtilities;
 
@@ -42,7 +45,9 @@ public class UIExpBarSkript : MonoBehaviour
     {
         if (requiredExp <= 0)
         {
+            //prevent division by zero
             barFillImage.fillAmount = 0f;
+            //update text
             expText.text = "EXP 0 / 0";
             return;
         }
@@ -56,7 +61,7 @@ public class UIExpBarSkript : MonoBehaviour
 
     void UpdateLevelBar(int level)
     {
-
+        //update level text
         levelText.text = "Level " + level.ToString();
     }
 
