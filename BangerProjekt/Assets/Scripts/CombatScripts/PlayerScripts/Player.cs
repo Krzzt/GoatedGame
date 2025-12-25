@@ -100,13 +100,17 @@ public class Player : Unit
 
     //Start of exp Related functions
 
-
+    //getters for exp variables
     public int CurrentExp => currentExp;
     public int RequiredExp => requiredExp;
     public int Level => level;
+
+    //events for exp changes
     public event Action<int, int> OnExpChanged;
     
     public event Action<int> OnLevelChanged;
+    
+
     public void AddExp(int amount)
     {
         currentExp += amount;
@@ -122,6 +126,7 @@ public class Player : Unit
         //this while loop is here to make multiple level ups possible
     }
 
+      
     public void LevelUp()
     {
         level++;
