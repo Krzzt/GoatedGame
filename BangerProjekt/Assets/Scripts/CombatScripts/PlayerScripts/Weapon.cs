@@ -42,8 +42,6 @@ public class Weapon : MonoBehaviour
     {
         for (int i = 1; i <= bulletCount; i++) //for every bullet fired
         {
-
-
             GameObject newBullet = Instantiate(bulletPrefab, ShootingPoint.position, ShootingPoint.rotation); //instantiate new bullet from the Prefab, and set its position and rotation
             newBullet.GetComponent<Rigidbody2D>().AddForce(ShootingPoint.up * ShotSpeed, ForceMode2D.Impulse); //add the velocity in the direction it should go
 
