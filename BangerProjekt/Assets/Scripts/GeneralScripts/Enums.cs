@@ -25,11 +25,11 @@ public static class Enums
         //This is currently just for testing purposes, these Classes are not depicting actual classes we want later
     }
     public enum SlotTag
-    {
-       Head,
-       Chest,
-       Legs,
-       Feet,
-       None 
+    {  
+        None = 4, //Default to Catch laziness. Has to be updated when new Values are added!!!
+        Head = 0,
+        Chest,
+        Legs,
+        Feet    
     }
 }
