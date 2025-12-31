@@ -22,6 +22,10 @@ public class Player : Unit
     private int requiredExp = 10;
     //End of level variables -------------------------------
 
+    //Start of Inventory variables -------------------------
+    private List<Item> itemsEquipped;
+    private InventoryLogic inventoryScript;
+
     //Start of general Player variables ----------------------
 
     public int KillCount{get;set;}//THIS IS PUBLIC //Public Property bitch
@@ -35,6 +39,8 @@ public class Player : Unit
     //Start of Unity specific functions ----------------------------
     void Awake()
     {
+        inventoryScript = GameObject.FindWithTag("InventoryManager").GetComponent<InventoryLogic>();
+
         MaxHealth = CurrentHealth; //set ur health
         for (int i = 0; i < 10; i++) // for testing, we initialize the entire deck with 5 cards of 2 different types
         {
@@ -176,4 +182,28 @@ public class Player : Unit
     }
 
     //end of exp related functions -----------------------
+
+    //start of inventory functions -----------------------
+
+    public void EquipItem(int invIDToEquip)
+    {
+        Enums.SlotTag tagOfItem = inventoryScript.InventoryItems[invIDToEquip].itemTag; //we get the ItemTag
+        if (itemsEquipped[(int)tagOfItem]) //if we already have something equipped at that tag
+        {
+            Item tempItemSave = itemsEquipped[(int)tagOfItem];
+            itemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
+            inventoryScript.InventoryItems[invIDToEquip] = tempItemSave;
+            //we just swap the 2
+            
+        }
+        else
+        {
+            itemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
+            //if nothing is equipped, we equip the one we have
+        }
+        //Calculate Item Stats function or something like that to recalculate the stats with the new items (this has to be added here)
+
+    }
+    
+ //end of inventory functions
 }
