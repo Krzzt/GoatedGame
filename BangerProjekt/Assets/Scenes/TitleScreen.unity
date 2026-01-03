@@ -615,6 +615,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277805454}
   m_CullTransparentMesh: 1
+--- !u!1 &314819190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1899538087710943080, guid: 3fcbcd91c3bad9b4c96d29781770f746, type: 3}
+  m_PrefabInstance: {fileID: 5673330456790654063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &516444730
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,22 +1180,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873005947}
   m_CullTransparentMesh: 1
---- !u!114 &892459609 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6256709512217927475, guid: 3fcbcd91c3bad9b4c96d29781770f746, type: 3}
-  m_PrefabInstance: {fileID: 5673330456790654063}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faed41e1e74ec8f47a5b2c838fb00328, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &892459610 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 631260002348695795, guid: 3fcbcd91c3bad9b4c96d29781770f746, type: 3}
   m_PrefabInstance: {fileID: 5673330456790654063}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &892459611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314819190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faed41e1e74ec8f47a5b2c838fb00328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: Game
 --- !u!1 &1016287685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1946,7 +1953,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 892459609}
+      - m_Target: {fileID: 892459611}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 1
@@ -2233,10 +2240,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6256709512217927475, guid: 3fcbcd91c3bad9b4c96d29781770f746, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1899538087710943080, guid: 3fcbcd91c3bad9b4c96d29781770f746, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 892459611}
   m_SourcePrefab: {fileID: 100100000, guid: 3fcbcd91c3bad9b4c96d29781770f746, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
