@@ -23,7 +23,7 @@ public class SceneLoader : MonoBehaviour
     // Quit the application
     public void QuitGame()
     {
-        //End the application
+        //End the application...
         Application.Quit();
         Debug.Log("SceneLoader: Game is exiting"); //Only visible in the editor
     }
