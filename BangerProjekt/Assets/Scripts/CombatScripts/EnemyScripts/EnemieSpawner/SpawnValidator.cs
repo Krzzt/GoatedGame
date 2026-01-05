@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class SpawnValidator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Validation")]
+    [SerializeField] private LayerMask obstacleLayer;
 
-    // Update is called once per frame
-    void Update()
+    // Radius for checking obstacles at spawn position
+    [SerializeField] private float cheackRadius = 0.5f;
+
+    public bool IsSpawnPositionValid(Vector2 position)
     {
-        
+        // Check for obstacles at the spawn position
+        Collider2D hitCollider = Physics2D.OverlapCircle(position, cheackRadius, obstacleLayer);
+        return hitCollider == null;
+
     }
 }
