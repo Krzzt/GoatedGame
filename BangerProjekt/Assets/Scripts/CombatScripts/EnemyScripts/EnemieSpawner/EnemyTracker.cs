@@ -7,6 +7,8 @@ public class EnemyTracker : MonoBehaviour
     // Singleton instance extra for easy access
     public static EnemyTracker Instance { get; private set; }
 
+    [SerializeField] private WaveController waveController;
+
     // Track active enemies
     private int activeEnemiesCount = 0;
     
@@ -38,6 +40,16 @@ public class EnemyTracker : MonoBehaviour
         // Decrement the count of active enemies
         activeEnemiesCount--;
         Debug.Log($"Enemy defeated. Active enemies: {activeEnemiesCount}");
+
+        if (activeEnemiesCount <= 0)
+        {
+            Debug.Log("All enemies defeated. Wave complete!");
+            
+            if (waveController != null)
+            {
+                waveController.OnWaveFinished();
+            }
+        }
     }
 
     public int GetActiveEnemiesCount()
