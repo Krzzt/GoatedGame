@@ -46,6 +46,9 @@ public class EnemySpawner : MonoBehaviour
                     // Spawn the enemy
                     Instantiate(enemyToSpawn.enemyPrefab, spawnPos, Quaternion.identity);
 
+                    // Register the spawned enemy
+                    EnemyTracker.Instance.RegisterEnemy();
+
                     // Deduct cost from budget
                     waveBudget -= enemyToSpawn.cost;
                 }
