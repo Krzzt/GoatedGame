@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class WaveController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Wave Settings")]
+    [SerializeField] private int startWave = 1;
+    [SerializeField] private int baseBudget = 10;
+    [SerializeField] private float budgetIncreasePerWave = 5f;
+
+    [Header("References")]
+    [SerializeField] private EnemySpawner enemySpawner;
+
+    private int currentWave;
+
+    private void Start()
     {
+        currentWave = startWave;
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartNextWave()
     {
-        
+        int waveBudget = CalculateBudgetForWave(currentWave);
+
+        Debug.Log($"wave {currentWave} starting with budget {waveBudget}");
+
+        enemySpawner.SpawnEnemiesWithBudget(waveBudget);
+
+        currentWave++;
+    }
+
+    private int CalculateBudgetForWave(int wave)
+    {
+        return baseBudget + (int)((wave - 1) * budgetIncreasePerWave);
     }
 }
