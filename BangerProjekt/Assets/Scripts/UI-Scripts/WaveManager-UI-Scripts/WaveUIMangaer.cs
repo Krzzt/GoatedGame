@@ -5,14 +5,14 @@ using UnityEngine;
 using TMPro;
 
 
-public class WaveMangaer : MonoBehaviour
+public class WaveManager : MonoBehaviour
 {
     [SerializeField] private WaveController waveController;
     [SerializeField] private EnemyTracker enemyTracker;
 
     [Header("UI Elements")]
-    [SerializeField] public TextMeshProUGUI waveText;
-    [SerializeField] public TextMeshProUGUI enemiesCountText;
+    [SerializeField] private TextMeshProUGUI waveText;
+    [SerializeField] private TextMeshProUGUI enemiesCountText;
 
     private void Update()
     {
@@ -24,7 +24,7 @@ public class WaveMangaer : MonoBehaviour
     {
         if (waveText != null && waveController != null)
         {
-            waveText.text = $"Wave: {waveController.GetCurrentWave()}";
+            waveText.SetText($"Wave: {waveController.GetCurrentWave()}");
         }
     }
 
@@ -33,7 +33,7 @@ public class WaveMangaer : MonoBehaviour
         if (enemiesCountText == null && enemyTracker == null)
             return;
 
-        enemiesCountText.text = $"Enemies: {enemyTracker.GetActiveEnemiesCount()}";
+        enemiesCountText.SetText($"Enemies: {enemyTracker.GetActiveEnemiesCount()}");
         
     }
 }
