@@ -35,4 +35,14 @@ public class WaveController : MonoBehaviour
     {
         return baseBudget + (int)((wave - 1) * budgetIncreasePerWave);
     }
+
+
+
+    // Missing.... not implemented jet
+    //Wave-Ende-Checks....on it
+    //Enemy-Count....on it
+    //UI...next
+    //Timer
+    //Boss-Logic
+
 }

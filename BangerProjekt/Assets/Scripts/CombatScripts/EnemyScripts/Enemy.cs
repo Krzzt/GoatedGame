@@ -80,4 +80,15 @@ public class Enemy : Unit
             Destroy(gameObject);
         } 
     }
+
+    // When the enemy is destroyed, unregister it from the EnemyTracker
+    private void OnDestroy()
+    {
+        // Check if the EnemyTracker instance exists before calling UnregisterEnemy
+        if (EnemyTracker.Instance != null)
+        {
+            // Unregister the enemy from the EnemyTracker
+            EnemyTracker.Instance.UnregisterEnemy();
+        }
+    }
 }
