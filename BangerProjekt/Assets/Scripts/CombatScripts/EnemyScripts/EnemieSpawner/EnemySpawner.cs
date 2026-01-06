@@ -26,6 +26,42 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private bool drawDebugGizmos = true;
 
 
+    public void SpawnEnemiesWithBudget(int waveBudget)
+    {
+        // Implement budget-based enemy spawning logic here....
+        while (waveBudget > 0)
+        {
+            // Select a random enemy from the pool
+            EnemyList enemyToSpawn = enemyPool[Random.Range(0, enemyPool.Count)];
+
+            // Check if we can afford to spawn this enemy
+            if (enemyToSpawn.cost <= waveBudget)
+            {
+                // Get spawn position
+                Vector2 spawnPos = spawnPositionProvider.GetSpawnPosition();
+
+                // Validate spawn position
+                if (spawnValidator.IsSpawnPositionValid(spawnPos))
+                {
+                    // Spawn the enemy
+                    Instantiate(enemyToSpawn.enemyPrefab, spawnPos, Quaternion.identity);
+
+                    // Deduct cost from budget
+                    waveBudget -= enemyToSpawn.cost;
+                }
+                else
+                {
+                    Debug.Log("EnemySpawner: Invalid spawn position, enemy not spawned.");
+                }
+            }
+            else
+            {
+                // Cannot afford this enemy, break to avoid infinite loop
+                break;
+            }
+        }
+    }
+
 
     public void SpawnOneEnemy()
     {
