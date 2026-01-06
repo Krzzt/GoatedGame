@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyTracker : MonoBehaviour
+{
+    // Singleton instance extra for easy access
+    public static EnemyTracker Instance { get; private set; }
+
+    // Track active enemies
+    private int activeEnemiesCount = 0;
+    
+    // Ensure singleton pattern
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            // If an instance already exists, destroy this duplicate
+            Destroy(gameObject);
+            return;
+        }
+        // Set the instance to this object
+        Instance = this;
+    }
+
+    // Methods to register and unregister enemies
+    public void RegisterEnemy()
+    {
+        // Increment the count of active enemies
+        activeEnemiesCount++;
+        Debug.Log($"Enemy gespawned. Active enemies: {activeEnemiesCount}");
+
+    }
+
+    // Method to unregister an enemy when it is defeated
+    public void UnregisterEnemy()
+    {
+        // Decrement the count of active enemies
+        activeEnemiesCount--;
+        Debug.Log($"Enemy defeated. Active enemies: {activeEnemiesCount}");
+    }
+
+    public int GetActiveEnemiesCount()
+    {
+        // Return the current count of active enemies
+        return activeEnemiesCount;
+    }
+
+}
