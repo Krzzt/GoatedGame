@@ -5,8 +5,8 @@ using UnityEngine;
 public class WaveController : MonoBehaviour
 {
     [Header("Wave Settings")]
-    [SerializeField] private int startWave = 1;
-    [SerializeField] private int baseBudget = 10;
+    [SerializeField] private int startWave = 0;
+    [SerializeField] private int baseBudget = 5;
     [SerializeField] private float budgetIncreasePerWave = 5f;
 
     [Header("References")]
@@ -31,16 +31,35 @@ public class WaveController : MonoBehaviour
         currentWave++;
     }
 
+    public int GetCurrentWave()
+    {
+         return currentWave;
+    }
+
     private int CalculateBudgetForWave(int wave)
     {
         return baseBudget + (int)((wave - 1) * budgetIncreasePerWave);
     }
 
 
+    public void OnWaveFinished()
+    {
+        Debug.Log("WaveController: Wave finished. Preparing for next wave...");
+        // Later:
+        // UI 
+        // Break time
+        // Loot??
+        // Boss checks
+        // Room change
+        // etc.....
+
+        // For now, just start the next wave immediately
+        StartNextWave();
+    }
+
+
 
     // Missing.... not implemented jet
-    //Wave-Ende-Checks....on it
-    //Enemy-Count....on it
     //UI...next
     //Timer
     //Boss-Logic
