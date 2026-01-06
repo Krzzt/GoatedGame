@@ -24,4 +24,12 @@ public static class Enums
         Mage //2 = Mage
         //This is currently just for testing purposes, these Classes are not depicting actual classes we want later
     }
+    public enum SlotTag
+    {  
+        None = 4, //Default to Catch laziness. Has to be updated when new Values are added!!!
+        Head = 0,
+        Chest,
+        Legs,
+        Feet    
+    }
 }

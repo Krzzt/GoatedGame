@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: <MoveSpeed>k__BackingField
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5456600339760424930, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
       propertyPath: m_Name
       value: FastEnemy

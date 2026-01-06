@@ -18,72 +18,9 @@ public static class CardList //We inherit from nothing, since this class is mean
 
 public class Card
 {
-    private int id;
-
-    public int ID
-    {
-        get
-        {
-            return id;
-        }
-
-        set
-        {
-            id = value;
-        }
-    }
-    private Enums.Rarity cardRarity;
-    public Enums.Rarity CardRarity
-    {
-        get
-        {
-            return cardRarity;
-        }
-
-        set
-        {
-            cardRarity = value;
-        }
-    }
-    private string name;
-    public string Name
-    {
-        get
-        {
-            return name;
-        }
-
-        set
-        {
-            name = value;
-        }
-    }
-    private string description;
-    public string Description
-    {
-        get
-        {
-            return description;
-        }
-
-        set
-        {
-            description = value;
-        }
-    }
-    private Enums.Class classOfCard;
-    public Enums.Class ClassOfCard
-    {
-        get
-        {
-            return classOfCard;
-        }
-
-        set
-        {
-            classOfCard = value;
-        }
-    }
-
-
+    public int ID{get;set;}
+    public Enums.Rarity CardRarity{get;set;}
+    public string Name{get;set;}
+    public string Description{get;set;}
+    public Enums.Class ClassOfCard{get;set;}
 }

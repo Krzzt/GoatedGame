@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - Butten
   - Enemy
+  - InventoryManager
+  - GameManager
   layers:
   - Default
   - TransparentFX

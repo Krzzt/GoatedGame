@@ -7,7 +7,7 @@ public class PlayerBullet : MonoBehaviour
 {
     private float timeAlive; //the max time alive before spontaneously imploding
 
-    public int remainingPierce; //the pierce this bullet still has left. We probably want to get this from the Weapon Script later down the line
+    public int RemainingPierce{get;set;} //the pierce this bullet still has left. We probably want to get this from the Weapon Script later down the line
 
     private Weapon weaponScript;
 
@@ -36,8 +36,8 @@ public class PlayerBullet : MonoBehaviour
 
             //Damage the Enemy
             currObject.GetComponent<Enemy>().TakeDamage(weaponScript.Damage);
-            remainingPierce--; //reduce the pierce
-            if (remainingPierce <= 0) //and if there is no pierce left
+            RemainingPierce--; //reduce the pierce
+            if (RemainingPierce <= 0) //and if there is no pierce left
             {
                 Destroy(gameObject); //and destroy the bullet
             }

@@ -8,18 +8,8 @@ public class RangedEnemy : Enemy
     [SerializeField] private float distanceForShooting;
     [SerializeField] private int shotSpeed;
 
-    [SerializeField] private int bulletDamage;
-    public int BulletDamage
-    {
-        get
-        {
-            return bulletDamage;
-        }
-        set
-        {
-            bulletDamage = value;
-        }
-    }
+
+    [field:SerializeField]public int BulletDamage{get;set;}
 
     [SerializeField] private GameObject enemyBulletPrefab;
     [SerializeField] private Transform shootingPoint;
@@ -63,7 +53,4 @@ public class RangedEnemy : Enemy
         yield return new WaitForSeconds(1/fireRate);
         canShoot = true;
     }
-
-
-
 }
