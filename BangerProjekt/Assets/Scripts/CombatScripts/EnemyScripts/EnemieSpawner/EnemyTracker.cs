@@ -10,7 +10,7 @@ public class EnemyTracker : MonoBehaviour
     [SerializeField] private WaveController waveController;
 
     // Track active enemies
-    private int activeEnemiesCount = 0;
+    public int ActiveEnemiesCount { get; private set; } = 0;
     
     // Ensure singleton pattern
     private void Awake()
@@ -29,8 +29,8 @@ public class EnemyTracker : MonoBehaviour
     public void RegisterEnemy()
     {
         // Increment the count of active enemies
-        activeEnemiesCount++;
-        Debug.Log($"Enemy gespawned. Active enemies: {activeEnemiesCount}");
+        ActiveEnemiesCount++;
+        Debug.Log($"Enemy gespawned. Active enemies: {ActiveEnemiesCount}");
 
     }
 
@@ -38,10 +38,10 @@ public class EnemyTracker : MonoBehaviour
     public void UnregisterEnemy()
     {
         // Decrement the count of active enemies
-        activeEnemiesCount--;
-        Debug.Log($"Enemy defeated. Active enemies: {activeEnemiesCount}");
+        ActiveEnemiesCount--;
+        Debug.Log($"Enemy defeated. Active enemies: {ActiveEnemiesCount}");
 
-        if (activeEnemiesCount <= 0)
+        if (ActiveEnemiesCount <= 0)
         {
             Debug.Log("All enemies defeated. Wave complete!");
             
@@ -55,7 +55,7 @@ public class EnemyTracker : MonoBehaviour
     public int GetActiveEnemiesCount()
     {
         // Return the current count of active enemies
-        return activeEnemiesCount;
+        return ActiveEnemiesCount;
     }
 
 }

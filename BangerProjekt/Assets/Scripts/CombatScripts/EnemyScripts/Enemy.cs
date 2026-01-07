@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
-    [SerializeField] private GameObject xpObject;
-    [SerializeField] private  int xpValue;
-    [SerializeField] private GameObject pickup;
-    [SerializeField] private float pickupDropChance; // setting the probabilty of dropping a pickup
+    [SerializeField] private GameObject xp;
+    [SerializeField] private readonly int minXP;
+    [SerializeField] private readonly int maxXP; //exclusive
+    [SerializeField] private int spawnCost;
+    [SerializeField] private int difficultyLevel;
+    [SerializeField] private string enemyType;
+
+
+    public int Cost => spawnCost;
+    public int Tier => difficultyLevel;
+    public string EnemyType => enemyType;
+
+
     public float Distance{get;set;}
 
     private GameObject playerObject;
@@ -71,12 +80,8 @@ public class Enemy : Unit
         {
             Debug.Log("Enemy ded");
             playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
-            xpObject = Instantiate(xpObject, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
-            xpObject.GetComponent<XP>().Amount = xpValue;  //Edit the XP amount of the Created XP object instance
-            if (ShouldPickupDrop())
-            {
-                pickup = Instantiate(pickup, gameObject.transform.position, Quaternion.identity); //Creating the Pickup
-            } 
+            //xp = Instantiate(xp, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
+            //xp.GetComponent<XP>().Amount = UnityEngine.Random.Range(minXP, maxXP);  //Edit the XP amount of the Created XP object instance
             Destroy(gameObject);
         } 
     }
