@@ -14,7 +14,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private TextMeshProUGUI enemiesCountText;
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateWaveText();
         UpdateEnemiesCountText();
@@ -24,7 +24,7 @@ public class WaveManager : MonoBehaviour
     {
         if (waveText != null && waveController != null)
         {
-            waveText.SetText($"Wave: {waveController.GetCurrentWave()}");
+            waveText.SetText($"Wave: {waveController.CurrentWave}");
         }
     }
 
@@ -33,7 +33,7 @@ public class WaveManager : MonoBehaviour
         if (enemiesCountText == null && enemyTracker == null)
             return;
 
-        enemiesCountText.SetText($"Enemies: {enemyTracker.GetActiveEnemiesCount()}");
+        enemiesCountText.SetText($"Enemies: {enemyTracker.ActiveEnemiesCount}");
         
     }
 }

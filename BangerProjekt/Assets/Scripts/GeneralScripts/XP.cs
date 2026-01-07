@@ -5,6 +5,7 @@ using UnityEngine;
 public class XP : MonoBehaviour
 {
   public int Amount{get;set;}  
+  /*
   [SerializeField] private Player playerScript;
   
 
@@ -16,4 +17,5 @@ public class XP : MonoBehaviour
       Destroy(gameObject);  //Destroy Object
     } 
   }
+  */
 }
