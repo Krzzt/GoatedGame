@@ -39,6 +39,7 @@ public class Player : Unit
     //Start of Unity specific functions ----------------------------
     void Awake()
     {
+        CurrentHealth = MaxHealth; //set ur health
         inventoryScript = GameObject.FindWithTag("InventoryManager").GetComponent<InventoryLogic>();
 
         MaxHealth = CurrentHealth; //set ur health
@@ -71,14 +72,23 @@ public class Player : Unit
 
 
     //Start of HP related functions -----------------------------
+
+    public event Action<int, int> OnHealthChanged;
     public void TakeDamage(int amount)
     {
         //This damage currently does not involve something like immunity frames or shit like that
         //also every enemy damages you on collision, if you hug them forever, you only take damage once!
-        DamageUnit(amount);
+        //DamageUnit(amount);
+        CurrentHealth -= amount;
+
+        //Clamp the health to be between 0 and MaxHealth
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         Debug.Log("took damage!");
-        //Update the Healthbar if existent
-        if (MaxHealth <= 0)
+
+        //trigger the health changed event
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+
+        if (CurrentHealth <= 0)
         {
             Debug.Log("you should be dead");
             //Die
@@ -161,9 +171,24 @@ public class Player : Unit
 
     //Start of exp Related functions
 
+    //getters for exp variables
+    public int CurrentExp => currentExp;
+    public int RequiredExp => requiredExp;
+    public int Level => level;
+
+    //events for exp changes
+    public event Action<int, int> OnExpChanged;
+    
+    public event Action<int> OnLevelChanged;
+    
+
     public void AddExp(int amount)
     {
         currentExp += amount;
+
+        //trigger the exp changed event
+        OnExpChanged?.Invoke(CurrentExp, RequiredExp);
+
         while (currentExp >= requiredExp)
         {
             currentExp -= requiredExp;
@@ -172,11 +197,16 @@ public class Player : Unit
         //this while loop is here to make multiple level ups possible
     }
 
+      
     public void LevelUp()
     {
         level++;
         requiredExp = (int)(requiredExp * 1.5f);
         //for now, this is just a number going up and the exp also going up
+
+        //trigger the level up event
+        OnLevelChanged?.Invoke(Level);
+
 
         //stat increase probably
     }

@@ -7,6 +7,15 @@ public class Enemy : Unit
     [SerializeField] private GameObject xp;
     [SerializeField] private readonly int minXP;
     [SerializeField] private readonly int maxXP; //exclusive
+    [SerializeField] private int spawnCost;
+    [SerializeField] private int difficultyLevel;
+    [SerializeField] private string enemyType;
+
+
+    public int Cost => spawnCost;
+    public int Tier => difficultyLevel;
+    public string EnemyType => enemyType;
+
 
     public float Distance{get;set;}
 
@@ -60,9 +69,20 @@ public class Enemy : Unit
         {
             Debug.Log("Enemy ded");
             playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
-            xp = Instantiate(xp, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
-            xp.GetComponent<XP>().Amount = UnityEngine.Random.Range(minXP, maxXP);  //Edit the XP amount of the Created XP object instance
+            //xp = Instantiate(xp, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
+            //xp.GetComponent<XP>().Amount = UnityEngine.Random.Range(minXP, maxXP);  //Edit the XP amount of the Created XP object instance
             Destroy(gameObject);
         } 
+    }
+
+    // When the enemy is destroyed, unregister it from the EnemyTracker
+    private void OnDestroy()
+    {
+        // Check if the EnemyTracker instance exists before calling UnregisterEnemy
+        if (EnemyTracker.Instance != null)
+        {
+            // Unregister the enemy from the EnemyTracker
+            EnemyTracker.Instance.UnregisterEnemy();
+        }
     }
 }
