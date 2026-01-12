@@ -32,4 +32,11 @@ public static class Enums
         Legs,
         Feet    
     }
+
+    public enum DoorState
+    {
+        Hidden = 0,
+        Locked = 1,
+        Open = 2
+    }
 }
