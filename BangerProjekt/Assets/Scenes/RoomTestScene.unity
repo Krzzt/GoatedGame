@@ -344,12 +344,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 979188668180663461, guid: a0d743504c5d6a9469c2397f50bf5d93, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979188668180663461, guid: a0d743504c5d6a9469c2397f50bf5d93, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979188668180663461, guid: a0d743504c5d6a9469c2397f50bf5d93, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979188668180663461, guid: a0d743504c5d6a9469c2397f50bf5d93, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.676754
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 979188668180663461, guid: a0d743504c5d6a9469c2397f50bf5d93, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.12005043
+      value: -8.000003
       objectReference: {fileID: 0}
     - target: {fileID: 979188668180663461, guid: a0d743504c5d6a9469c2397f50bf5d93, type: 3}
       propertyPath: m_LocalPosition.z
@@ -403,6 +415,10 @@ PrefabInstance:
     - target: {fileID: 210702645912464137, guid: 76d0d363167ccf806b5b8cb02a2bfdcc, type: 3}
       propertyPath: m_Name
       value: StartRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468475440913338729, guid: 76d0d363167ccf806b5b8cb02a2bfdcc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8196930687878147286, guid: 76d0d363167ccf806b5b8cb02a2bfdcc, type: 3}
       propertyPath: m_LocalPosition.x
