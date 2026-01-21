@@ -21,8 +21,12 @@ public class RangedEnemy : Enemy
 
     private bool canShoot = true;
 
-    void FixedUpdate()
+    [SerializeField] private int spreadAngle;
+
+
+    new void FixedUpdate()
     {
+        RB.velocity = new Vector2(0,0);
         TurnToPlayer();
         if (Distance > distanceForShooting) //if the enemy is further away than he should be for shooting
         {
@@ -48,7 +52,7 @@ public class RangedEnemy : Enemy
             //the parent of the bullet in the hierarchy will be this gameObject
             //after getting all the values it needs, the bullet will not be the child of this gameobject anymore
             //since we dont want the rotation of the gameobject to transfer over to the bullets
-            newBullet.transform.Rotate(new Vector3(0,0,UnityEngine.Random.Range(-10,11)));
+            newBullet.transform.Rotate(new Vector3(0,0,UnityEngine.Random.Range(-spreadAngle,spreadAngle+1)));
             //should the enemy shoot more than 1 bullet, we get that "Shotgun Spread"
             newBullet.GetComponent<Rigidbody2D>().AddForce(newBullet.transform.up * shotSpeed, ForceMode2D.Impulse);
         }

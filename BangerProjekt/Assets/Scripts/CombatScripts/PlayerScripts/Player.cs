@@ -29,7 +29,7 @@ public class Player : Unit
     //Start of general Player variables ----------------------
 
     public int KillCount{get;set;}//THIS IS PUBLIC //Public Property bitch
-    //like every enemy script wnats to access this it just makes sense
+
 
     //End of general Player variables -------------------------
 
@@ -60,7 +60,7 @@ public class Player : Unit
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision) //only calls if the collider collides with another collider (not trigger!!)
     {
         if (collision.gameObject.CompareTag("Enemy")) //if the collision is an enemy (as seen by its tag)
         {
