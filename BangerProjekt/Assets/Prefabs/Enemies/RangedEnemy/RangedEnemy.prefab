@@ -91,8 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 10
+  initialMoveSpeed: 3
   <MoveSpeed>k__BackingField: 3
-  xp: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
+  xpObject: {fileID: 0}
+  xpValue: 2
   <Damage>k__BackingField: 2
   distanceForShooting: 10
   shotSpeed: 4
@@ -101,6 +103,7 @@ MonoBehaviour:
   shootingPoint: {fileID: 6243785508027430299}
   fireRate: 0.5
   bulletAmount: 1
+  spreadAngle: 0
 --- !u!4 &6243785508027430299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}

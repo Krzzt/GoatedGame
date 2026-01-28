@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class KamikazeEnemy : Enemy
 {
+    //Damage for this enemy decides contact damage (which will almost never happen) and explosion damage
     [SerializeField] private float distanceForBomboclat; //how far the enemy has to be for the explosion to start
 
     [SerializeField] private float timeUntilBomboclat; //the time the player has to react until the enemy actually explodes

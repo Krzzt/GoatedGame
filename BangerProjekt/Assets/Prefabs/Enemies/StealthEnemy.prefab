@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5456600339760424930, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
       propertyPath: m_Name
-      value: StealthEnemy Variant
+      value: StealthEnemy
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
@@ -110,10 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce84b6d09f1cc93f4b4fa21c8392b4ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 5
-  initialMoveSpeed: 1
-  <MoveSpeed>k__BackingField: 1
+  <MaxHealth>k__BackingField: 15
+  initialMoveSpeed: 1.2
+  <MoveSpeed>k__BackingField: 1.2
   xpObject: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
-  xpValue: 1
-  <Damage>k__BackingField: 1
+  xpValue: 5
+  <Damage>k__BackingField: 8
   distanceToStartVisibility: 8

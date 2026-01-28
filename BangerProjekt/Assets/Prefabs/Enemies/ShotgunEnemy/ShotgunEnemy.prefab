@@ -91,8 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 10
+  initialMoveSpeed: 3
   <MoveSpeed>k__BackingField: 3
-  xp: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
+  xpObject: {fileID: 0}
+  xpValue: 3
   <Damage>k__BackingField: 2
   distanceForShooting: 5
   shotSpeed: 6
