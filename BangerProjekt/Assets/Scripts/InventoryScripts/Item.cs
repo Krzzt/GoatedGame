@@ -8,15 +8,15 @@ using UnityEngine.EventSystems;
 
 
 [CreateAssetMenu]
-public class Item : ScriptableObject // Creating a item class for the standart item
+public class Item : ScriptableObject // Creating a item class for the standard item
 {   //weapon 
     public float fireRate;
 
-    public float damage;
+    public int damage;
     //armour
     public float defense;
 
-    public float healthBonus;
+    public int healthBonus;
     //item
     public int ID;
     public Enums.SlotTag itemTag;
