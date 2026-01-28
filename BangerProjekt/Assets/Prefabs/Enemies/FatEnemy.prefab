@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7300690833544514088
+--- !u!1001 &3648381207595179256
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,15 +10,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 707774186870275870, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 707774186870275870, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
       propertyPath: m_Color.g
-      value: 0.9372549
+      value: 0.29199228
       objectReference: {fileID: 0}
     - target: {fileID: 707774186870275870, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.27843142
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60,52 +68,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: xpValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: initialMoveSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: <Damage>k__BackingField
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: <MaxHealth>k__BackingField
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: <MoveSpeed>k__BackingField
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5456600339760424930, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
       propertyPath: m_Name
-      value: RangedEnemy
+      value: FatEnemy
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5456600339760424930, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 116634397884239882}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
---- !u!1 &3380231589268893130 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5456600339760424930, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
-  m_PrefabInstance: {fileID: 7300690833544514088}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &116634397884239882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3380231589268893130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7829db8bae7b4ac7eb9811da7b13436d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 10
-  initialMoveSpeed: 3
-  <MoveSpeed>k__BackingField: 3
-  xpObject: {fileID: 0}
-  xpValue: 2
-  <Damage>k__BackingField: 2
-  distanceForShooting: 10
-  shotSpeed: 4
-  <BulletDamage>k__BackingField: 1
-  enemyBulletPrefab: {fileID: 3183989685621491872, guid: 7d0bba7ad0f7bea68bd7ba4377878e5e, type: 3}
-  shootingPoint: {fileID: 6243785508027430299}
-  fireRate: 0.5
-  bulletAmount: 1
-  spreadAngle: 0
---- !u!4 &6243785508027430299 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3744499511019175859, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
-  m_PrefabInstance: {fileID: 7300690833544514088}
-  m_PrefabAsset: {fileID: 0}

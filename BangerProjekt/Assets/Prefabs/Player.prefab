@@ -269,6 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1398ee7d4f83454dbd6a8d804747e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 0
+  <MaxHealth>k__BackingField: 100
   <MoveSpeed>k__BackingField: 5
   handSize: 5
