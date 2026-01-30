@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Big Damage
   m_EditorClassIdentifier: 
   fireRate: 0
-  damage: 0
+  damage: 4
   defense: 0
   healthBonus: 0
-  ID: 0
-  itemTag: 0
-  itemName: 
+  ID: 2
+  itemTag: 5
+  itemName: Big Damage
   icon: {fileID: 0}
-  itemClasses: 
+  itemClasses: 00000000
   itemRarity: 0
-  description: 
+  description: Who needs an ability when you can have more stats?
