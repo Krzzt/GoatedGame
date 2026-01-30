@@ -9,9 +9,9 @@ public class Unit : MonoBehaviour
     public int CurrentHealth{get;set;} //our current health via simple get/set
 
     [field:SerializeField] public int MaxHealth{get;set;} //Same for MaxHealth
+    [field:SerializeField] public float MoveSpeed{get;set;}
+    [field:SerializeField] public float InitialMoveSpeed{get;set;}
 
-    [SerializeField] private float initialMoveSpeed; //this is a reference set in the inspector so we always have a reference to the initial movespeed
-    [field:SerializeField] public float MoveSpeed{get;set;} //this value actually gets changed
 
 
 

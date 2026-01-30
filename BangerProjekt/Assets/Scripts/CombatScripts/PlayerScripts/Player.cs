@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : Unit
 {
 
+    private Weapon weaponScript;
 
     //Start of Card variables --------------------------------
     private List<Card> entireDeck = new List<Card>();
@@ -23,7 +24,8 @@ public class Player : Unit
     //End of level variables -------------------------------
 
     //Start of Inventory variables -------------------------
-    private List<Item> itemsEquipped;
+    [field:SerializeField] public List<Item> ItemsEquipped {get; set;} //Serialized for testing
+
     private InventoryLogic inventoryScript;
 
     //Start of general Player variables ----------------------
@@ -38,7 +40,8 @@ public class Player : Unit
 
     //Start of Unity specific functions ----------------------------
     void Awake()
-    {
+    {   
+        weaponScript = gameObject.GetComponent<Weapon>(); //gameObject with small g = this.GameObject
         inventoryScript = GameObject.FindWithTag("InventoryManager").GetComponent<InventoryLogic>();
 
         MaxHealth = CurrentHealth; //set ur health
@@ -67,6 +70,7 @@ public class Player : Unit
             TakeDamage(collision.gameObject.GetComponent<Enemy>().Damage);
         }
     }
+
     //End of Unity specific functions ----------------------------
 
 
@@ -176,7 +180,7 @@ public class Player : Unit
     {
         level++;
         requiredExp = (int)(requiredExp * 1.5f);
-        //for now, this is just a number going up and the exp also going up
+        //for now, this is just a number going up and the required exp also going up
 
         //stat increase probably
     }
@@ -188,22 +192,50 @@ public class Player : Unit
     public void EquipItem(int invIDToEquip)
     {
         Enums.SlotTag tagOfItem = inventoryScript.InventoryItems[invIDToEquip].itemTag; //we get the ItemTag
-        if (itemsEquipped[(int)tagOfItem]) //if we already have something equipped at that tag
+        if (ItemsEquipped[(int)tagOfItem]) //if we already have something equipped at that tag
         {
-            Item tempItemSave = itemsEquipped[(int)tagOfItem];
-            itemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
+            SubtractItemStats(ItemsEquipped[(int)tagOfItem]);
+            Item tempItemSave = ItemsEquipped[(int)tagOfItem];
+            ItemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
             inventoryScript.InventoryItems[invIDToEquip] = tempItemSave;
-            //we just swap the 2
+            AddItemStats(ItemsEquipped[(int)tagOfItem]);
+            //we just swap the 2 and the stats change with the add / subtract functions
             
         }
         else
         {
-            itemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
-            //if nothing is equipped, we equip the one we have
+            ItemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
+            AddItemStats(ItemsEquipped[(int)tagOfItem]);
+            //if nothing is equipped, we equip the one we have and increase our stats accordingly
         }
-        //Calculate Item Stats function or something like that to recalculate the stats with the new items (this has to be added here)
+        
+
+    }
+
+    public void SubtractItemStats(Item itemToRemoveStats)
+    {
+        weaponScript.Damage -= itemToRemoveStats.damage;
+        weaponScript.FireRate -= itemToRemoveStats.fireRate; //because firerate is a frequency
+        //defense not implemented
+        AddMaxHealth(-itemToRemoveStats.healthBonus);
+        //if equipment adds / subtracts more stats, this has to be added here
 
     }
     
+    public void AddItemStats(Item itemToAddStats)
+    {
+        weaponScript.Damage += itemToAddStats.damage;
+        weaponScript.FireRate += itemToAddStats.fireRate; //because firerate is a frequency
+        //defense not implemented
+        AddMaxHealth(itemToAddStats.healthBonus);
+        //i am thinking of maybe moving subtract and add together with a bool parameter to either add or subtract
+    }
+
+    public void UnEquipItem(int tagOfItemInt)
+    {
+        inventoryScript.InventoryItems.Add(ItemsEquipped[tagOfItemInt]);
+        SubtractItemStats(ItemsEquipped[tagOfItemInt]);
+        ItemsEquipped[tagOfItemInt] = null;
+    }
  //end of inventory functions
 }

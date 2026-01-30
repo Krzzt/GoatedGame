@@ -130,6 +130,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3203617616209151576, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1110227199488949289}
     - target: {fileID: 3364301390564266269, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
       propertyPath: m_Name
       value: Game
@@ -182,6 +186,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
+--- !u!20 &1110227199488949289 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 9214148259096741737, guid: 9933719dccbe7dd469dcc3304f8b28eb, type: 3}
+  m_PrefabInstance: {fileID: 1110227199488949288}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
