@@ -20,7 +20,7 @@ public class movement : MonoBehaviour
     private bool canDash;
     private bool isDashing;
 
-    private PlayerControls pc;
+    private PlayerControls pc; //playercontrols detects the inputs
 
     private void Awake()
     {
@@ -38,11 +38,17 @@ public class movement : MonoBehaviour
         pc.Enable();
     }
 
+    void OnDisable()
+    {
+        pc.Disable();
+    }
 
 
     void Update()
     {
         Turn();
+        ProcessInputs();
+        Move();
     }
 
 
@@ -50,22 +56,15 @@ public class movement : MonoBehaviour
 
     public void ProcessInputs()
     {
-        Debug.Log(pc.Player.Move.ReadValue<Vector2>());
         if (!isDashing)
         {
-            moveDirection = pc.Player.Move.ReadValue<Vector2>();
+            moveDirection = pc.Player.Move.ReadValue<Vector2>(); //new input system
         }
 
     }
     public void Move()
     {
-
-            rb.velocity = new Vector2(moveDirection.x * playerScript.MoveSpeed, moveDirection.y * playerScript.MoveSpeed); //rb is the Rigidbody, and its velocity is set in Vectors (Vector2 because we only need x and y because its a 2D game)
-
-        
-       
-
-
+        rb.velocity = new Vector2(moveDirection.x * playerScript.MoveSpeed, moveDirection.y * playerScript.MoveSpeed); //rb is the Rigidbody, and its velocity is set in Vectors (Vector2 because we only need x and y because its a 2D game)
     }
 
     public void Turn()
@@ -80,12 +79,13 @@ public class movement : MonoBehaviour
     {   
         if (canDash)
         {
-            playerScript.MoveSpeed *= speedMult;  
-            isDashing = true;
+            playerScript.MoveSpeed *= speedMult;  //the player gets really fast
+            //Debug.Log("new moveSpeed: " + playerScript.MoveSpeed);
+            isDashing = true; 
             canDash = false;
             StartCoroutine(EndDash(dashDuration,speedMult));
             StartCoroutine(DashCooldown(dashCooldown));
-            Debug.Log("AAA DASH STARTED");
+            //start 2 coroutines to end the dash and start the cooldown
 
 
         }
@@ -104,9 +104,8 @@ public class movement : MonoBehaviour
     {
 
         yield return new WaitForSeconds(duration);
-        playerScript.MoveSpeed /= speedMult; //works for now but can be buggy if you have multiple effects affecting your speed
+        playerScript.MoveSpeed /= speedMult; //works for now but can be buggy if you have multiple effects affecting your speed (i think)
         isDashing = false;
-        rb.velocity = new Vector2(moveDirection.x * playerScript.MoveSpeed, moveDirection.y * playerScript.MoveSpeed);
     }
 
 }

@@ -23,7 +23,7 @@ public class Item : ScriptableObject // Creating a item class for the standard i
     public string itemName;
     public Sprite icon;
 
-
+    public List<Enums.Class> itemClasses; //as a list in case an item should be usable for multiple, but not every class
     public Enums.Rarity itemRarity;
     public string description;
     void Awake()

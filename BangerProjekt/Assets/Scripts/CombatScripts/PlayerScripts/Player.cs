@@ -180,7 +180,7 @@ public class Player : Unit
     {
         level++;
         requiredExp = (int)(requiredExp * 1.5f);
-        //for now, this is just a number going up and the exp also going up
+        //for now, this is just a number going up and the required exp also going up
 
         //stat increase probably
     }
@@ -199,14 +199,14 @@ public class Player : Unit
             ItemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
             inventoryScript.InventoryItems[invIDToEquip] = tempItemSave;
             AddItemStats(ItemsEquipped[(int)tagOfItem]);
-            //we just swap the 2
+            //we just swap the 2 and the stats change with the add / subtract functions
             
         }
         else
         {
             ItemsEquipped[(int)tagOfItem] = inventoryScript.InventoryItems[invIDToEquip];
             AddItemStats(ItemsEquipped[(int)tagOfItem]);
-            //if nothing is equipped, we equip the one we have
+            //if nothing is equipped, we equip the one we have and increase our stats accordingly
         }
         
 
@@ -218,6 +218,7 @@ public class Player : Unit
         weaponScript.FireRate -= itemToRemoveStats.fireRate; //because firerate is a frequency
         //defense not implemented
         AddMaxHealth(-itemToRemoveStats.healthBonus);
+        //if equipment adds / subtracts more stats, this has to be added here
 
     }
     
@@ -227,6 +228,7 @@ public class Player : Unit
         weaponScript.FireRate += itemToAddStats.fireRate; //because firerate is a frequency
         //defense not implemented
         AddMaxHealth(itemToAddStats.healthBonus);
+        //i am thinking of maybe moving subtract and add together with a bool parameter to either add or subtract
     }
 
     public void UnEquipItem(int tagOfItemInt)

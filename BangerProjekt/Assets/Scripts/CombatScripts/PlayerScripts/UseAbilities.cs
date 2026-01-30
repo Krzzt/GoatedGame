@@ -27,6 +27,9 @@ public class UseAbilities : MonoBehaviour
             case 1: //Dash
                 movementScript.Dash(DashSpeedIncrease,DashDuration,DashCooldown);
                 break;
+            case 2: //big Damage
+                //nothing because the gimmick is to not have an ability
+                break;
         }
     }
 }

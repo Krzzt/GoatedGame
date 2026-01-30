@@ -48,7 +48,7 @@ public class Enemy : Unit
 
         //transform.position = Vector2.MoveTowards(gameObject.transform.position, playerObject.transform.position, MoveSpeed * Time.fixedDeltaTime);
         RB.velocity = direction * MoveSpeed;
-        //instead of transform, we use the rigidbody
+        //instead of transform, we use the rigidbody, this also helps for enemies that e.g have to dash
     }
 
 

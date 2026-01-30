@@ -308,31 +308,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1208353242582439176}
-        m_TargetAssemblyTypeName: movement, Assembly-CSharp
-        m_MethodName: ProcessInputs
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1208353242582439176}
-        m_TargetAssemblyTypeName: movement, Assembly-CSharp
-        m_MethodName: Move
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: e63d5fa4-ee3e-4205-9873-ae665e94e79d
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
@@ -412,6 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eaf823bb299c1a82bc9872c8a16ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DashSpeedIncrease>k__BackingField: 2
-  <DashDuration>k__BackingField: 0.4
+  <DashSpeedIncrease>k__BackingField: 4
+  <DashDuration>k__BackingField: 0.2
   <DashCooldown>k__BackingField: 3
