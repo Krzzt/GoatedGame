@@ -7,6 +7,7 @@ public class Player : Unit
 {
 
     private Weapon weaponScript;
+    private Unit Unitscript;
 
     //Start of Card variables --------------------------------
     private List<Card> entireDeck = new List<Card>();
@@ -186,7 +187,48 @@ public class Player : Unit
     }
 
     //end of exp related functions -----------------------
+    //start of Pickup related functions ------------------
+    public void AddBuff(int PickupTyp, float PickupDuration) 
+    {
+        
+            switch (PickupTyp) // determinate the typ of pickup 
+            {
+                case 0: // Speed
+                print(MoveSpeed);
+                   MoveSpeed *= 1.5f; //multiplying the players speed for the duration of the buff
+                print(MoveSpeed);
+                    StartCoroutine(EndBuff(PickupTyp,PickupDuration));
+                    break;
+                case 1: // Strenght
+                print(weaponScript.Damage);
+                    weaponScript.Damage *= 2; //multiplying the players weapon dmg for the duration of the buff
+                    StartCoroutine(EndBuff(PickupTyp,PickupDuration));
+                print(weaponScript.Damage);
+                    break;
+                case 2: // Hp
+                    CurrentHealth += 20; // adding hp 
+                    break;
+            }
+        
+    }
+    public IEnumerator EndBuff(int PickupTyp, float PickupDuration)
+    {
+        yield return new WaitForSeconds(PickupDuration); // removing buff on time over
 
+        switch (PickupTyp)
+        {
+            case 0:
+                MoveSpeed /= 1.5f; // removing the speed buff
+                print(MoveSpeed);
+                ; break;
+            case 1:
+                weaponScript.Damage /= 2; // removing the weapons dmg buff
+                print(weaponScript.Damage);
+                ; break;
+        }
+    }
+
+    //end of Pickup related functions -------------------
     //start of inventory functions -----------------------
 
     public void EquipItem(int invIDToEquip)
@@ -200,7 +242,7 @@ public class Player : Unit
             inventoryScript.InventoryItems[invIDToEquip] = tempItemSave;
             AddItemStats(ItemsEquipped[(int)tagOfItem]);
             //we just swap the 2 and the stats change with the add / subtract functions
-            
+
         }
         else
         {
@@ -208,7 +250,7 @@ public class Player : Unit
             AddItemStats(ItemsEquipped[(int)tagOfItem]);
             //if nothing is equipped, we equip the one we have and increase our stats accordingly
         }
-        
+
 
     }
 
