@@ -34,10 +34,4 @@ public static class Enums
         Weapon,
         Ability //only works with 1 Ability for now
     }
-    public enum Pickup
-    {
-        Speed,
-        Strenght,
-        Hp
-    }
 }

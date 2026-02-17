@@ -6,8 +6,8 @@ public class Enemy : Unit
 {
     [SerializeField] private GameObject xpObject;
     [SerializeField] private  int xpValue;
-    [SerializeField] private GameObject Pickup;
-    [SerializeField] private float PickupDropChance; // setting the probabilty of dropping a pickup
+    [SerializeField] private GameObject pickup;
+    [SerializeField] private float pickupDropChance; // setting the probabilty of dropping a pickup
     public float Distance{get;set;}
 
     private GameObject playerObject;
@@ -53,8 +53,8 @@ public class Enemy : Unit
     public bool ShouldPickupDrop() // the name
     {
         int temp = Random.Range(1, 101); 
-        print(temp);
-        if (temp <= PickupDropChance) // Here it calculates if the pickup should be dropped
+        //Debug.Log(temp);
+        if (temp <= pickupDropChance) // Here it calculates if the pickup should be dropped
         {
             return true;
         }
@@ -73,7 +73,10 @@ public class Enemy : Unit
             playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
             xpObject = Instantiate(xpObject, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
             xpObject.GetComponent<XP>().Amount = xpValue;  //Edit the XP amount of the Created XP object instance
-            if (ShouldPickupDrop()) { Pickup = Instantiate(Pickup, gameObject.transform.position, Quaternion.identity);} //Creating the Pickup
+            if (ShouldPickupDrop())
+            {
+                pickup = Instantiate(pickup, gameObject.transform.position, Quaternion.identity); //Creating the Pickup
+            } 
             Destroy(gameObject);
         } 
     }
