@@ -6,7 +6,8 @@ public class Enemy : Unit
 {
     [SerializeField] private GameObject xpObject;
     [SerializeField] private  int xpValue;
-
+    [SerializeField] private GameObject pickup;
+    [SerializeField] private float pickupDropChance; // setting the probabilty of dropping a pickup
     public float Distance{get;set;}
 
     private GameObject playerObject;
@@ -14,11 +15,10 @@ public class Enemy : Unit
     [field:SerializeField] public int Damage{get;set;}
 
     public Rigidbody2D RB {get; set;}
+
     private Vector2 direction;
 
     protected Player playerScript;
-
-
 
 
     public void Awake()
@@ -50,7 +50,16 @@ public class Enemy : Unit
         RB.velocity = direction * MoveSpeed;
         //instead of transform, we use the rigidbody, this also helps for enemies that e.g have to dash
     }
-
+    public bool ShouldPickupDrop() // the name
+    {
+        int temp = Random.Range(1, 101); 
+        //Debug.Log(temp);
+        if (temp <= pickupDropChance) // Here it calculates if the pickup should be dropped
+        {
+            return true;
+        }
+        return false;
+    }
 
     public void TakeDamage(int amount)
     {
@@ -64,6 +73,10 @@ public class Enemy : Unit
             playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
             xpObject = Instantiate(xpObject, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
             xpObject.GetComponent<XP>().Amount = xpValue;  //Edit the XP amount of the Created XP object instance
+            if (ShouldPickupDrop())
+            {
+                pickup = Instantiate(pickup, gameObject.transform.position, Quaternion.identity); //Creating the Pickup
+            } 
             Destroy(gameObject);
         } 
     }
