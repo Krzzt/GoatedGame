@@ -19,7 +19,7 @@ public class WaveController : MonoBehaviour
 
         if (BossWave.waveNumber == currentWave && BossWave.bossPrefab != null)
         {
-            enemySpawner.SpawnBoss(BossWave.bossPrefab);
+            enemySpawner.SpawnBoss(BossWave.bossPrefab)
         }
         
     }
