@@ -5,8 +5,8 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
 
-    public Room adjecentRoom = null; //The room this door leads to
-    public int doorId = 0;
+    public GameObject doorMiddle; //The middle part of the door
+    public GameObject doorFacing; //The facing part of the door
     public Enums.DoorState state = Enums.DoorState.Hidden;
 }
 

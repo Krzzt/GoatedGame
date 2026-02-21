@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class RoomScript : MonoBehaviour
 {
-    public List<DoorScript> roomDoors; //Doors this room has
+    public List<GameObject> roomDoors; //Doors this room has
 
-    void Awake(){
-        roomDoors = new List<DoorScript>(GetComponentsInChildren<DoorScript>());
-    }
 
 
 }

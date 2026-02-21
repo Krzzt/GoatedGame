@@ -1,37 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    public List<Room> allRooms = new List<Room>();
-    // Start is called before the first frame update
-    void Start()
+   public List<GameObject> roomPrefabs; //List of all room prefabs available
+   public List<GameObject> rooms; //List of all rooms in the current layer
+   public List<GameObject> doors; //List of all doors in the current layer
+   public GameObject startRoom; //The starting room prefab
+
+   public int numOfRooms = 1; //Number of rooms to generate in the layer
+
+    public void Awake()
     {
-        GenerateRoom();
+        GameObject StartRoom = Instantiate(startRoom, Vector3.zero, Quaternion.identity);
+        doors.Add(GameObject.FindWithTag("Door"));
+
     }
 
-    // Update is called once per frame
-   /* void FixedUpdate()
-    {
-        if(allRooms.Count == 0)
-        {
-            GenerateRoom();
-        }
+    [ContextMenu("Generate Rooms")]
+   public void GenerateRooms()
+   {
+       for (int i = 0; i < numOfRooms; i++)
+       {
+           int randomIndex = Random.Range(0, roomPrefabs.Count);
+           GameObject newRoom = Instantiate(roomPrefabs[randomIndex], doors[i].transform.position, Quaternion.identity);
+           AlignRooms(rooms[i], newRoom);
+           rooms.Add(newRoom);
+       }
+   }
 
-    }*/
-    void GenerateRoom()
-    {
-        Room room = new Room("testRoom", "ThisIsATestRoomID");
-        allRooms.Add(room);
-    }
-
-    void paintMap()
-    {
-        foreach(Room room in allRooms)
-        {
-            
-        }
-    }
+   public void AlignRooms(GameObject roomA, GameObject roomB)
+   {
+       //Implementation for aligning doors between rooms
+   }
 }

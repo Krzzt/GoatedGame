@@ -207,9 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160ddfd8a078c3b16a825a49e64224af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjecentRoom:
-    roomName: DefaultRoom
-    roomID: DefaultID
-    doors: []
-  doorId: 0
+  doorMiddle: {fileID: 1606479678396964957}
+  doorFacing: {fileID: 2615459769220978542}
   state: 3
