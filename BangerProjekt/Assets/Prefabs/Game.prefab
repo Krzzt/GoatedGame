@@ -272,9 +272,6 @@ MonoBehaviour:
   m_margin: {x: 9.508545, y: 2.0526123, z: 9.158142, w: 1.8765259}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 2309175376286975595}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
@@ -374,6 +371,9 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 2309175376286975595}
+  m_maskType: 0
 --- !u!1 &3290982960245887373
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,6 +779,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 7072959572311088848}
+--- !u!1 &4670266400557919659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7799790207221100403}
+  - component: {fileID: 3650626286716055482}
+  - component: {fileID: 1991216876187159041}
+  m_Layer: 0
+  m_Name: CardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7799790207221100403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4670266400557919659}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4117606894113638848}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3650626286716055482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4670266400557919659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e941f1962256eb44fa07d531e149660e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSize: 10
+--- !u!114 &1991216876187159041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4670266400557919659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3830689216ffc2047afcb0f2c56ea9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Cards>k__BackingField:
+  - {fileID: 11400000, guid: 696e9ce4088adf744af6d765b34910ac, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
 --- !u!1 &5165846766836191340
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,6 +850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6212575535494756506}
   - component: {fileID: 5488879459579777156}
+  - component: {fileID: 6170239980481415642}
   m_Layer: 0
   m_Name: InventoryManager
   m_TagString: InventoryManager
@@ -824,6 +886,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxInventorySlots>k__BackingField: 20
+--- !u!114 &6170239980481415642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5165846766836191340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ef651c6ec95f847b2490043cfeb1f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Items>k__BackingField:
+  - {fileID: 11400000, guid: cac2bb0ec71f763d980714860a29b0ee, type: 2}
+  - {fileID: 11400000, guid: 1b13c2c1c8a5555f3b5f2cd6f1081e14, type: 2}
+  - {fileID: 11400000, guid: 58bb1f4cb774556ea8d49ab9cb5ae7e9, type: 2}
 --- !u!1 &8345229970035528972
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,6 +932,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6212575535494756506}
+  - {fileID: 7799790207221100403}
   m_Father: {fileID: 8702124603432823220}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1312109291923358221
