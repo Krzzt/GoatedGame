@@ -4,20 +4,49 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    private int currentHealth;
+    [SerializeField] private int maxHealth;
+    //these are private and should only be touched via the "Health" and "MaxHealth" integers declared below
+    public int CurrentHealth //our current health via simple get/set
+    {
+        get
+        {
+            return currentHealth;
+        }
+        set
+        {
+            currentHealth = value;
+        }
+    }
+    public int MaxHealth //Same for maxHealth
+    {
+        get
+        {
+            return maxHealth;
+        }
+        set
+        {
+            maxHealth = value;
+        }
+    }
 
-
-    public int CurrentHealth{get;set;} //our current health via simple get/set
-
-    [field:SerializeField] public int MaxHealth{get;set;} //Same for MaxHealth
-    [field:SerializeField] public float MoveSpeed{get;set;}
-    [field:SerializeField] public float InitialMoveSpeed{get;set;}
-
-
+       [SerializeField] private float moveSpeed;
+    public float MoveSpeed
+    {
+        get
+        {
+            return moveSpeed;
+        }
+        set
+        {
+            moveSpeed = value;
+        }
+    }
 
 
     void Awake()
     {
-        CurrentHealth = MaxHealth;
+        currentHealth = maxHealth;
     }
     public void DamageUnit(int damageAmount)
     {
