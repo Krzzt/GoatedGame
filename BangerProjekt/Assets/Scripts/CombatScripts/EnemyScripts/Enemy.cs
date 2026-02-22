@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
-    [SerializeField] private GameObject xp;
+     [SerializeField] private GameObject xpObject;
+    [SerializeField] private  int xpValue;
+    [SerializeField] private GameObject pickup;
+    [SerializeField] private float pickupDropChance; // setting the probabilty of dropping a pickup
+
     [SerializeField] private readonly int minXP;
     [SerializeField] private readonly int maxXP; //exclusive
     [SerializeField] private int spawnCost;

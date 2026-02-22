@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    /*
     [SerializeField] private List<EnemyList> allEnemies; // List of all possible enemies to spawn
     public void SpawnWave(int budget, int maxTier, List<string> allowedTags)
     {
@@ -50,5 +51,5 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-    
+    */
 }

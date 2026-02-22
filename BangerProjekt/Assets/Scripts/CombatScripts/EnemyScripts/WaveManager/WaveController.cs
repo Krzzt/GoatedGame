@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WaveController : MonoBehaviour
 {
+    /*
     [SerializeField] private RoomSetting currentRoom;
 
     private int currentWave = 1;
@@ -19,12 +20,12 @@ public class WaveController : MonoBehaviour
 
         if (BossWave.waveNumber == currentWave && BossWave.bossPrefab != null)
         {
-            enemySpawner.SpawnBoss(BossWave.bossPrefab)
+            enemySpawner.SpawnBoss(BossWave.bossPrefab);
         }
         
     }
 
-
+    */
 
 
     // Missing.... not implemented jet
