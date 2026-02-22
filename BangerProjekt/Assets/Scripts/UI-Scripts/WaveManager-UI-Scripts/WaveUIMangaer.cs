@@ -7,6 +7,7 @@ using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
+    /*
     [SerializeField] private WaveController waveController;
     [SerializeField] private EnemyTracker enemyTracker;
 
@@ -36,4 +37,5 @@ public class WaveManager : MonoBehaviour
         enemiesCountText.SetText($"Enemies: {enemyTracker.ActiveEnemiesCount}");
         
     }
+    */
 }

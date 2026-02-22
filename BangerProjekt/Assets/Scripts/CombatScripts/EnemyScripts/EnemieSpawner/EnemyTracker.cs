@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyTracker : MonoBehaviour
 {
+    
     // Singleton instance extra for easy access
     public static EnemyTracker Instance { get; private set; }
 
@@ -33,7 +34,7 @@ public class EnemyTracker : MonoBehaviour
         Debug.Log($"Enemy gespawned. Active enemies: {ActiveEnemiesCount}");
 
     }
-
+    
     // Method to unregister an enemy when it is defeated
     public void UnregisterEnemy()
     {
@@ -44,11 +45,12 @@ public class EnemyTracker : MonoBehaviour
         if (ActiveEnemiesCount <= 0)
         {
             Debug.Log("All enemies defeated. Wave complete!");
-            
+           /* 
             if (waveController != null)
             {
                 waveController.OnWaveFinished();
             }
+            */
         }
     }
 
@@ -58,4 +60,5 @@ public class EnemyTracker : MonoBehaviour
         return ActiveEnemiesCount;
     }
 
+    
 }
