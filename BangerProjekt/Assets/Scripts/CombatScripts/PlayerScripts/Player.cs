@@ -8,12 +8,7 @@ public class Player : Unit
     private Weapon weaponScript;
 
     //Start of Card variables --------------------------------
-    private List<Card> entireDeck = new List<Card>();
-    private List <Card> drawPile = new List<Card>();
-    private List <Card> cardsInHand = new List<Card>();
-    private List <Card> discardPile = new List<Card>();
 
-    [SerializeField] private int handSize;
     //End of Card variables ---------------------------------
 
     //Start of level variables ------------------------------

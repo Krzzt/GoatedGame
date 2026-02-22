@@ -36,8 +36,8 @@ public class PlayerBullet : MonoBehaviour
 
             //Damage the Enemy
             currObject.GetComponent<Enemy>().TakeDamage(weaponScript.Damage);
-            remainingPierce--; //reduce the pierce
-            if (remainingPierce <= 0) //and if there is no pierce left
+            RemainingPierce--; //reduce the pierce
+            if (RemainingPierce <= 0) //and if there is no pierce left
             {
                 Destroy(gameObject); //and destroy the bullet
             }
