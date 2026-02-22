@@ -65,11 +65,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f2e20db52842c78ae878ad62aaad90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomDoors:
+  <RoomDoors>k__BackingField:
   - {fileID: 10885764154783056}
+  - {fileID: 8508517525640316391}
   - {fileID: 1754923835387617068}
   - {fileID: 6739109532277203484}
-  - {fileID: 8508517525640316391}
 --- !u!1 &8670800285270818851
 GameObject:
   m_ObjectHideFlags: 0

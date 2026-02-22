@@ -61,11 +61,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f2e20db52842c78ae878ad62aaad90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomDoors:
+  <RoomDoors>k__BackingField:
+  - {fileID: 6601501226007678908}
   - {fileID: 1816581398339456472}
   - {fileID: 7345805531014926958}
   - {fileID: 6566320153052345336}
-  - {fileID: 6601501226007678908}
 --- !u!1001 &349945549420116761
 PrefabInstance:
   m_ObjectHideFlags: 0

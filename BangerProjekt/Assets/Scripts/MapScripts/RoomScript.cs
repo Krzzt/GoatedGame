@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class RoomScript : MonoBehaviour
 {
-    public List<GameObject> roomDoors; //Doors this room has
+   [field:SerializeField] public List<GameObject> RoomDoors{get; set;} //Doors this room has
 
 
 

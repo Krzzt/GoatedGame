@@ -207,6 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160ddfd8a078c3b16a825a49e64224af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorMiddle: {fileID: 3811364568663641703}
-  doorFacing: {fileID: 3088595983424790378}
-  state: 3
+  <DoorMiddle>k__BackingField: {fileID: 3811364568663641703}
+  <DoorFacing>k__BackingField: {fileID: 3088595983424790378}
+  <State>k__BackingField: 0

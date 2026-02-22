@@ -5,9 +5,9 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
 
-    public Transform doorMiddle; //The middle part of the door
-    public Transform doorFacing; //The facing part of the door
-    public Enums.DoorState state = Enums.DoorState.Hidden;
+    [field:SerializeField] public Transform DoorMiddle{get; set;} //The middle part of the door
+    [field:SerializeField] public Transform DoorFacing{get; set;} //The facing part of the door
+    [field:SerializeField] public Enums.DoorState State{get; set;} = Enums.DoorState.Hidden;
 }
 
 

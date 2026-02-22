@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-   [SerializeField] private static List<GameObject> roomPrefabs; //List of all room prefabs available. Do not change during runtime (yet?)
+   [SerializeField] private List<GameObject> roomPrefabs; //List of all room prefabs available. Does not change during runtime (yet?)
    [SerializeField] private List<GameObject> rooms; //List of all rooms in the current layer
    [SerializeField] private List<GameObject> availableDoors; //List of all doors in the current layer
    [SerializeField] private List<GameObject> usedDoors; //List of all doors who have a valid room aligned
@@ -45,7 +45,7 @@ public class RoomManager : MonoBehaviour
             int randomIndex = Random.Range(0, roomPrefabs.Count); //Get a random index for the prefab list
             GameObject newRoom = Instantiate(roomPrefabs[randomIndex]); //Get the prefab with said random index
            
-            List<GameObject> roomDoors = newRoom.GetComponent<RoomScript>().roomDoors; //Gets the doors of the new room that has been instantiated. Rooms may have "infinite" doors.
+            List<GameObject> roomDoors = newRoom.GetComponent<RoomScript>().RoomDoors; //Gets the doors of the new room that has been instantiated. Rooms may have "infinite" doors.
             GameObject newRoomRandomDoor = roomDoors[Random.Range(0,roomDoors.Count)]; //Get the actual door we try to connect to
            
             if (TryPlaceRoom(randomDoor, newRoomRandomDoor)) //This calls with a random already existing door and the door we just picked returns Bool
@@ -79,8 +79,8 @@ public class RoomManager : MonoBehaviour
 
         GameObject roomB = doorB.transform.parent.gameObject; //We only need the new room, the already existing room doesn't really matter
 
-        Vector2 dirA = (doorA.GetComponent<DoorScript>().doorFacing.position - doorA.GetComponent<DoorScript>().doorMiddle.position).normalized; //We get the vectors of the doors middle to their facing points
-        Vector2 dirB = (doorB.GetComponent<DoorScript>().doorFacing.position - doorB.GetComponent<DoorScript>().doorMiddle.position).normalized;
+        Vector2 dirA = (doorA.GetComponent<DoorScript>().DoorFacing.position - doorA.GetComponent<DoorScript>().DoorMiddle.position).normalized; //We get the vectors of the doors middle to their facing points
+        Vector2 dirB = (doorB.GetComponent<DoorScript>().DoorFacing.position - doorB.GetComponent<DoorScript>().DoorMiddle.position).normalized;
 
         float angleA = Mathf.Atan2(dirA.y, dirA.x) * Mathf.Rad2Deg; //Some math shit to get Angles
         float angleB = Mathf.Atan2(dirB.y, dirB.x) * Mathf.Rad2Deg;

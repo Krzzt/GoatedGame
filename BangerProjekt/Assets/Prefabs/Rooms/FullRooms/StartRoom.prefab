@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f2e20db52842c78ae878ad62aaad90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomDoors:
+  <RoomDoors>k__BackingField:
   - {fileID: 4429532895284555612}
 --- !u!1001 &1932402228400135037
 PrefabInstance:
