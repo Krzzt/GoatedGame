@@ -22,7 +22,7 @@ public class UseAbilities : MonoBehaviour
 
     public void UseAbility()
     {
-        switch(InventoryLogic.ItemsEquipped[(int)Enums.SlotTag.Ability].ID)
+        switch(playerScript.ItemsEquipped[(int)Enums.SlotTag.Ability].ID)
         {
             case 1: //Dash
                 movementScript.Dash(DashSpeedIncrease,DashDuration,DashCooldown);
