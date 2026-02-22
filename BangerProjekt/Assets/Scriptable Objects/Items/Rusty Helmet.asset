@@ -20,5 +20,6 @@ MonoBehaviour:
   itemTag: 0
   itemName: Rusty Helmet
   icon: {fileID: 0}
+  itemClasses: 00000000
   itemRarity: 5
   description: Rusty :)

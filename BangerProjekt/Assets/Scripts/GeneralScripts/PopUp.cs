@@ -28,7 +28,7 @@ public class PopUp : MonoBehaviour
         textColor = PopUpColor;
         currTextMesh.color = textColor; //set the color 
         currTextMesh.SetText(ThingToSay); //set the text to the damage number
-        currTextMesh.fontSize = 5; //smaller text
+        currTextMesh.fontSize = 5; //smaller text, if necessary this could be a parameter in the create later
         IsRealPopUp = true; //it is not the reference so set it true
         moveVector = new Vector3(0, 1) / 20; //small movevector
     }

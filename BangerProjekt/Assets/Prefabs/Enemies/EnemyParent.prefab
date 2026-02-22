@@ -99,11 +99,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb62a9f29ab8d0fac8aff1378130efaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 6
+  <MaxHealth>k__BackingField: 12
   <MoveSpeed>k__BackingField: 2
-  xp: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
-  playerObject: {fileID: 9080078298456389529, guid: 020729efefde2e14aacaf32cf1c4487a, type: 3}
-  <Damage>k__BackingField: 0
+  <InitialMoveSpeed>k__BackingField: 0
+  xpObject: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
+  xpValue: 1
+  Pickup: {fileID: 6933032603654902607, guid: ccb29caaaefcb5c44baa24124ad78950, type: 3}
+  PickupDropChance: 80
+  <Damage>k__BackingField: 3
 --- !u!58 &6560514557922183781
 CircleCollider2D:
   m_ObjectHideFlags: 0

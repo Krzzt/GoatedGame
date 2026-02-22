@@ -10,6 +10,7 @@ TagManager:
   - GameManager
   - Door
   - RoomBoundaries
+  - EnemyExplosion
   layers:
   - Default
   - TransparentFX

@@ -26,11 +26,13 @@ public static class Enums
     }
     public enum SlotTag
     {  
-        None = 4, //Default to Catch laziness. Has to be updated when new Values are added!!!
+        None = 6, //Default to Catch laziness. Has to be updated when new Values are added!!!
         Head = 0,
         Chest,
         Legs,
-        Feet    
+        Feet,
+        Weapon,
+        Ability //only works with 1 Ability for now
     }
 
     public enum DoorState

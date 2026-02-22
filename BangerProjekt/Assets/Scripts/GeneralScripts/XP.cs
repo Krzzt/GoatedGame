@@ -6,9 +6,14 @@ public class XP : MonoBehaviour
 {
   public int Amount{get;set;}  
   [SerializeField] private Player playerScript;
-  
 
-  void OnTriggerEnter2D(Collider2D collision)
+
+    void Awake()
+    {
+        playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
   {
     if (collision.gameObject.CompareTag("Player")) //If the player Entered the Collection Radius
     {

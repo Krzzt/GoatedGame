@@ -4,29 +4,31 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
-    [SerializeField] private GameObject xp;
-    [SerializeField] private readonly int minXP;
-    [SerializeField] private readonly int maxXP; //exclusive
-
+    [SerializeField] private GameObject xpObject;
+    [SerializeField] private  int xpValue;
+    [SerializeField] private GameObject pickup;
+    [SerializeField] private float pickupDropChance; // setting the probabilty of dropping a pickup
     public float Distance{get;set;}
 
     private GameObject playerObject;
 
     [field:SerializeField] public int Damage{get;set;}
 
-    private Rigidbody2D rb;
+    public Rigidbody2D RB {get; set;}
+
     private Vector2 direction;
 
+    protected Player playerScript;
 
 
-
-    void Awake()
+    public void Awake()
     {
         CurrentHealth = MaxHealth;
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        RB = gameObject.GetComponent<Rigidbody2D>();
         playerObject = GameObject.FindWithTag("Player");
+        playerScript = playerObject.GetComponent<Player>();
     }
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         TurnToPlayer();
         MoveToPlayer();
@@ -45,10 +47,19 @@ public class Enemy : Unit
     {
 
         //transform.position = Vector2.MoveTowards(gameObject.transform.position, playerObject.transform.position, MoveSpeed * Time.fixedDeltaTime);
-        rb.velocity = direction * MoveSpeed;
-        //instead of transform, we use the rigidbody
+        RB.velocity = direction * MoveSpeed;
+        //instead of transform, we use the rigidbody, this also helps for enemies that e.g have to dash
     }
-
+    public bool ShouldPickupDrop() // the name
+    {
+        int temp = Random.Range(1, 101); 
+        //Debug.Log(temp);
+        if (temp <= pickupDropChance) // Here it calculates if the pickup should be dropped
+        {
+            return true;
+        }
+        return false;
+    }
 
     public void TakeDamage(int amount)
     {
@@ -60,8 +71,12 @@ public class Enemy : Unit
         {
             Debug.Log("Enemy ded");
             playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
-            xp = Instantiate(xp, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
-            xp.GetComponent<XP>().Amount = UnityEngine.Random.Range(minXP, maxXP);  //Edit the XP amount of the Created XP object instance
+            xpObject = Instantiate(xpObject, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
+            xpObject.GetComponent<XP>().Amount = xpValue;  //Edit the XP amount of the Created XP object instance
+            if (ShouldPickupDrop())
+            {
+                pickup = Instantiate(pickup, gameObject.transform.position, Quaternion.identity); //Creating the Pickup
+            } 
             Destroy(gameObject);
         } 
     }
