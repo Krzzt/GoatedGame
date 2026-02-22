@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - InventoryManager
   - GameManager
+  - Door
+  - RoomBoundaries
   - EnemyExplosion
   layers:
   - Default
@@ -17,6 +19,7 @@ TagManager:
   - Water
   - UI
   - Popup
+  - Background
   - 
   - 
   - 

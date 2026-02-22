@@ -34,4 +34,11 @@ public static class Enums
         Weapon,
         Ability //only works with 1 Ability for now
     }
+
+    public enum DoorState
+    {
+        Hidden = 0,
+        Locked = 1,
+        Open = 2
+    }
 }
