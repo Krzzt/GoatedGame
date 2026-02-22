@@ -159,10 +159,16 @@ MonoBehaviour:
   roomPrefabs:
   - {fileID: 7034089278888224272, guid: 7900ebf5f95e0204e92ebaea3d5a0fe9, type: 3}
   - {fileID: 7034089278888224272, guid: a0d743504c5d6a9469c2397f50bf5d93, type: 3}
+  - {fileID: 7034089278888224272, guid: 6337a499b5218cf47a42d5d28a6a05a0, type: 3}
+  - {fileID: 7034089278888224272, guid: 4642a45c63e49b14f90f2bd30a645247, type: 3}
+  - {fileID: 7034089278888224272, guid: 90071d0fdbd860248955fbefb2ccbd21, type: 3}
   rooms: []
-  doors: []
+  availableDoors: []
+  usedDoors: []
   startRoom: {fileID: 210702645912464137, guid: 76d0d363167ccf806b5b8cb02a2bfdcc, type: 3}
-  numOfRooms: 3
+  numOfRoomsInspector: 10
+  tries: 0
+  maxTries: 10000000
 --- !u!4 &1019485862
 Transform:
   m_ObjectHideFlags: 0
