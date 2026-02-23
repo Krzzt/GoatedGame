@@ -162,13 +162,14 @@ MonoBehaviour:
   - {fileID: 7034089278888224272, guid: 6337a499b5218cf47a42d5d28a6a05a0, type: 3}
   - {fileID: 7034089278888224272, guid: 4642a45c63e49b14f90f2bd30a645247, type: 3}
   - {fileID: 7034089278888224272, guid: 90071d0fdbd860248955fbefb2ccbd21, type: 3}
+  - {fileID: 7034089278888224272, guid: 6bdfe4312428fd347b5387e3f4a553d6, type: 3}
   rooms: []
   availableDoors: []
   usedDoors: []
   startRoom: {fileID: 210702645912464137, guid: 76d0d363167ccf806b5b8cb02a2bfdcc, type: 3}
-  numOfRoomsInspector: 10
+  numOfRoomsInspector: 100
   tries: 0
-  maxTries: 10000000
+  maxTries: 1000
 --- !u!4 &1019485862
 Transform:
   m_ObjectHideFlags: 0
