@@ -41,4 +41,10 @@ public static class Enums
         Locked = 1,
         Open = 2
     }
+
+    public enum RoomState
+    {
+        Uncleared = 0,
+        Cleared = 1,
+    }
 }

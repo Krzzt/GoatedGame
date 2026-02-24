@@ -1,29 +1,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class RoomManager : MonoBehaviour
 {
    [SerializeField] private List<GameObject> roomPrefabs; //List of all room prefabs available. Does not change during runtime (yet?)
    [SerializeField] private List<GameObject> rooms; //List of all rooms in the current layer
    [SerializeField] private List<GameObject> availableDoors; //List of all doors in the current layer
    [SerializeField] private List<GameObject> usedDoors; //List of all doors who have a valid room aligned
-   [SerializeField] private GameObject startRoom; //The starting room prefab (Open for changes if necessary)
-
+   [SerializeField] private GameObject startRoomPrefab; //The starting room prefab (Open for changes if necessary)
    [SerializeField] private int numOfRoomsInspector = 10; //Number of rooms to generate in the layer set by inspector taken as Default (Might become obsolete due to GenerateRooms being called from outside)
    [SerializeField] private int tries = 0; //Number of current tries (To prevent infinite Loops)
    [SerializeField] private int maxTries = 10000000; //Number of max Tries before the Loop breaks (To prevent infinite Loops)
+   private GameObject startRoom; //The one and only start room instance
 
 
     public void Awake()
     {
-        GameObject StartRoom = Instantiate(startRoom, Vector3.zero, Quaternion.identity); //Make tha start room
-        rooms.Add(StartRoom); //Yes exactly this room should be added to the rooms list
-        availableDoors.Add(GameObject.FindWithTag("Door")); //And lets also get the first door. I should probably rotate the first room so it's less monotonous? Should the start room get 4 doors?
-
+       startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity); //Make tha start room
+        float[] angles = { 0f, 90f, 180f, 270f }; //Simple array, because its not gonna change
+        float randomAngle = angles[Random.Range(0, angles.Length)]; //Pick a random start rotation
+        startRoom.transform.rotation = Quaternion.Euler(0, 0, randomAngle); // and apply it.
+        rooms.Add(startRoom); //Yes exactly this room should be added to the rooms list
+        availableDoors.Add(GameObject.FindWithTag("Door")); //And lets also get the first door.
     }
 
-    [ContextMenu("Generate Rooms")] //To call GenerateRooms from the inspector 
+    [ContextMenu("Generate Rooms")] //To call GenerateRooms from the inspector (Will probably get obsolete once the Game Manager etc handles when to gen rooms)
     public void GenerateRooms() //Helper methode to be overriden that can be called from the inspector (Since it isn't possible to do so with a methode that has Parameters)
     {
         GenerateRooms(numOfRoomsInspector); //I use this to be able to default to the number set in the inspector if the call was not from an outside source.
@@ -37,7 +38,7 @@ public class RoomManager : MonoBehaviour
             {
                 break;   
             } 
-
+            
             if (availableDoors.Count == 0)break; //This implies that no start room has been generated so no place to start generation. There always has to be at least 1 door.
             int randomDoorIndex = Random.Range(0, availableDoors.Count); 
             GameObject randomDoor = availableDoors[randomDoorIndex];
@@ -53,6 +54,8 @@ public class RoomManager : MonoBehaviour
                 rooms.Add(newRoom); //Room added to the rooms list
                 usedDoors.Add(availableDoors[randomDoorIndex]); //the doors that were used in the process. These shouldn't be used again
                 usedDoors.Add(newRoomRandomDoor); //2. door =""=
+                newRoomRandomDoor.GetComponent<DoorScript>().LinkDoor(availableDoors[randomDoorIndex].GetComponent<DoorScript>());
+                newRoomRandomDoor.GetComponent<DoorScript>().LockDoor();
                 availableDoors.RemoveAt(randomDoorIndex); //Remove the used door that already existed from the Available doors
                 foreach (GameObject door in roomDoors) //Iterate over all new doors that were added with the room
                 {
@@ -72,6 +75,7 @@ public class RoomManager : MonoBehaviour
        }
        AddConnectedRooms();//If a random door has luckily aligned with another, we can have those set as "used" as well.
        //TODO: Let the doors know that they have been connected so they change their status from hidden to locked/open. Doors also are unable to be traversed at the moment.
+       startRoom.GetComponent<RoomScript>().ClearRoom();
    }
 
    private void AlignRooms(GameObject doorA, GameObject doorB) //Now here comes the neat part
@@ -149,6 +153,9 @@ public class RoomManager : MonoBehaviour
                 
                 if(!usedDoors.Contains(doorA)) usedDoors.Add(doorA); //if for good measure that doors really not get added twice and are not already present in usedDoors
                 if(!usedDoors.Contains(doorB)) usedDoors.Add(doorB);
+
+                doorA.GetComponent<DoorScript>().LinkDoor(doorB.GetComponent<DoorScript>());
+                doorA.GetComponent<DoorScript>().LockDoor();
                 
                 //Debug.Log($"Connected accidental overlap: {doorA.name} and {doorB.name}"); I dont know if we let those in or not
             }
