@@ -163,6 +163,7 @@ MonoBehaviour:
   - {fileID: 7034089278888224272, guid: 4642a45c63e49b14f90f2bd30a645247, type: 3}
   - {fileID: 7034089278888224272, guid: 90071d0fdbd860248955fbefb2ccbd21, type: 3}
   - {fileID: 7034089278888224272, guid: 6bdfe4312428fd347b5387e3f4a553d6, type: 3}
+  - {fileID: 7034089278888224272, guid: de80075cbb11ee6448707a59c3656abc, type: 3}
   rooms: []
   availableDoors: []
   usedDoors: []
