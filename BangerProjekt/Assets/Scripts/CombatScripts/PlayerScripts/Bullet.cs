@@ -31,7 +31,7 @@ public class PlayerBullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject currObject = collision.gameObject; //the object with which the collision occured
-        if (currObject.tag == "Enemy") //if its an enemy (as set by its tag)
+        if (currObject.CompareTag("Enemy")) //if its an enemy (as set by its tag)
         {
 
             //Damage the Enemy
@@ -43,7 +43,7 @@ public class PlayerBullet : MonoBehaviour
             }
 
         }
-        if (currObject.tag == "Wall") //if the bullets collide with a wall
+        if (currObject.CompareTag("Wall") || currObject.CompareTag("Door")) //if the bullets collide with a wall
         {
             Destroy(gameObject); //destroy the bullet
         }
