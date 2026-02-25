@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4957325958297975698}
   - component: {fileID: 325297196509572167}
   - component: {fileID: 8074655296020938120}
+  - component: {fileID: 7310092629821085454}
   m_Layer: 6
   m_Name: RoomBounds
   m_TagString: Untagged
@@ -118,6 +119,18 @@ CompositeCollider2D:
   m_OffsetDistance: 0
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 1233997859249184775}
+--- !u!114 &7310092629821085454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233997859249184775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55fcdba84501464a864f13ecd4e0808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7253133691885565639
 GameObject:
   m_ObjectHideFlags: 0
