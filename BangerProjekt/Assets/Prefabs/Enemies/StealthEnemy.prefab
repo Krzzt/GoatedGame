@@ -111,9 +111,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 15
-  initialMoveSpeed: 1.2
   <MoveSpeed>k__BackingField: 1.2
+  <InitialMoveSpeed>k__BackingField: 0
   xpObject: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
   xpValue: 5
+  pickup: {fileID: 0}
+  pickupDropChance: 0
   <Damage>k__BackingField: 8
+  <Cost>k__BackingField: 3
   distanceToStartVisibility: 8

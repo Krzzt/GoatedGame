@@ -1,10 +1,15 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RoomScript : MonoBehaviour
 {
    [field:SerializeField] public List<GameObject> RoomDoors{get; set;} //Doors this room has
    [field:SerializeField] public Enums.RoomState State {get; private set;} = Enums.RoomState.Uncleared; //The state of the room
+    public int Budget {get; set;}
+   [field:SerializeField] public List<GameObject> EnemiesInRoom { get; set;}
+   public static Action<List<GameObject>, int> SendEnemyList;
 
     private void Awake() // used to prevent accidental overrides by the inspector
     {
@@ -34,7 +39,7 @@ public class RoomScript : MonoBehaviour
 
  
     public void OnRoomEnter() //Gets called by RoomBoundScript on each rooms bounds and that checks if the player is inside of the room
-   {
+    {
       if (State == Enums.RoomState.Uncleared)
       {
          foreach (GameObject door in RoomDoors) //This locks the doors of the room so he may not leave until the room is cleared
@@ -44,8 +49,12 @@ public class RoomScript : MonoBehaviour
                door.GetComponent<DoorScript>().LockDoor();
             }
          }
+            GameManager.currentRoom = this;
+            Budget = Random.Range(15,40) * LayerManager.CurrentLayerNumber; //currently random number, not set in stone
+            SendEnemyList?.Invoke(EnemiesInRoom, Budget);
+            //send event to start enemy Spawn
       }
-   }
+    }
 
 }
 

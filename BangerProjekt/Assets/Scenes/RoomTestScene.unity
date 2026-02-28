@@ -170,7 +170,7 @@ MonoBehaviour:
   startRoomPrefab: {fileID: 210702645912464137, guid: 76d0d363167ccf806b5b8cb02a2bfdcc, type: 3}
   numOfRoomsInspector: 10
   tries: 1
-  maxTries: 10000000
+  maxTries: 100
 --- !u!4 &1019485862
 Transform:
   m_ObjectHideFlags: 0

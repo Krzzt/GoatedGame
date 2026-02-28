@@ -319,11 +319,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 20
-  initialMoveSpeed: 6
   <MoveSpeed>k__BackingField: 6
+  <InitialMoveSpeed>k__BackingField: 0
   xpObject: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
   xpValue: 4
+  pickup: {fileID: 0}
+  pickupDropChance: 0
   <Damage>k__BackingField: 10
+  <Cost>k__BackingField: 3
   distanceForBomboclat: 2
   timeUntilBomboclat: 3
   bomboClatSize: 4

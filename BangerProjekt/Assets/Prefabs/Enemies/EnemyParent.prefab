@@ -104,9 +104,10 @@ MonoBehaviour:
   <InitialMoveSpeed>k__BackingField: 0
   xpObject: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
   xpValue: 1
-  Pickup: {fileID: 6933032603654902607, guid: ccb29caaaefcb5c44baa24124ad78950, type: 3}
-  PickupDropChance: 80
+  pickup: {fileID: 0}
+  pickupDropChance: 0
   <Damage>k__BackingField: 3
+  <Cost>k__BackingField: 1
 --- !u!58 &6560514557922183781
 CircleCollider2D:
   m_ObjectHideFlags: 0

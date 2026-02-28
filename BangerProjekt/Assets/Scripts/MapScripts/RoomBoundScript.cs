@@ -39,7 +39,7 @@ void OnTriggerEnter2D(Collider2D player) //Checks if something enters the collid
        
         if (CheckForFullEnter(player)) //Lets see if we are far enough in
         {
-            transform.root.GetComponent<RoomScript>().OnRoomEnter(); //Yes we were and now we can call this rooms OnRoomEnter
+            GetComponentInParent<RoomScript>().OnRoomEnter(); //Yes we were and now we can call this rooms OnRoomEnter
             safetyCheck = null; //And reset this check so it might run again if the room hasn't been cleared
             yield break; //and now leave
         }

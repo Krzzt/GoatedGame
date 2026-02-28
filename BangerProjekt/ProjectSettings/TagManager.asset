@@ -11,6 +11,9 @@ TagManager:
   - Door
   - RoomBoundaries
   - EnemyExplosion
+  - SkipWaveButton
+  - EnemiesAliveText
+  - WaveText
   layers:
   - Default
   - TransparentFX

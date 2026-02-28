@@ -73,6 +73,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+      propertyPath: <Cost>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969879900764794788, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
       propertyPath: <MaxHealth>k__BackingField
       value: 9
       objectReference: {fileID: 0}

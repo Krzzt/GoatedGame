@@ -12,16 +12,24 @@ public class RoomManager : MonoBehaviour
    [SerializeField] private int tries = 0; //Number of current tries (To prevent infinite Loops)
    [SerializeField] private int maxTries = 10000000; //Number of max Tries before the Loop breaks (To prevent infinite Loops)
    private GameObject startRoom; //The one and only start room instance
+   [SerializeField]private List<GameObject> EnemyListForRooms;
 
 
     public void Awake()
     {
-       startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity); //Make tha start room
+        startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity); //Make tha start room
         float[] angles = { 0f, 90f, 180f, 270f }; //Simple array, because its not gonna change
         float randomAngle = angles[Random.Range(0, angles.Length)]; //Pick a random start rotation
         startRoom.transform.rotation = Quaternion.Euler(0, 0, randomAngle); // and apply it.
         rooms.Add(startRoom); //Yes exactly this room should be added to the rooms list
+        startRoom.GetComponent<RoomScript>().ClearRoom();
+        GameManager.currentRoom = startRoom.GetComponent<RoomScript>();
         availableDoors.Add(GameObject.FindWithTag("Door")); //And lets also get the first door.
+    }
+
+    private void Start()
+    {
+        EnemyListForRooms = LayerManager.GetEnemyListFromLayer();
     }
 
     [ContextMenu("Generate Rooms")] //To call GenerateRooms from the inspector (Will probably get obsolete once the Game Manager etc handles when to gen rooms)
@@ -64,6 +72,8 @@ public class RoomManager : MonoBehaviour
                         availableDoors.Add(door);//and add them to the available doors
                     }
                 }
+                newRoom.GetComponent<RoomScript>().EnemiesInRoom = EnemyListForRooms;
+                //We expect the LayerManager to do its thing before the RoomManager (because first the Layer info gets generated, after that the Rooms get Generated based on that)
 
             }
             else
@@ -167,5 +177,5 @@ public class RoomManager : MonoBehaviour
         availableDoors.Remove(door); //remove doors fr fr
     }
 }
-
+ 
 }
