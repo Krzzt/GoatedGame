@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     private GameObject skipButton;
     private TMP_Text waveText;
     private TMP_Text enemiesAliveText;
-    private List<GameObject> spawnPoints;
+    private List<GameObject> spawnPoints = new List<GameObject>();
 
     private void Awake()
     {
