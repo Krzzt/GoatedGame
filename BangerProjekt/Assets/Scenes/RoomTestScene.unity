@@ -171,6 +171,7 @@ MonoBehaviour:
   numOfRoomsInspector: 10
   tries: 1
   maxTries: 100
+  EnemyListForRooms: []
 --- !u!4 &1019485862
 Transform:
   m_ObjectHideFlags: 0
