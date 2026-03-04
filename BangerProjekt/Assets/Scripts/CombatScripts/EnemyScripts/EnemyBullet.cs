@@ -11,7 +11,7 @@ public class EnemyBullet : MonoBehaviour
     void Awake()
     {
         damage = gameObject.transform.GetComponentInParent<RangedEnemy>().BulletDamage;
-        gameObject.transform.parent = GameObject.Find("Game").transform;
+        gameObject.transform.parent = null;
         //we get the damage of the parent and set a new one
         StartCoroutine(KillBulletTimer());
     }

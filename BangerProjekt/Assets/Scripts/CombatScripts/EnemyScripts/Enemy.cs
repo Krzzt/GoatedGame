@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Enemy : Unit
 {
@@ -9,17 +11,13 @@ public class Enemy : Unit
     [SerializeField] private GameObject pickup;
     [SerializeField] private float pickupDropChance; // setting the probabilty of dropping a pickup
     public float Distance{get;set;}
-
     private GameObject playerObject;
-
     [field:SerializeField] public int Damage{get;set;}
-
     public Rigidbody2D RB {get; set;}
-
     private Vector2 direction;
-
     protected Player playerScript;
-
+    [field:SerializeField] public int Cost {get; set;}
+    public static Action<GameObject> enemyDies;
 
     public void Awake()
     {
@@ -76,7 +74,8 @@ public class Enemy : Unit
             if (ShouldPickupDrop())
             {
                 pickup = Instantiate(pickup, gameObject.transform.position, Quaternion.identity); //Creating the Pickup
-            } 
+            }
+            enemyDies?.Invoke(gameObject);
             Destroy(gameObject);
         } 
     }

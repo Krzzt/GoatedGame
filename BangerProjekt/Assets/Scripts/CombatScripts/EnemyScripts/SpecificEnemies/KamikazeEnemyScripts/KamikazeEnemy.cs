@@ -70,6 +70,7 @@ public class KamikazeEnemy : Enemy
         {
             playerScript.TakeDamage(Damage);
         }
+        enemyDies?.Invoke(gameObject); //counts As Dying
         Destroy(gameObject);
     }
 

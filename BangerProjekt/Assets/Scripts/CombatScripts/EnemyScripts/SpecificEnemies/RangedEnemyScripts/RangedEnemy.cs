@@ -48,7 +48,7 @@ public class RangedEnemy : Enemy
         for(int i = 0; i < amount ; i++)
         {
             GameObject newBullet = Instantiate(enemyBulletPrefab,shootingPoint.position, shootingPoint.rotation, gameObject.transform);
-            //all these parameters: we instantiate the bullethePrefab at the position of the shooting point with the rotation of the enemy
+            //all these parameters: we instantiate the bulletPrefab at the position of the shooting point with the rotation of the enemy
             //the parent of the bullet in the hierarchy will be this gameObject
             //after getting all the values it needs, the bullet will not be the child of this gameobject anymore
             //since we dont want the rotation of the gameobject to transfer over to the bullets

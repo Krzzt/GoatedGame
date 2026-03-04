@@ -70,6 +70,8 @@ MonoBehaviour:
   - {fileID: 8508517525640316391}
   - {fileID: 1754923835387617068}
   - {fileID: 6739109532277203484}
+  <State>k__BackingField: 0
+  <EnemiesInRoom>k__BackingField: []
 --- !u!1 &7227759847066009787
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +145,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -10
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.3162486, g: 0.0082769515, b: 0.5849056, a: 1}
   m_FlipX: 0
