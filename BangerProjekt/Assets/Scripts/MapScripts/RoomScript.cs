@@ -9,6 +9,10 @@ public class RoomScript : MonoBehaviour
 {
    [field:SerializeField] public List<GameObject> RoomDoors{get; set;} //Doors this room has
    [field:SerializeField] public Enums.RoomState State {get; private set;} = Enums.RoomState.Uncleared; //The state of the room
+   [field:SerializeField] public List<Transform> ObstacleSpots{get; set;}
+   [field:SerializeField] public List<GameObject> AllObstacles{get; set;}
+   [field:SerializeField] public bool IsBossRoom{get; set;} = false; //Gets true when its a boss room
+   [field:SerializeField] public int Depth{get; set;} //This counts up with how far  from the start room we are
     public int Budget {get; set;}
    [field:SerializeField] public List<GameObject> EnemiesInRoom {get; set;}
    public static Action<List<GameObject>, int> SendEnemyList;
@@ -23,6 +27,13 @@ public class RoomScript : MonoBehaviour
     private void Awake() // used to prevent accidental overrides by the inspector
     {
         State = Enums.RoomState.Uncleared; //A room can never be cleared from the get go (Except the Start room which gets unlocked after room gen)
+        foreach (Transform trans in gameObject.transform)
+      {
+         if (trans.gameObject.CompareTag("Obstacle"))
+         {
+            ObstacleSpots.Add(trans);
+         }
+      }
         //mainCam = Camera.main;
         spawnpointContainer = new GameObject("GeneratedSpawnpoints").transform; //Create the Gameobject where all the spawnpoints are saved into
         spawnpointContainer.SetParent(this.transform);   //Sets its parent to the current room so it is not a stray GameObject
@@ -100,6 +111,23 @@ public class RoomScript : MonoBehaviour
       }
    }
 
+   private void SetObstacles(List<GameObject> obstacleTypes)
+   {
+      foreach (Transform obstacleSpot in ObstacleSpots)
+      {
+         GameObject obstacle = Instantiate(obstacleTypes[Random.Range(0,obstacleTypes.Count)], obstacleSpot);
+         AllObstacles.Add(obstacle);
+      }
+   }
+
+    private void OnEnable()
+    {
+        RoomManager.sendObstacles += SetObstacles;
+    }
+    private void OnDisable()
+    {
+        RoomManager.sendObstacles -= SetObstacles;
+    }
    private bool SpawnpointToCloseToAnother(Vector2 position) //Does exactly that what its named after
    {
       foreach(GameObject sp in Spawnpoints)
