@@ -37,7 +37,7 @@ public class KamikazeEnemy : Enemy
         }
         else
         {
-            MoveSpeed = 0.25f;
+            MoveSpeed = 0.75f;
             MoveToPlayer();
         }
 

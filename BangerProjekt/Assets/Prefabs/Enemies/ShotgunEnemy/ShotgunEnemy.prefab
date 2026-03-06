@@ -92,10 +92,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 10
   <MoveSpeed>k__BackingField: 3
-  <InitialMoveSpeed>k__BackingField: 0
+  <InitialMoveSpeed>k__BackingField: 3
   xpObject: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
   xpValue: 3
-  pickup: {fileID: 0}
+  pickup: {fileID: 6933032603654902607, guid: ccb29caaaefcb5c44baa24124ad78950, type: 3}
   pickupDropChance: 0
   <Damage>k__BackingField: 2
   <Cost>k__BackingField: 4

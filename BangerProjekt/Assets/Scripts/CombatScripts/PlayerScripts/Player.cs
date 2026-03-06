@@ -29,11 +29,10 @@ public class Player : Unit
     //START OF FUNCTIONS
 
     //Start of Unity specific functions ----------------------------
-    void Awake()
+    new void Awake()
     {   
         weaponScript = gameObject.GetComponent<Weapon>(); //gameObject with small g = this.GameObject
-
-        MaxHealth = CurrentHealth; //set ur health      
+        base.Awake();    
     }
 
 

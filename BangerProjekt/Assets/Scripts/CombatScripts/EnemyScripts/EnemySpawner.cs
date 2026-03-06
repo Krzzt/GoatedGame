@@ -59,43 +59,46 @@ public class EnemySpawner : MonoBehaviour
     }
     public void GenerateWaves(List<GameObject> enemyList, int budget)
     {
-        skipButton.SetActive(true);
-        enemiesAliveText.gameObject.SetActive(true);
-        enemiesAliveText.SetText("Enemies Remaining: 0");
-        waveText.gameObject.SetActive(true);
-        //Set everything active
-        currentWave = 0; //reset waves as this gets called every new room via an event (0 because nextWave does currentwave++)
-        enemiesToSpawn.Clear(); //clear previous possible EnemySpawns
-        List<Enemy> enemyScriptList = new List<Enemy>();
-        foreach (GameObject enemy in enemyList)
-        {
-           enemyScriptList.Add(enemy.GetComponent<Enemy>()); //get every enemy component from the GameObjects
-        }
-        waveAmount = Random.Range(1, 4); //between 1 and 3 waves (currently placeholder)
-        Debug.Log("WaveAmount: " + waveAmount);
-        enemiesToSpawn.Add(new List<GameObject>());
-        for (int i = 1; i <= waveAmount; i++) //for every wave
-        {
-            enemiesToSpawn.Add(new List<GameObject>());
-            List<GameObject> possibleEnemies = new List<GameObject>(enemyList); //fuck you call by reference (we need to set this as a new list with the old one as a parameter to prevent call by reference)
-            int currentWaveBudget = budget / waveAmount; //if there is a remainder, it just gets killed
-            while(possibleEnemies.Count > 0)
+            skipButton.SetActive(true);
+            enemiesAliveText.gameObject.SetActive(true);
+            enemiesAliveText.SetText("Enemies Remaining: 0");
+            waveText.gameObject.SetActive(true);
+            //Set everything active
+            currentWave = 0; //reset waves as this gets called every new room via an event (0 because nextWave does currentwave++)
+            enemiesToSpawn.Clear(); //clear previous possible EnemySpawns
+            List<Enemy> enemyScriptList = new List<Enemy>();
+            foreach (GameObject enemy in enemyList)
             {
-                int randomIndex = Random.Range(0, possibleEnemies.Count); //get a random index from every possible enemy
-                if (currentWaveBudget < possibleEnemies[randomIndex].GetComponent<Enemy>().Cost) //if we cant afford it
+                enemyScriptList.Add(enemy.GetComponent<Enemy>()); //get every enemy component from the GameObjects
+            }
+            waveAmount = Random.Range(1, 4); //between 1 and 3 waves (currently placeholder)
+            budget = (int)(budget * (0.8f + (waveAmount / 5f)));
+            //1 Wave = budget * 1,
+            //2 Waves = budget * 1.2
+            //3 Waves = budget * 1.4
+            //...
+            enemiesToSpawn.Add(new List<GameObject>());
+            for (int i = 1; i <= waveAmount; i++) //for every wave
+            {
+                enemiesToSpawn.Add(new List<GameObject>());
+                List<GameObject> possibleEnemies = new List<GameObject>(enemyList); //fuck you call by reference (we need to set this as a new list with the old one as a parameter to prevent call by reference)
+                int currentWaveBudget = budget / waveAmount; //if there is a remainder, it just gets killed
+                while (possibleEnemies.Count > 0)
                 {
-                    possibleEnemies.RemoveAt(randomIndex); //remove this enemy from possibleEnemies
-                }
-                else //if we can afford it
-                {
-                    enemiesToSpawn[i].Add(possibleEnemies[randomIndex]);
-                    currentWaveBudget -= possibleEnemies[randomIndex].GetComponent<Enemy>().Cost;
-                    //subtract the cost and add the Enemy to EnemiesToSpawn
+                    int randomIndex = Random.Range(0, possibleEnemies.Count); //get a random index from every possible enemy
+                    if (currentWaveBudget < possibleEnemies[randomIndex].GetComponent<Enemy>().Cost) //if we cant afford it
+                    {
+                        possibleEnemies.RemoveAt(randomIndex); //remove this enemy from possibleEnemies
+                    }
+                    else //if we can afford it
+                    {
+                        enemiesToSpawn[i].Add(possibleEnemies[randomIndex]);
+                        currentWaveBudget -= possibleEnemies[randomIndex].GetComponent<Enemy>().Cost;
+                        //subtract the cost and add the Enemy to EnemiesToSpawn
+                    }
                 }
             }
-        }
-        NextWave(); //Start the Waves by calling "NextWave"
-
+            NextWave(); //Start the Waves by calling "NextWave"
     }
 
     public void NextWave()
@@ -104,7 +107,7 @@ public class EnemySpawner : MonoBehaviour
         {
             currentWave++;
             doneSpawning = false;
-            waveText.SetText("Wave " + currentWave); //only set this now because we want the new number (after the ++)
+            waveText.SetText("Wave " + currentWave + "/" + waveAmount); //only set this now because we want the new number (after the ++)
             StartWaveSpawn();
         }
         else //if we are done spawning
@@ -116,7 +119,7 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
-    public void StartWaveSpawn()
+    private void StartWaveSpawn()
     {
         StartCoroutine(waitForEnemySpawn());
     }
@@ -125,13 +128,8 @@ public class EnemySpawner : MonoBehaviour
     {
             while (enemiesToSpawn[currentWave].Count > 0) //as long as there are enemies remaining
             {
-                GameObject newEnemy = Instantiate(enemiesToSpawn[currentWave][0]);
-                enemiesToSpawn[currentWave].RemoveAt(0);
-                aliveEnemies.Add(newEnemy);
-                enemiesAliveText.SetText("Enemies Remaining: " + aliveEnemies.Count);
-                newEnemy.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
-                yield return new WaitForSeconds(Random.Range(150,401)/ 100f); //wait between 1,5 to 4 seconds then spawn another enemy
-                //No location is set yet, the enemy just appears at (0,0);
+                SpawnEnemy();
+                yield return new WaitForSeconds(Random.Range(100,201)/ 100f); //wait between 1 to 2 seconds then spawn another enemy
             }
     }
 
@@ -139,13 +137,18 @@ public class EnemySpawner : MonoBehaviour
     {
         while (enemiesToSpawn[currentWave].Count > 0)
         {
-            GameObject newEnemy = Instantiate(enemiesToSpawn[currentWave][0]);
-            enemiesToSpawn[currentWave].RemoveAt(0);
-            aliveEnemies.Add(newEnemy);
-            enemiesAliveText.SetText("Enemies Remaining: " + aliveEnemies.Count);
-            newEnemy.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
+            SpawnEnemy();
         }
         NextWave();
+    }
+
+    private void SpawnEnemy()
+    {
+        GameObject newEnemy = Instantiate(enemiesToSpawn[currentWave][0]);
+        enemiesToSpawn[currentWave].RemoveAt(0);
+        aliveEnemies.Add(newEnemy);
+        enemiesAliveText.SetText("Enemies Remaining: " + aliveEnemies.Count);
+        newEnemy.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
     }
 
     public void NewSpawnPoints(RoomScript currRoom) //call by reference :)
@@ -154,4 +157,5 @@ public class EnemySpawner : MonoBehaviour
         spawnPoints = currRoom.Spawnpoints;
         //the existence of currRoom is theoretically not necessary here, but an event has to give a variable (as far as i know) so why not
     }
+
 }

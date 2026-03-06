@@ -332,6 +332,10 @@ MonoBehaviour:
   - {fileID: 6566320153052345336}
   <State>k__BackingField: 0
   <EnemiesInRoom>k__BackingField: []
+  <SpawnpointSpacingToEachOther>k__BackingField: 2
+  <Spawnpoints>k__BackingField: []
+  numOfSpawnpoints: 100
+  spawnpointSpacingToWall: 2
 --- !u!1 &9166889042285375807
 GameObject:
   m_ObjectHideFlags: 0

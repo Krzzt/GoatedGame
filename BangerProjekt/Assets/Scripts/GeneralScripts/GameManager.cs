@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static RoomScript currentRoom;
     public static Action<RoomScript> currRoomChanged;
-
+    public static int roomsCleared;
     public static void SetCurrentRoom(RoomScript newRoom)
     {
         currentRoom = newRoom;

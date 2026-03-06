@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class RoomBoundScript : MonoBehaviour
 private Coroutine safetyCheck; //To check if the player is far enough away from the door to safely shut it without clipping.
 private CompositeCollider2D boundsCollider; //The collider of the parent of this script
 private float safeDistance = -2f; //safety distance, how far you must enter the room to start it
+
 
 private void Awake()
     {

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class Enemy : Unit
@@ -19,9 +21,13 @@ public class Enemy : Unit
     [field:SerializeField] public int Cost {get; set;}
     public static Action<GameObject> enemyDies;
 
-    public void Awake()
+    private NavMeshPath pathToPlayer; //the NavMeshPath to calculate said path
+    private List<Vector3> nextMovePoint = new List<Vector3>(); //the points to move to saved in a List
+
+    public new void Awake()
     {
-        CurrentHealth = MaxHealth;
+        base.Awake();
+        pathToPlayer = new NavMeshPath();
         RB = gameObject.GetComponent<Rigidbody2D>();
         playerObject = GameObject.FindWithTag("Player");
         playerScript = playerObject.GetComponent<Player>();
@@ -33,8 +39,17 @@ public class Enemy : Unit
     }
     public void TurnToPlayer()
     {
-        Distance = Vector2.Distance(transform.position, playerObject.transform.position);
-        direction = playerObject.transform.position - transform.position;
+        if (NavMesh.CalculatePath(transform.position, playerObject.transform.position, NavMesh.AllAreas, pathToPlayer)) //if we find a path
+        {
+            nextMovePoint = pathToPlayer.corners.ToList<Vector3>(); //we convert that shit into a list
+        }
+        else
+        {
+            Debug.LogError("No path to player found. You are fucked");
+            //error no path found
+        }
+        Distance = Vector3.Distance(transform.position, playerObject.transform.position);
+        direction = nextMovePoint[1] - transform.position;
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(Vector3.forward * angle) * Quaternion.Euler(0,0,-90);
@@ -46,6 +61,10 @@ public class Enemy : Unit
 
         //transform.position = Vector2.MoveTowards(gameObject.transform.position, playerObject.transform.position, MoveSpeed * Time.fixedDeltaTime);
         RB.velocity = direction * MoveSpeed;
+        if (Vector3.Distance(transform.position, nextMovePoint[1]) < 0.05f) //if we are at a point
+        {
+            nextMovePoint.RemoveAt(1); //remove it to go to the next (not sure if necessary because it gets recalculated every frame)
+        }
         //instead of transform, we use the rigidbody, this also helps for enemies that e.g have to dash
     }
     public bool ShouldPickupDrop() // the name

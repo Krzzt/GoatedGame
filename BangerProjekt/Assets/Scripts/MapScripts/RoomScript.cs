@@ -22,7 +22,7 @@ public class RoomScript : MonoBehaviour
    [field:SerializeField] private int numOfSpawnpoints = 100; //Can be set via inspector for each room defaults to 100 but since the spacing doesnt allow more in smaller rooms this may be changed
    [field:SerializeField] private float spawnpointSpacingToWall = 2f; //So no enemies spawn in a wall or outside of a room
    private Transform spawnpointContainer; //The container for all the spawn points. (No need to set it for each room since every room should have it, so it gets created)
-
+    public bool IsReady {get; set;} = false;
 
     private void Awake() // used to prevent accidental overrides by the inspector
     {
@@ -61,12 +61,13 @@ public class RoomScript : MonoBehaviour
             door.GetComponent<DoorScript>().OpenDoor();
          }
       }
+        GameManager.roomsCleared++;
    }
 
  
     public void OnRoomEnter() //Gets called by RoomBoundScript on each rooms bounds and that checks if the player is inside of the room
     {
-      if (State == Enums.RoomState.Uncleared)
+      if (State == Enums.RoomState.Uncleared && IsReady)
       {
          foreach (GameObject door in RoomDoors) //This locks the doors of the room so he may not leave until the room is cleared
          {
@@ -76,7 +77,7 @@ public class RoomScript : MonoBehaviour
             }
          }
             GameManager.SetCurrentRoom(this);
-            Budget = Random.Range(15,40) * LayerManager.CurrentLayerNumber; //currently random number, not set in stone
+            Budget = Random.Range(15,41) * LayerManager.CurrentLayerNumber + GameManager.roomsCleared * 3; //currently random number, not set in stone
             SendEnemyList?.Invoke(EnemiesInRoom, Budget);
             //send event to start enemy Spawn
       }

@@ -1,3 +1,4 @@
+using NavMeshPlus.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,12 @@ public class RoomManager : MonoBehaviour
    public static event Action<List<GameObject>> sendObstacles;
    private GameObject startRoom; //The one and only start room instance
    [SerializeField]private List<GameObject> EnemyListForRooms;
-
+    private NavMeshSurface meshSurface;
 
 
     public void Awake()
     {
+        meshSurface = gameObject.GetComponent<NavMeshSurface>();
         startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity); //Make tha start room
         startRoom.GetComponent<RoomScript>().Depth = 0;
         float[] angles = { 0f, 90f, 180f, 270f }; //Simple array, because its not gonna change
@@ -37,6 +39,7 @@ public class RoomManager : MonoBehaviour
     private void Start()
     {
         EnemyListForRooms = LayerManager.GetEnemyListFromLayer();
+        GenerateRooms();
     }
 
     [ContextMenu("Generate Rooms")] //To call GenerateRooms from the inspector (Will probably get obsolete once the Game Manager etc handles when to gen rooms)
@@ -59,7 +62,8 @@ public class RoomManager : MonoBehaviour
             GameObject randomDoor = availableDoors[randomDoorIndex];
  
             int randomIndex = Random.Range(0, roomPrefabs.Count); //Get a random index for the prefab list
-            GameObject newRoom = Instantiate(roomPrefabs[randomIndex]); //Get the prefab with said random index
+            Vector3 spawnPos = new Vector3(50, 50, 0); //spawn it away from the player so the EnemySpawner doesnt immediately trigger
+            GameObject newRoom = Instantiate(roomPrefabs[randomIndex], spawnPos, new Quaternion(0,0,0,0)); //Get the prefab with said random index
            
             List<GameObject> roomDoors = newRoom.GetComponent<RoomScript>().RoomDoors; //Gets the doors of the new room that has been instantiated. Rooms may have "infinite" doors.
             GameObject newRoomRandomDoor = roomDoors[Random.Range(0,roomDoors.Count)]; //Get the actual door we try to connect to
@@ -82,21 +86,20 @@ public class RoomManager : MonoBehaviour
                 newRoom.GetComponent<RoomScript>().Depth = randomDoor.GetComponentInParent<RoomScript>().Depth + 1;
                 newRoom.GetComponent<RoomScript>().EnemiesInRoom = EnemyListForRooms;
                 //We expect the LayerManager to do its thing before the RoomManager (because first the Layer info gets generated, after that the Rooms get Generated based on that)
-
+                newRoom.GetComponent<RoomScript>().IsReady = true;
             }
             else
             { //Failed to create a room (due to overlap)
                 i--; //add back to the counter of rooms to generate so we are not missing one
+                newRoom.SetActive(false); //because the NavMesh still generated if an object is destroyed but was set to active before getting destroyed (wtf?????)
                 Destroy(newRoom); //Discard the room that didn't fit and try again
             }
 
        }
-       AddConnectedRooms();//If a random door has luckily aligned with another, we can have those set as "used" as well.
-       
-       sendObstacles?.Invoke(Obstacles);
-
+       AddConnectedRooms();//If a random door has luckily aligned with another, we can have those set as "used" as well
        startRoom.GetComponent<RoomScript>().ClearRoom();
-
+       meshSurface.BuildNavMesh(); //after everything is generated, build the NavMesh for the Enemies
+        //needs to get recalculated if new obstacles appear
        SetBossRoom(); 
    }
 

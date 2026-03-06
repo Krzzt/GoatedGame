@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 100
   <MoveSpeed>k__BackingField: 5
-  <InitialMoveSpeed>k__BackingField: 0
+  <InitialMoveSpeed>k__BackingField: 5
 --- !u!114 &4485591058771625045
 MonoBehaviour:
   m_ObjectHideFlags: 0
