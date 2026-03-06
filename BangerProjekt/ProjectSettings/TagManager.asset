@@ -11,6 +11,7 @@ TagManager:
   - Door
   - RoomBoundaries
   - EnemyExplosion
+  - Obstacle
   - SkipWaveButton
   - EnemiesAliveText
   - WaveText

@@ -5,7 +5,7 @@ public class DoorScript : MonoBehaviour
     [field:SerializeField] public Transform DoorMiddle{get; set;} //The middle part of the door
     [field:SerializeField] public Transform DoorFacing{get; set;} //The facing part of the door
     [field:SerializeField] public Enums.DoorState State{get; set;} = Enums.DoorState.Hidden; //Ohio
-    [field:SerializeField] private DoorScript linkedDoor; //The door that is connected to this one
+    [field:SerializeField] public DoorScript linkedDoor{get; set;} //The door that is connected to this one
 
 
     void Awake()

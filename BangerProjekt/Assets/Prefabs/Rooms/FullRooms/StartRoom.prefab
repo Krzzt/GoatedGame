@@ -274,6 +274,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8074655296020938120, guid: e057c166fea6a5f4e9e3412d10a148e9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074655296020938120, guid: e057c166fea6a5f4e9e3412d10a148e9, type: 3}
+      propertyPath: m_GeometryType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074655296020938120, guid: e057c166fea6a5f4e9e3412d10a148e9, type: 3}
+      propertyPath: m_OffsetDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074655296020938120, guid: e057c166fea6a5f4e9e3412d10a148e9, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].x
       value: 1.75
       objectReference: {fileID: 0}

@@ -15,7 +15,7 @@ private void Awake()
     }
 void OnTriggerEnter2D(Collider2D player) //Checks if something enters the collider
 {
-    if (player.gameObject.CompareTag("Player") && safetyCheck == null && transform.root.GetComponent<RoomScript>().State == Enums.RoomState.Uncleared) 
+    if (player.gameObject.CompareTag("Player") && safetyCheck == null && GetComponentInParent<RoomScript>().State == Enums.RoomState.Uncleared) 
     //Limits the loop logic to only run if it is a player entering, it isn't already running and if the room hasnt been cleared.
     {
         safetyCheck = StartCoroutine(ProximityCheck(player)); //Start the check loop
