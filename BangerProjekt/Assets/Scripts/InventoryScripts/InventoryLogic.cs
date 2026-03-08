@@ -87,12 +87,18 @@ public class InventoryLogic : MonoBehaviour
         }
         else
         {
-            ItemsEquipped[(int)tagOfItem] = InventoryItems[invIDToEquip];
-            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], true); // true because we add
-            //if nothing is equipped, we equip the one we have and increase our stats accordingly
+            EquipFreshItem(InventoryItems[invIDToEquip]);
         }
 
 
+    }
+
+    public void EquipFreshItem(Item itemToEquip)
+    {
+        ItemsEquipped[(int)itemToEquip.itemTag] = itemToEquip;
+        ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)itemToEquip.itemTag], true); // true because we add
+       //if nothing is equipped, we equip the one we have and increase our stats accordingly
+       //this gets called when the Player has nothing equipped
     }
     public void UnEquipItem(int tagOfItemInt)
     {
@@ -110,6 +116,9 @@ public class InventoryLogic : MonoBehaviour
     private void LoadInventory()
     {
         InventoryItems = SaveManager.currentSave.InventoryItems;
-        ItemsEquipped = SaveManager.currentSave.EquippedItems;
+        foreach(Item item in SaveManager.currentSave.EquippedItems)
+        {
+            EquipFreshItem(item);
+        }
     }
 }
