@@ -10,7 +10,7 @@ public static class SaveManager
     public static Action SavingGame;
     public static Action LoadingGame;
 
-    public static bool checkIfFileExists()
+    public static bool CheckIfFileExists()
     {
         if (!Directory.Exists(Application.dataPath + "/saves"))
         {
@@ -31,16 +31,23 @@ public static class SaveManager
         //still need to set everything in currentSave
         SavingGame?.Invoke();
         yield return new WaitForEndOfFrame();
-        checkIfFileExists();
+        CheckIfFileExists();
         string savedGameString = JsonUtility.ToJson(currentSave);
         File.WriteAllText(Application.dataPath + "/saves/saveFile.json", savedGameString);
     }
 
     public static void LoadGame()
     {
-        checkIfFileExists();
+        CheckIfFileExists();
         string loadGameString = File.ReadAllText(Application.dataPath + "/saves/saveFile.json");
-        JsonUtility.FromJsonOverwrite(loadGameString,currentSave);
+        if (loadGameString != "")
+        {
+            JsonUtility.FromJsonOverwrite(loadGameString, currentSave);
+        }
+        else
+        {
+            currentSave = new SaveState();
+        }
         LoadingGame?.Invoke();
         //still need to Load everything in from currentSave
     }

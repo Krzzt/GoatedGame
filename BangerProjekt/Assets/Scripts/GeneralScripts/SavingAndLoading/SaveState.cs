@@ -1,22 +1,23 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class SaveState
 {
-    [field:SerializeField] public List<GameObject> CurrentLayerRooms { get; set; }
-    [field: SerializeField] public List<Item> EquippedItems { get; set; }
+    //[field:SerializeField] public List<GameObject> CurrentLayerRooms { get; set; }
+    [field: SerializeField] public Item[] EquippedItems { get; set; }
     [field: SerializeField] public List<Item> InventoryItems { get; set; }
-    [field: SerializeField] public List<Card> ActiveCards { get; set; }
+    [field: SerializeField] public List<Card> CardsInHand { get; set; }
     [field: SerializeField] public List<Card> EntireDeck { get; set; }
     [field: SerializeField] public List<Card> DrawPile { get; set; }
     [field: SerializeField] public List<Card> DiscardPile { get; set; }
     [field: SerializeField] public Layer ActiveLayer { get; set; }
     [field: SerializeField] public int LayerNumber { get; set; }
     [field: SerializeField] public int EnemiesKilled { get; set; }
-    [field: SerializeField] public RoomScript CurrentRoom { get; set; }
+
+    //[field: SerializeField] public RoomScript CurrentRoom { get; set; }
     [field: SerializeField] public int RoomsCleared { get; set; }
     //PlayerStats do not need to be saved, only the stuff that modifies it!
     //except for EnemiesKilled
@@ -24,17 +25,15 @@ public class SaveState
 
     public SaveState()
     {
-        CurrentLayerRooms = new List<GameObject>();
-        EquippedItems = new List<Item>();
+        EquippedItems = new Item[(int)Enums.SlotTag.None];
         InventoryItems = new List<Item>();
-        ActiveCards = new List<Card>();
-        EntireDeck = new List<Card>(); //maybe needs to be changed in the future
+        CardsInHand = new List<Card>();
+        EntireDeck = new List<Card>(); //maybe needs to be changed in the future to a dummy deck
         DrawPile = new List<Card>();
         DiscardPile = new List<Card>();
-        ActiveLayer = null;
+        ActiveLayer = null; //maybe needs to be changed to a dummy layer
         LayerNumber = 0;
         EnemiesKilled = 0;
-        CurrentRoom = null;
         RoomsCleared = 0;
     }
 }

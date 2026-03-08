@@ -30,23 +30,9 @@ public class RoomManager : MonoBehaviour
         float randomAngle = angles[Random.Range(0, angles.Length)]; //Pick a random start rotation
         startRoom.transform.rotation = Quaternion.Euler(0, 0, randomAngle); // and apply it.
         rooms.Add(startRoom); //Yes exactly this room should be added to the rooms list
-        startRoom.GetComponent<RoomScript>().ClearRoom();
         GameManager.currentRoom = startRoom.GetComponent<RoomScript>();
         availableDoors.Add(GameObject.FindWithTag("Door")); //And lets also get the first door.
     }
-
-    private void OnEnable()
-    {
-        SaveManager.SavingGame += SaveRooms;
-        SaveManager.LoadingGame += LoadRooms;
-    }
-
-    private void OnDisable()
-    {
-        SaveManager.SavingGame -= SaveRooms;
-        SaveManager.LoadingGame -= LoadRooms;
-    }
-
     private void Start()
     {
         EnemyListForRooms = LayerManager.GetEnemyListFromLayer();
@@ -108,7 +94,8 @@ public class RoomManager : MonoBehaviour
 
        }
        AddConnectedRooms();//If a random door has luckily aligned with another, we can have those set as "used" as well
-       startRoom.GetComponent<RoomScript>().ClearRoom();
+        startRoom.GetComponent<RoomScript>().ClearRoom();
+        GameManager.roomsCleared--; //to prevent startroom counting as a cleared room (fuck this)
        meshSurface.BuildNavMesh(); //after everything is generated, build the NavMesh for the Enemies
         //needs to get recalculated if new obstacles appear
        SetBossRoom(); 
@@ -220,26 +207,14 @@ public class RoomManager : MonoBehaviour
         if(highestDepthRoom == startRoom)
         {
             foreach(GameObject room in rooms)
-        {
-            if (room.GetComponent<RoomScript>().Depth > highestDepthCount)
             {
-                highestDepthRoom = room;
-                highestDepthCount = room.GetComponent<RoomScript>().Depth;
+                if (room.GetComponent<RoomScript>().Depth > highestDepthCount)
+                {
+                    highestDepthRoom = room;
+                    highestDepthCount = room.GetComponent<RoomScript>().Depth;
+                }
             }
         }
-        }
         highestDepthRoom.GetComponent<RoomScript>().IsBossRoom = true;
-        
-    }
-
- 
-    private void SaveRooms()
-    {
-        SaveManager.currentSave.CurrentLayerRooms = rooms;
-    }
-
-    private void LoadRooms()
-    {
-        rooms = SaveManager.currentSave.CurrentLayerRooms;
     }
 }

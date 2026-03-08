@@ -27,7 +27,7 @@ public class DeckLogic : MonoBehaviour
             }
         }
 
-        drawPile = entireDeck; //all cards go into the drawPile
+        drawPile.AddRange(entireDeck);
         ShuffleDrawPile();
         DrawCards(handSize); //we fill the hand with cards
     }
@@ -108,7 +108,7 @@ public class DeckLogic : MonoBehaviour
 
     private void SaveCards()
     {
-        SaveManager.currentSave.ActiveCards = new List<Card>(); //this is a placeholder, because active cards are not implemented yet
+        SaveManager.currentSave.CardsInHand = cardsInHand;
         SaveManager.currentSave.EntireDeck = entireDeck;
         SaveManager.currentSave.DrawPile = drawPile;
         SaveManager.currentSave.DiscardPile = discardPile;
@@ -116,11 +116,7 @@ public class DeckLogic : MonoBehaviour
 
     private void LoadCards()
     {
-        foreach(Card card in SaveManager.currentSave.ActiveCards)
-        {
-            PlayCard(card);
-            //add to list of "Active Cards"
-        }
+        cardsInHand = SaveManager.currentSave.CardsInHand;
         entireDeck = SaveManager.currentSave.EntireDeck;
         drawPile = SaveManager.currentSave.DrawPile;
         discardPile = SaveManager.currentSave.DiscardPile;

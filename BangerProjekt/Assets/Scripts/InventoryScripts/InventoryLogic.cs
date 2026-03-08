@@ -11,7 +11,7 @@ public class InventoryLogic : MonoBehaviour
 
     public static Action<Item> SendItem;
 
-    [field: SerializeField] public static List<Item> ItemsEquipped { get; set; } //Serialized for testing
+    [field: SerializeField] public static Item[] ItemsEquipped { get; set; } = new Item[(int)Enums.SlotTag.None]; //Serialized for testing
 
     public static Action<Item, bool> ChangeItemPlayerStats;
 
@@ -21,11 +21,7 @@ public class InventoryLogic : MonoBehaviour
     {
         allItemList = gameObject.GetComponent<AllItems>();
         InventoryItems = new List<Item>();
-        ItemsEquipped = new List<Item>();
-        for (int i = 0; i < (int)Enums.SlotTag.None; i++)
-        {
-            ItemsEquipped.Add(null);
-        }
+
         ObtainItem(allItemList.Items[1]);
         EquipItem(0);
 
@@ -97,6 +93,7 @@ public class InventoryLogic : MonoBehaviour
     {
         ItemsEquipped[(int)itemToEquip.itemTag] = itemToEquip;
         ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)itemToEquip.itemTag], true); // true because we add
+        InventoryItems.Remove(itemToEquip);
        //if nothing is equipped, we equip the one we have and increase our stats accordingly
        //this gets called when the Player has nothing equipped
     }

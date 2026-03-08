@@ -26,13 +26,11 @@ public class GameManager : MonoBehaviour
     }
     private void SaveCurrentRooms()
     {
-        SaveManager.currentSave.CurrentRoom = currentRoom;
         SaveManager.currentSave.RoomsCleared = roomsCleared;
     }
 
     private void LoadCurrentRooms()
     {
-        currentRoom = SaveManager.currentSave.CurrentRoom;
         roomsCleared = SaveManager.currentSave.RoomsCleared;
     }
 
