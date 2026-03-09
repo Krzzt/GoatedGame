@@ -9,6 +9,7 @@ public class LayerManager : MonoBehaviour
     [field:SerializeField] public static Layer CurrentLayer {get; set;}
     [field: SerializeField] public static int CurrentLayerNumber { get; set; } = 0;
     private AllLayers AllLayerScript;
+    public static event Action<Layer> sendLayer;
 
     private void Awake()
     {
@@ -40,7 +41,7 @@ public class LayerManager : MonoBehaviour
         {
             CurrentLayer = AllLayerScript.Layers[0]; //if nothing is found, default to the first in the allLayerScript
         }
-
+        sendLayer?.Invoke(CurrentLayer);
 
     }
 

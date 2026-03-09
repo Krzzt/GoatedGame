@@ -16,6 +16,7 @@ TagManager:
   - EnemiesAliveText
   - WaveText
   - Spawnpoint
+  - Shop
   layers:
   - Default
   - TransparentFX
