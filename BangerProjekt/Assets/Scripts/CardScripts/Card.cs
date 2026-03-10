@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu]
 public class Card : ScriptableObject

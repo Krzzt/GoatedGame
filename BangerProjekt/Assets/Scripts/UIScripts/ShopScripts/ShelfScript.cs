@@ -16,22 +16,22 @@ public class ShelfScript : MonoBehaviour
 
     private void PlaceItemsOnShelf(List<Item> items)
     {
-        if(items.Count < 3)
+        if(items.Count < 4)
         {
             Debug.LogError("Not Enough Items were sent to be set in the Shop (Must be 4 or more)");
             return;
         }
-        
+
         if (this.name == "Shelf1")
         {
             transform.GetChild(0).GetComponent<ItemSpotScript>().SetItemOnShelf(items[0]);
             transform.GetChild(1).GetComponent<ItemSpotScript>().SetItemOnShelf(items[1]);   
         }
 
-        if(this.name == "Shelf2")
+        else if(this.name == "Shelf2")
         {
-            transform.GetChild(2).GetComponent<ItemSpotScript>().SetItemOnShelf(items[2]);
-            transform.GetChild(3).GetComponent<ItemSpotScript>().SetItemOnShelf(items[3]);   
+            transform.GetChild(0).GetComponent<ItemSpotScript>().SetItemOnShelf(items[2]);
+            transform.GetChild(1).GetComponent<ItemSpotScript>().SetItemOnShelf(items[3]);   
         }
 
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ShopManager : MonoBehaviour
 {
@@ -22,7 +23,6 @@ public class ShopManager : MonoBehaviour
     void Awake()
     {
         shopPanel = GameObject.FindWithTag("Shop");
-        ToggleShop();
     }
 
     public void ToggleShop()
@@ -39,6 +39,22 @@ public class ShopManager : MonoBehaviour
 
     private void NewLayer(Layer layer)
     {
-        
+        Debug.Log(layer.name);
+        List<Item> itemsToSend = new List<Item>();
+        for(int i = 0; i < 4; i++)
+        {
+            itemsToSend.Add(layer.PossibleItems[Random.Range(0, layer.PossibleItems.Count)]);
+        }
+        Debug.Log("Trying to place items");
+        sendItemToShelf?.Invoke(itemsToSend);
+
+        List<Card> cardsToSend = new List<Card>();
+        for(int i = 0; i < 5; i++)
+        {
+            cardsToSend.Add(layer.PossibleCards[Random.Range(0, layer.PossibleCards.Count)]);
+        }
+        Debug.Log("Trying to place cards");
+        sendCardsToTable?.Invoke(cardsToSend);
+        ToggleShop();
     }
 }
