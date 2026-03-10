@@ -19,6 +19,8 @@ public class SaveState
 
     //[field: SerializeField] public RoomScript CurrentRoom { get; set; }
     [field: SerializeField] public int RoomsCleared { get; set; }
+    [field: SerializeField] public int Seed {  get; set; }
+    [field: SerializeField] public bool IsSeeded {  get; set; }
     //PlayerStats do not need to be saved, only the stuff that modifies it!
     //except for EnemiesKilled
     //IMPORTANT FOR INVENTORYITEMS AND ACTIVECARDS: HAVE TO BE EQUIPPED / PLAYED AGAIN FOR EVERYTHING TO WORK
@@ -35,5 +37,7 @@ public class SaveState
         LayerNumber = 0;
         EnemiesKilled = 0;
         RoomsCleared = 0;
+        Seed = 0;
+        IsSeeded = false;
     }
 }
