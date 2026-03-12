@@ -13,6 +13,11 @@ public class LayerManager : MonoBehaviour
     private void Awake()
     {
         AllLayerScript = gameObject.GetComponent<AllLayers>(); //Both is in the LayerManager
+
+    }
+
+    private void Start()
+    {
         NextLayer();
     }
 

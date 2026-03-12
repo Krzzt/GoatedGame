@@ -10,7 +10,7 @@ public static class SaveManager
     public static Action SavingGame;
     public static Action LoadingGame;
 
-    public static bool CheckIfFileExists()
+    public static bool CheckIfFileExists() //also creates file if necessary
     {
         if (!Directory.Exists(Application.dataPath + "/saves"))
         {
@@ -19,8 +19,8 @@ public static class SaveManager
 
         if (!File.Exists(Application.dataPath + "/saves/saveFile.json"))
         {
-            FileStream fl = File.Create(Application.dataPath + "/saves/saveFile.json");
-            fl.Close();
+            FileStream fs = File.Create(Application.dataPath + "/saves/saveFile.json");
+            fs.Close();
             return false;
         }
         return true;
@@ -31,17 +31,16 @@ public static class SaveManager
         //still need to set everything in currentSave
         SavingGame?.Invoke();
         yield return new WaitForEndOfFrame();
-        CheckIfFileExists();
-        string savedGameString = JsonUtility.ToJson(currentSave);
+        CheckIfFileExists(); //also creates file if necessary
+        string savedGameString = JsonUtility.ToJson(currentSave, true); //pretty print :)
         File.WriteAllText(Application.dataPath + "/saves/saveFile.json", savedGameString);
     }
 
     public static void LoadGame()
     {
-        CheckIfFileExists();
-        string loadGameString = File.ReadAllText(Application.dataPath + "/saves/saveFile.json");
-        if (loadGameString != "")
+        if (CheckIfFileExists())
         {
+            string loadGameString = File.ReadAllText(Application.dataPath + "/saves/saveFile.json");
             JsonUtility.FromJsonOverwrite(loadGameString, currentSave);
         }
         else

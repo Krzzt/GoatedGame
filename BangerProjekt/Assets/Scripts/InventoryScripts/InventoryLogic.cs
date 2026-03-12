@@ -115,7 +115,11 @@ public class InventoryLogic : MonoBehaviour
         InventoryItems = SaveManager.currentSave.InventoryItems;
         foreach(Item item in SaveManager.currentSave.EquippedItems)
         {
-            EquipFreshItem(item);
+            if (item != null)
+            {
+                EquipFreshItem(item);
+            } 
+
         }
     }
 }

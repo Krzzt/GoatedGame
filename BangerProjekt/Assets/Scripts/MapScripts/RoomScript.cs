@@ -13,7 +13,7 @@ public class RoomScript : MonoBehaviour
    [field:SerializeField] public List<GameObject> AllObstacles{get; set;}
    [field:SerializeField] public bool IsBossRoom{get; set;} = false; //Gets true when its a boss room
    [field:SerializeField] public int Depth{get; set;} //This counts up with how far  from the start room we are
-    public int Budget {get; set;}
+   [field:SerializeField] public int Budget {get; set;}
    [field:SerializeField] public List<GameObject> EnemiesInRoom {get; set;}
    public static Action<List<GameObject>, int> SendEnemyList;
    [field:SerializeField] public float SpawnpointSpacingToEachOther {get; set;} = 2f; //Public since we may want to change this as layers get deeper (May be replaced by arithmetic with layer number)

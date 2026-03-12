@@ -12,19 +12,22 @@ public class GameManager : MonoBehaviour
     public static int roomsCleared;
     public static int seed = 0;
     public static bool isSeeded = false;
+    public static bool seedSet = false;
 
-    public void Awake()
+
+    private void Start()
     {
         Load();
         if (!isSeeded)
         {
             seed = Random.Range(0, 1000000000);
-            Random.InitState(seed);
         }
         else //if seeded
         {
             seed = SaveManager.currentSave.Seed; //load that shit (is also loaded in LoadGameManager so not necessary)
         }
+        Random.InitState(seed);
+        seedSet = true;
     }
     public static void SetCurrentRoom(RoomScript newRoom)
     {

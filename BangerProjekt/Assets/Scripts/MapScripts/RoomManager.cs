@@ -1,5 +1,6 @@
 using NavMeshPlus.Components;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -26,16 +27,25 @@ public class RoomManager : MonoBehaviour
         meshSurface = gameObject.GetComponent<NavMeshSurface>();
         startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity); //Make tha start room
         startRoom.GetComponent<RoomScript>().Depth = 0;
-        float[] angles = { 0f, 90f, 180f, 270f }; //Simple array, because its not gonna change
-        float randomAngle = angles[Random.Range(0, angles.Length)]; //Pick a random start rotation
-        startRoom.transform.rotation = Quaternion.Euler(0, 0, randomAngle); // and apply it.
         rooms.Add(startRoom); //Yes exactly this room should be added to the rooms list
+        startRoom.GetComponent<RoomScript>().ClearRoom();
+        GameManager.roomsCleared--; //to prevent startroom counting as a cleared room (fuck this)
         GameManager.currentRoom = startRoom.GetComponent<RoomScript>();
         availableDoors.Add(GameObject.FindWithTag("Door")); //And lets also get the first door.
     }
     private void Start()
     {
         EnemyListForRooms = LayerManager.GetEnemyListFromLayer();
+        StartCoroutine(WaitToGenerateRooms());
+    }
+
+
+    public IEnumerator WaitToGenerateRooms()
+    {
+        yield return new WaitUntil(() => GameManager.seedSet); //wait until the seed is set
+        float[] angles = { 0f, 90f, 180f, 270f }; //Simple array, because its not gonna change
+        float randomAngle = angles[Random.Range(0, angles.Length)]; //Pick a random start rotation
+        startRoom.transform.rotation = Quaternion.Euler(0, 0, randomAngle); // and apply it.
         GenerateRooms();
     }
 
@@ -94,12 +104,12 @@ public class RoomManager : MonoBehaviour
 
        }
        AddConnectedRooms();//If a random door has luckily aligned with another, we can have those set as "used" as well
-        startRoom.GetComponent<RoomScript>().ClearRoom();
-        GameManager.roomsCleared--; //to prevent startroom counting as a cleared room (fuck this)
        meshSurface.BuildNavMesh(); //after everything is generated, build the NavMesh for the Enemies
         //needs to get recalculated if new obstacles appear
-       SetBossRoom(); 
-   }
+       SetBossRoom();
+        startRoom.GetComponent<RoomScript>().ClearRoom();
+        GameManager.roomsCleared--; //to prevent startroom counting as a cleared room (fuck this)
+    }
 
    private void AlignRooms(GameObject doorA, GameObject doorB) //Now here comes the neat part
    {

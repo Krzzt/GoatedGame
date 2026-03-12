@@ -34,7 +34,7 @@ public class SaveState
         DrawPile = new List<Card>();
         DiscardPile = new List<Card>();
         ActiveLayer = null; //maybe needs to be changed to a dummy layer
-        LayerNumber = 0;
+        LayerNumber = 1;
         EnemiesKilled = 0;
         RoomsCleared = 0;
         Seed = 0;

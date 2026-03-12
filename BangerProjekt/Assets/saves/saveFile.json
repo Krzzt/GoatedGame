@@ -1,0 +1,35 @@
+{
+    "<EquippedItems>k__BackingField": [
+        {
+            "instanceID": 0
+        },
+        {
+            "instanceID": 0
+        },
+        {
+            "instanceID": 0
+        },
+        {
+            "instanceID": 0
+        },
+        {
+            "instanceID": 0
+        },
+        {
+            "instanceID": 26212
+        }
+    ],
+    "<InventoryItems>k__BackingField": [],
+    "<CardsInHand>k__BackingField": [],
+    "<EntireDeck>k__BackingField": [],
+    "<DrawPile>k__BackingField": [],
+    "<DiscardPile>k__BackingField": [],
+    "<ActiveLayer>k__BackingField": {
+        "instanceID": 0
+    },
+    "<LayerNumber>k__BackingField": 1,
+    "<EnemiesKilled>k__BackingField": 0,
+    "<RoomsCleared>k__BackingField": 0,
+    "<Seed>k__BackingField": 963487633,
+    "<IsSeeded>k__BackingField": true
+}

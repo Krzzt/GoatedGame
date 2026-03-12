@@ -324,7 +324,7 @@ MonoBehaviour:
   xpObject: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
   xpValue: 4
   pickup: {fileID: 6933032603654902607, guid: ccb29caaaefcb5c44baa24124ad78950, type: 3}
-  pickupDropChance: 0
+  pickupDropChance: 5
   <Damage>k__BackingField: 10
   <Cost>k__BackingField: 2
   distanceForBomboclat: 2
