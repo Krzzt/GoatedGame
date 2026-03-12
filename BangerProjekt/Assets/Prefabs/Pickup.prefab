@@ -99,7 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 10
-  playerScript: {fileID: 0}
+  pickupSprites:
+  - {fileID: -6753520581118053319, guid: b5405f9efebe87d4a93b638c59109002, type: 3}
+  - {fileID: -1788901288813878447, guid: d4744181950b23942b55a3cf7ea24731, type: 3}
+  - {fileID: -6317635223205573835, guid: e7d0414fceddee44bb2dd3d34b4bdac1, type: 3}
 --- !u!61 &4607657360456184696
 BoxCollider2D:
   m_ObjectHideFlags: 0
