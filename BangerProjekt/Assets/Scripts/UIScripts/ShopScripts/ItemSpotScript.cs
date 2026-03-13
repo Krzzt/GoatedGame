@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class ItemSpotScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    Item item = null;
+    public Item Item {get; set;} = null;
     Image image; 
 
     void Awake()
@@ -17,7 +17,7 @@ public class ItemSpotScript : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
     public void SetItemOnShelf(Item item)
     {
-        this.item = item;
+        this.Item = item;
         
         image.sprite = item.icon;
     }

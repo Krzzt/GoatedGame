@@ -41,8 +41,13 @@ public class LayerManager : MonoBehaviour
         {
             CurrentLayer = AllLayerScript.Layers[0]; //if nothing is found, default to the first in the allLayerScript
         }
-        sendLayer?.Invoke(CurrentLayer);
-
+        
+        
+        Debug.Log("Layer sent?");
+    }
+    private void Start()
+    {
+        sendLayer?.Invoke(CurrentLayer); 
     }
 
     public static List<GameObject> GetEnemyListFromLayer()

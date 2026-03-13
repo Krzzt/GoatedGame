@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ShelfScript : MonoBehaviour
 {
-    [field:SerializeField] private GameObject spot1;
 
     private void OnEnable()
     {
@@ -31,7 +30,7 @@ public class ShelfScript : MonoBehaviour
         else if(this.name == "Shelf2")
         {
             transform.GetChild(0).GetComponent<ItemSpotScript>().SetItemOnShelf(items[2]);
-            transform.GetChild(1).GetComponent<ItemSpotScript>().SetItemOnShelf(items[3]);   
+            transform.GetChild(1).GetComponent<ItemSpotScript>().SetItemOnShelf(items[3]);    
         }
 
     }

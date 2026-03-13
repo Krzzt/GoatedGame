@@ -9,7 +9,6 @@ public class ShopManager : MonoBehaviour
 
     public static event Action<List<Item>> sendItemToShelf;
     public static event Action<List<Card>> sendCardsToTable;
-    // Start is called before the first frame update
 
 
     private void OnEnable()
@@ -37,7 +36,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    private void NewLayer(Layer layer)
+    public void NewLayer(Layer layer)
     {
         Debug.Log(layer.name);
         List<Item> itemsToSend = new List<Item>();
@@ -54,7 +53,7 @@ public class ShopManager : MonoBehaviour
             cardsToSend.Add(layer.PossibleCards[Random.Range(0, layer.PossibleCards.Count)]);
         }
         Debug.Log("Trying to place cards");
-        sendCardsToTable?.Invoke(cardsToSend);
+        sendCardsToTable?.Invoke(cardsToSend); 
         ToggleShop();
     }
 }

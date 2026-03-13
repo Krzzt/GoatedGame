@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
 
@@ -7,6 +8,7 @@ public class TableScript : MonoBehaviour
 {
     [field:SerializeField] private GameObject cardPrefab;
     [field:SerializeField] private Transform table;
+    [field:SerializeField] public Transform detailView;
 
     void OnEnable()
     {
@@ -29,8 +31,8 @@ public class TableScript : MonoBehaviour
             GUIcard.transform.Find("CardEffectImage").GetComponent<Image>().sprite = card.CardImage;
             GUIcard.transform.Find("CardName").GetComponent<TMP_Text>().SetText(card.Name);
             GUIcard.transform.Find("CardDescription").GetComponent<TMP_Text>().SetText(card.Description);
+            GUIcard.transform.AddComponent<ShopHover>();
             GUIcard.transform.localScale = new Vector3(1, 1, 1);
-            //GUIcard.transform.SetParent(table);
         }
     }
 }
