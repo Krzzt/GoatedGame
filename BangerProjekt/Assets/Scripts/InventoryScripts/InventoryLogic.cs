@@ -73,17 +73,17 @@ public class InventoryLogic : MonoBehaviour
         Enums.SlotTag tagOfItem = InventoryItems[invIDToEquip].itemTag; //we get the ItemTag
         if (ItemsEquipped[(int)tagOfItem]) //if we already have something equipped at that tag
         {
-            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], false); // false because subtract
+            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], false); // false because we subtract the stats
             Item tempItemSave = ItemsEquipped[(int)tagOfItem];
             ItemsEquipped[(int)tagOfItem] = InventoryItems[invIDToEquip];
             InventoryItems[invIDToEquip] = tempItemSave;
             //standard Swap
-            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], true); // true because we add
+            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], true); // true because we add the stats
 
         }
         else
         {
-            EquipFreshItem(InventoryItems[invIDToEquip]);
+            EquipFreshItem(InventoryItems[invIDToEquip]); //if nothing is equipped, we call this method
         }
 
 
@@ -92,7 +92,7 @@ public class InventoryLogic : MonoBehaviour
     public void EquipFreshItem(Item itemToEquip)
     {
         ItemsEquipped[(int)itemToEquip.itemTag] = itemToEquip;
-        ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)itemToEquip.itemTag], true); // true because we add
+        ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)itemToEquip.itemTag], true); // true because we add the stats
         InventoryItems.Remove(itemToEquip);
        //if nothing is equipped, we equip the one we have and increase our stats accordingly
        //this gets called when the Player has nothing equipped
@@ -100,7 +100,7 @@ public class InventoryLogic : MonoBehaviour
     public void UnEquipItem(int tagOfItemInt)
     {
         InventoryItems.Add(ItemsEquipped[tagOfItemInt]);
-        ChangeItemPlayerStats?.Invoke(ItemsEquipped[tagOfItemInt], false); // false because subtract
+        ChangeItemPlayerStats?.Invoke(ItemsEquipped[tagOfItemInt], false); // false because subtract the stats
         ItemsEquipped[tagOfItemInt] = null;
     }
 

@@ -28,12 +28,11 @@ public static class SaveManager
 
     public static IEnumerator SaveGame() //as an IEnumerator to wait for the end of the frame (so everything can save their stuff in currentSave)
     {
-        //still need to set everything in currentSave
         SavingGame?.Invoke();
         yield return new WaitForEndOfFrame();
         CheckIfFileExists(); //also creates file if necessary
         string savedGameString = JsonUtility.ToJson(currentSave, true); //pretty print :)
-        File.WriteAllText(Application.dataPath + "/saves/saveFile.json", savedGameString);
+        File.WriteAllText(Application.dataPath + "/saves/saveFile.json", savedGameString); //write everything in a json file
     }
 
     public static void LoadGame()
@@ -41,13 +40,12 @@ public static class SaveManager
         if (CheckIfFileExists())
         {
             string loadGameString = File.ReadAllText(Application.dataPath + "/saves/saveFile.json");
-            JsonUtility.FromJsonOverwrite(loadGameString, currentSave);
+            JsonUtility.FromJsonOverwrite(loadGameString, currentSave); //load the json file into out saveObject
         }
         else
         {
-            currentSave = new SaveState();
+            currentSave = new SaveState(); //if no save exists, our constructor got us
         }
         LoadingGame?.Invoke();
-        //still need to Load everything in from currentSave
     }
 }

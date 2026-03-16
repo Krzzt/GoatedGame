@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class KamikazeEnemy : Enemy
@@ -16,7 +17,7 @@ public class KamikazeEnemy : Enemy
     private float indicatorGrowPerTick;
     [SerializeField] private float bomboClatSize;
 
-    private bool isBomboclating;
+    private bool isBomboclating = false;
 
     new void Awake()
     {
@@ -25,27 +26,30 @@ public class KamikazeEnemy : Enemy
         redIndicator = gameObject.transform.GetChild(1).gameObject;
         rangeIndicatorObject.SetActive(false);
         redIndicator.SetActive(false);
-
         playerInRangeScript = rangeIndicatorObject.GetComponent<rangeIndicatorDamageGiver>();
     }
 
-    void FixedUpdate()
+    new void Start()
     {
-       if (isBomboclating)
-        {
-            MoveSpeed = 1.25f;
-            CancelInvoke("TurnToPlayer");
-        }
+        base.Start();
+        InvokeRepeating("CheckForBomboclat",0,0.2f);
+    }
+
+    public void CheckForBomboclat()
+    {
         if (Distance <= distanceForBomboclat)
         {
             StartBomboclat();
         }
+    }
+
+    public void GrowBomboclat()
+    {
         if (isBomboclating)
         {
             redIndicator.transform.localScale = new Vector3(redIndicator.transform.localScale.x + indicatorGrowPerTick, redIndicator.transform.localScale.y + indicatorGrowPerTick, 1);
         }
     }
-
     public void StartBomboclat()
     {
         if (!isBomboclating)
@@ -53,8 +57,11 @@ public class KamikazeEnemy : Enemy
             isBomboclating = true;
             rangeIndicatorObject.SetActive(true); //set the Rangeindicator for the Bomboclat true
             redIndicator.SetActive(true);
-            indicatorGrowPerTick = bomboClatSize / (timeUntilBomboclat * 50f);
+            indicatorGrowPerTick = bomboClatSize / (timeUntilBomboclat * 10f); //*10 since 10 ticks to grow per sec
             StartCoroutine(WaitForBomboclat());
+            MoveSpeed = 1.25f;
+            CancelInvoke("TurnToPlayer");
+            InvokeRepeating("GrowBomboclat",0,0.1f);
         }
     }
 

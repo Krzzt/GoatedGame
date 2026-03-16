@@ -17,16 +17,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Load();
+        //the gameManager Start is loaded after everything else so if something depends on the seed or other things being already loaded from the save in start, it needs to wait via coroutine
+        Load(); 
         if (!isSeeded)
         {
-            seed = Random.Range(0, 1000000000);
+            seed = Random.Range(0, 1000000000); //get a random seed
         }
         else //if seeded
         {
             seed = SaveManager.currentSave.Seed; //load that shit (is also loaded in LoadGameManager so not necessary)
         }
-        Random.InitState(seed);
+        Random.InitState(seed); //to actually set the seed
         seedSet = true;
     }
     public static void SetCurrentRoom(RoomScript newRoom)
