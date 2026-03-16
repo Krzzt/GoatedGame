@@ -13,16 +13,16 @@ public class Enemy : Unit
     [SerializeField] private GameObject pickup;
     [SerializeField] private float pickupDropChance; // setting the probabilty of dropping a pickup
     public float Distance{get;set;}
-    private GameObject playerObject;
+    protected GameObject playerObject;
     [field:SerializeField] public int Damage{get;set;}
     public Rigidbody2D RB {get; set;}
-    private Vector2 direction;
+    protected Vector2 direction;
     protected Player playerScript;
     [field:SerializeField] public int Cost {get; set;}
     public static Action<GameObject> enemyDies;
 
-    private NavMeshPath pathToPlayer; //the NavMeshPath to calculate said path
-    private List<Vector3> nextMovePoint = new List<Vector3>(); //the points to move to saved in a List
+    protected NavMeshPath pathToPlayer; //the NavMeshPath to calculate said path
+    protected List<Vector3> nextMovePoint = new List<Vector3>(); //the points to move to saved in a List
 
     public new void Awake()
     {
@@ -80,7 +80,7 @@ public class Enemy : Unit
         return false;
     }
 
-    public void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount)
     {
        DamageUnit(amount);
        PopUp.Create(gameObject.transform.position + new Vector3(0.3f,1.5f,0),amount.ToString(),Color.white);
@@ -88,16 +88,20 @@ public class Enemy : Unit
        //Update health bar if existent
        if (CurrentHealth <= 0)
         {
-            Debug.Log("Enemy ded");
-            playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
-            xpObject = Instantiate(xpObject, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
-            xpObject.GetComponent<XP>().Amount = xpValue;  //Edit the XP amount of the Created XP object instance
-            if (ShouldPickupDrop())
-            {
-                pickup = Instantiate(pickup, gameObject.transform.position, Quaternion.identity); //Creating the Pickup
-            }
-            enemyDies?.Invoke(gameObject);
-            Destroy(gameObject);
+            Die();
         } 
+    }
+
+    public void Die()
+    {
+        playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
+        xpObject = Instantiate(xpObject, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
+        xpObject.GetComponent<XP>().Amount = xpValue;  //Edit the XP amount of the Created XP object instance
+        if (ShouldPickupDrop())
+        {
+           pickup = Instantiate(pickup, gameObject.transform.position, Quaternion.identity); //Creating the Pickup
+        }
+        enemyDies?.Invoke(gameObject);
+        Destroy(gameObject);
     }
 }

@@ -19,7 +19,6 @@ public class RoomManager : MonoBehaviour
    [field:SerializeField] public List<GameObject> Obstacles {get; set;}
    public static event Action<List<GameObject>> sendObstacles;
    private GameObject startRoom; //The one and only start room instance
-   [SerializeField]private List<GameObject> EnemyListForRooms;
     private NavMeshSurface meshSurface;
 
     public void Awake()
@@ -35,7 +34,6 @@ public class RoomManager : MonoBehaviour
     }
     private void Start()
     {
-        EnemyListForRooms = LayerManager.GetEnemyListFromLayer();
         StartCoroutine(WaitToGenerateRooms());
     }
     public IEnumerator WaitToGenerateRooms()
@@ -89,7 +87,6 @@ public class RoomManager : MonoBehaviour
                     }
                 }
                 newRoom.GetComponent<RoomScript>().Depth = randomDoor.GetComponentInParent<RoomScript>().Depth + 1;
-                newRoom.GetComponent<RoomScript>().EnemiesInRoom = EnemyListForRooms;
                 //We expect the LayerManager to do its thing before the RoomManager (because first the Layer info gets generated, after that the Rooms get Generated based on that)
                 newRoom.GetComponent<RoomScript>().IsReady = true;
             }
@@ -177,7 +174,7 @@ public class RoomManager : MonoBehaviour
             GameObject doorA = availableDoors[i]; //Get the doors
             GameObject doorB = availableDoors[j];
 
-            if (Vector3.Distance(doorA.transform.position, doorB.transform.position) < 0.01f) //Check distance between doors if they are really close/overlap
+            if (Vector3.Distance(doorA.transform.position, doorB.transform.position) < 0.08f) //Check distance between doors if they are really close/overlap
             {
                 doorsToRemove.Add(doorA); //Add doors to later remove into the HashSet
                 doorsToRemove.Add(doorB);

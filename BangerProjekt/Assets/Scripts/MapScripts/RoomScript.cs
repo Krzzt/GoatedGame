@@ -13,9 +13,9 @@ public class RoomScript : MonoBehaviour
    [field:SerializeField] public List<GameObject> AllObstacles{get; set;}
    [field:SerializeField] public bool IsBossRoom{get; set;} = false; //Gets true when its a boss room
    [field:SerializeField] public int Depth{get; set;} //This counts up with how far  from the start room we are
-   [field:SerializeField] public int Budget {get; set;}
-   [field:SerializeField] public List<GameObject> EnemiesInRoom {get; set;}
-   public static Action<List<GameObject>, int> SendEnemyList;
+   [field:SerializeField] public int Budget {get; set;} 
+   public static Action<int> StartWaves;
+   public static Action SpawnBoss;
    [field:SerializeField] public float SpawnpointSpacingToEachOther {get; set;} = 2f; //Public since we may want to change this as layers get deeper (May be replaced by arithmetic with layer number)
    [field:SerializeField] public List<GameObject> Spawnpoints{get; set;} //List of all available Spawnpoints in this room
    //[field:SerializeField] private Camera mainCam; //For future use
@@ -62,6 +62,10 @@ public class RoomScript : MonoBehaviour
          }
       }
         GameManager.roomsCleared++;
+        if (IsBossRoom)
+         {
+         //also do all the fun stuff that boss rooms do like nextLayer shit and stuff
+         }
    }
 
  
@@ -77,9 +81,18 @@ public class RoomScript : MonoBehaviour
             }
          }
             GameManager.SetCurrentRoom(this);
-            Budget = Random.Range(15,41) * LayerManager.CurrentLayerNumber + GameManager.roomsCleared * 3; //currently random number, not set in stone
-            SendEnemyList?.Invoke(EnemiesInRoom, Budget);
-            //send event to start enemy Spawn
+            if (!IsBossRoom) //if its a "normal" room (so no boss room)
+            {
+               Budget = Random.Range(15,41) * LayerManager.CurrentLayerNumber + GameManager.roomsCleared * 3; //currently random number, not set in stone
+               StartWaves?.Invoke(Budget);
+               //send event to start enemy Spawn
+            }
+            else //if we have a boss room
+            {
+               //spawn boss :o
+               SpawnBoss?.Invoke();
+            }
+
       }
     }
 

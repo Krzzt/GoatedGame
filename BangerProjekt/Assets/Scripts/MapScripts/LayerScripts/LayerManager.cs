@@ -8,6 +8,7 @@ public class LayerManager : MonoBehaviour
 {
     [field:SerializeField] public static Layer CurrentLayer {get; set;}
     [field: SerializeField] public static int CurrentLayerNumber { get; set; } = 0;
+    public static Action newLayer;
     private AllLayers AllLayerScript;
 
     private void Awake()
@@ -18,7 +19,13 @@ public class LayerManager : MonoBehaviour
 
     private void Start()
     {
-        NextLayer();
+        StartCoroutine(WaitForNextLayer());
+    }
+
+    private IEnumerator WaitForNextLayer()
+    {
+        yield return new WaitUntil(() => GameManager.seedSet); //wait until the seed is set
+        NextLayer(); //after the seed is set, generate the first layer
     }
 
     private void OnEnable()
@@ -56,14 +63,18 @@ public class LayerManager : MonoBehaviour
         {
             CurrentLayer = AllLayerScript.Layers[0]; //if nothing is found, default to the first in the allLayerScript
         }
-
-
+        newLayer?.Invoke();
     }
 
     public static List<GameObject> GetEnemyListFromLayer()
     {
         return CurrentLayer.SpawnableEnemies;
 
+    }
+
+    public static List<GameObject> GetBossListFromLayer()
+    {
+        return CurrentLayer.SpawnableBosses;
     }
 
     private void SaveLayer()

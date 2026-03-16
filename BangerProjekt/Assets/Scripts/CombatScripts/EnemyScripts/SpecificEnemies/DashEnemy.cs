@@ -20,6 +20,7 @@ public class DashEnemy : Enemy
 
     new void Start()
     {
+        base.Start();
         InvokeRepeating("CheckForDash",0,0.2f);
     }
     void CheckForDash()

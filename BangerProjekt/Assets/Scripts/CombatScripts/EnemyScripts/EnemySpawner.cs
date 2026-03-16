@@ -16,6 +16,8 @@ public class EnemySpawner : MonoBehaviour
     private TMP_Text enemiesAliveText;
     private List<GameObject> spawnPoints = new List<GameObject>();
 
+    private List<GameObject> currentEnemyList = new List<GameObject>();
+
     private void Awake()
     {
         skipButton = GameObject.FindWithTag("SkipWaveButton");
@@ -33,15 +35,24 @@ public class EnemySpawner : MonoBehaviour
     }
     private void OnEnable()
     {
-        RoomScript.SendEnemyList += GenerateWaves;
+        RoomScript.StartWaves += GenerateWaves;
         Enemy.enemyDies += RemoveEnemy;
         GameManager.currRoomChanged += NewSpawnPoints;
+        LayerManager.newLayer += NewEnemyList;
+        RoomScript.SpawnBoss += SpawnBoss;
     }
     private void OnDisable()
     {
-        RoomScript.SendEnemyList -= GenerateWaves;
+        RoomScript.StartWaves -= GenerateWaves;
         Enemy.enemyDies -= RemoveEnemy;
         GameManager.currRoomChanged -= NewSpawnPoints;
+        LayerManager.newLayer -= NewEnemyList;
+        RoomScript.SpawnBoss -= SpawnBoss;
+    }
+
+    public void NewEnemyList()
+    {
+        currentEnemyList = LayerManager.GetEnemyListFromLayer(); //call by reference!
     }
 
     public void CheckForNextWave()
@@ -62,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
         aliveEnemies.Remove(enemyToRemove);
         enemiesAliveText.SetText("Enemies Remaining: " + aliveEnemies.Count);
     }
-    public void GenerateWaves(List<GameObject> enemyList, int budget)
+    public void GenerateWaves(int budget)
     {
             skipButton.SetActive(true);
             enemiesAliveText.gameObject.SetActive(true);
@@ -72,7 +83,7 @@ public class EnemySpawner : MonoBehaviour
             currentWave = 0; //reset waves as this gets called every new room via an event (0 because nextWave does currentwave++)
             enemiesToSpawn.Clear(); //clear previous possible EnemySpawns
             List<Enemy> enemyScriptList = new List<Enemy>();
-            foreach (GameObject enemy in enemyList)
+            foreach (GameObject enemy in currentEnemyList)
             {
                 enemyScriptList.Add(enemy.GetComponent<Enemy>()); //get every enemy component from the GameObjects
             }
@@ -82,11 +93,11 @@ public class EnemySpawner : MonoBehaviour
             //2 Waves = budget * 1.2
             //3 Waves = budget * 1.4
             //...
-            enemiesToSpawn.Add(new List<GameObject>());
+            enemiesToSpawn.Add(new List<GameObject>()); //for good measure
             for (int i = 1; i <= waveAmount; i++) //for every wave
             {
                 enemiesToSpawn.Add(new List<GameObject>());
-                List<GameObject> possibleEnemies = new List<GameObject>(enemyList); //fuck you call by reference (we need to set this as a new list with the old one as a parameter to prevent call by reference)
+                List<GameObject> possibleEnemies = new List<GameObject>(currentEnemyList); //fuck you call by reference (we need to set this as a new list with the old one as a parameter to prevent call by reference)
                 int currentWaveBudget = budget / waveAmount; //if there is a remainder, it just gets killed
                 while (possibleEnemies.Count > 0)
                 {
@@ -156,11 +167,30 @@ public class EnemySpawner : MonoBehaviour
         newEnemy.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
     }
 
+    public void SpawnEnemy(GameObject enemy) //if we want to Spawn a specific enemy
+    {        
+        GameObject newEnemy = Instantiate(enemy);
+        aliveEnemies.Add(newEnemy);
+        enemiesAliveText.SetText("Enemies Remaining: " + aliveEnemies.Count);
+        newEnemy.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
+    }
+
     public void NewSpawnPoints(RoomScript currRoom) //call by reference :)
     {
         spawnPoints.Clear();
         spawnPoints = currRoom.Spawnpoints;
         //the existence of currRoom is theoretically not necessary here, but an event has to give a variable (as far as i know) so why not
+    }
+
+    public void SpawnBoss()
+    {
+        List<GameObject> bosses = new List<GameObject>(LayerManager.GetBossListFromLayer());
+        GameObject bossPrefab = bosses[Random.Range(0,bosses.Count)];
+        GameObject newBoss = Instantiate(bossPrefab);
+        aliveEnemies.Add(newBoss);
+        doneSpawning = true;
+        newBoss.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
+        //for now a random position but we maybe change it later
     }
 
 }
