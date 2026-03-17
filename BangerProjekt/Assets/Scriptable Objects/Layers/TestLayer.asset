@@ -21,4 +21,6 @@ MonoBehaviour:
   - {fileID: 8725753387697175322, guid: 9beefe6043d080d3aa66cd1c14cd42da, type: 3}
   - {fileID: 3380231589268893130, guid: d1f53385dae281428ac1b7c7b24713cb, type: 3}
   <SpawnableExtraRooms>k__BackingField: []
+  <SpawnableBosses>k__BackingField:
+  - {fileID: 8757438703509313758, guid: 177e67783e0a844f58faa437eb700843, type: 3}
   <PossibleLayers>k__BackingField: 010000000200000003000000

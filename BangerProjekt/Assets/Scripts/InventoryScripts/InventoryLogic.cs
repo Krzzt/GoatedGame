@@ -11,7 +11,7 @@ public class InventoryLogic : MonoBehaviour
 
     public static Action<Item> SendItem;
 
-    [field: SerializeField] public static List<Item> ItemsEquipped { get; set; } //Serialized for testing
+    [field: SerializeField] public static Item[] ItemsEquipped { get; set; } = new Item[(int)Enums.SlotTag.None]; //Serialized for testing
 
     public static Action<Item, bool> ChangeItemPlayerStats;
 
@@ -21,14 +21,22 @@ public class InventoryLogic : MonoBehaviour
     {
         allItemList = gameObject.GetComponent<AllItems>();
         InventoryItems = new List<Item>();
-        ItemsEquipped = new List<Item>();
-        for (int i = 0; i < (int)Enums.SlotTag.None; i++)
-        {
-            ItemsEquipped.Add(null);
-        }
+
         ObtainItem(allItemList.Items[1]);
         EquipItem(0);
 
+    }
+
+    private void OnEnable()
+    {
+        SaveManager.SavingGame += SaveInventory;
+        SaveManager.LoadingGame += LoadInventory;
+    }
+
+    private void OnDisable()
+    {
+        SaveManager.SavingGame -= SaveInventory;
+        SaveManager.LoadingGame -= LoadInventory;
     }
 
     public void ObtainItem(Item itemToGet)
@@ -65,27 +73,53 @@ public class InventoryLogic : MonoBehaviour
         Enums.SlotTag tagOfItem = InventoryItems[invIDToEquip].itemTag; //we get the ItemTag
         if (ItemsEquipped[(int)tagOfItem]) //if we already have something equipped at that tag
         {
-            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], false); // false because subtract
+            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], false); // false because we subtract the stats
             Item tempItemSave = ItemsEquipped[(int)tagOfItem];
             ItemsEquipped[(int)tagOfItem] = InventoryItems[invIDToEquip];
             InventoryItems[invIDToEquip] = tempItemSave;
             //standard Swap
-            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], true); // true because we add
+            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], true); // true because we add the stats
 
         }
         else
         {
-            ItemsEquipped[(int)tagOfItem] = InventoryItems[invIDToEquip];
-            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], true); // true because we add
-            //if nothing is equipped, we equip the one we have and increase our stats accordingly
+            EquipFreshItem(InventoryItems[invIDToEquip]); //if nothing is equipped, we call this method
         }
 
 
     }
+
+    public void EquipFreshItem(Item itemToEquip)
+    {
+        ItemsEquipped[(int)itemToEquip.itemTag] = itemToEquip;
+        ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)itemToEquip.itemTag], true); // true because we add the stats
+        InventoryItems.Remove(itemToEquip);
+       //if nothing is equipped, we equip the one we have and increase our stats accordingly
+       //this gets called when the Player has nothing equipped
+    }
     public void UnEquipItem(int tagOfItemInt)
     {
         InventoryItems.Add(ItemsEquipped[tagOfItemInt]);
-        ChangeItemPlayerStats?.Invoke(ItemsEquipped[tagOfItemInt], false); // false because subtract
+        ChangeItemPlayerStats?.Invoke(ItemsEquipped[tagOfItemInt], false); // false because subtract the stats
         ItemsEquipped[tagOfItemInt] = null;
+    }
+
+    private void SaveInventory()
+    {
+        SaveManager.currentSave.InventoryItems = InventoryItems;
+        SaveManager.currentSave.EquippedItems = ItemsEquipped;
+    }
+
+    private void LoadInventory()
+    {
+        InventoryItems = SaveManager.currentSave.InventoryItems;
+        foreach(Item item in SaveManager.currentSave.EquippedItems)
+        {
+            if (item != null)
+            {
+                EquipFreshItem(item);
+            } 
+
+        }
     }
 }

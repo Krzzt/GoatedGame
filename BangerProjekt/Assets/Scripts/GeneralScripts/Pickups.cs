@@ -7,10 +7,12 @@ public class Pickups : MonoBehaviour
     private int type; // what kind of pickup
     [SerializeField] private float duration; // the duration of the buff (SerializeField!)
     private Player playerScript; // getting the player
+    [SerializeField] private List<Sprite> pickupSprites = new List<Sprite>();
     void Awake()
     {
         playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
         type = Random.Range(0, 3); // determining the pickup type
+        gameObject.GetComponent<SpriteRenderer>().sprite = pickupSprites[type];
         //duration = 10.0f; 
     }
 
@@ -18,10 +20,6 @@ public class Pickups : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player")) // detecting if colliding with a player (with Trigger, not collision)
         {
-            //personally i prefer Debug.Log over print
-            //i just checked and the difference is that print does not output to a output.txt when the game is built
-            //irrelevant in this situation but i will change it to Debug.Log for Consistency
-
             playerScript.AddBuff(type, duration); // giving the buff to the player
             Destroy(gameObject); // saving some money by not wasting ram
             /*

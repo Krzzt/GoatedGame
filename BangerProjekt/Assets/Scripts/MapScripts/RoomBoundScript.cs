@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class RoomBoundScript : MonoBehaviour
 {
-private Coroutine safetyCheck; //To check if the player is far enough away from the door to safely shut it without clipping.
 private CompositeCollider2D boundsCollider; //The collider of the parent of this script
 private float safeDistance = -2f; //safety distance, how far you must enter the room to start it
 
@@ -16,39 +15,33 @@ private void Awake()
         boundsCollider = GetComponent<CompositeCollider2D>(); //Set this collider
     }
 void OnTriggerEnter2D(Collider2D player) //Checks if something enters the collider
-{
-    if (player.gameObject.CompareTag("Player") && safetyCheck == null && GetComponentInParent<RoomScript>().State == Enums.RoomState.Uncleared) 
-    //Limits the loop logic to only run if it is a player entering, it isn't already running and if the room hasnt been cleared.
     {
-        safetyCheck = StartCoroutine(ProximityCheck(player)); //Start the check loop
+    if (player.gameObject.CompareTag("Player") && GetComponentInParent<RoomScript>().State == Enums.RoomState.Uncleared) 
+    //Limits the loop logic to only run if it is a player entering and if the room hasnt been cleared.
+    {
+        InvokeRepeating("ProximityCheck",0,0.2f);
     }
-}
+    }
 
     void OnTriggerExit2D(Collider2D player) //Check if the player has left the room while all doors were still open
     {
-        if (player.gameObject.CompareTag("Player") && safetyCheck != null) //and only kill the coroutine if it is running and the trigger caused by a player
+        if (player.gameObject.CompareTag("Player"))
         {
-            StopCoroutine(safetyCheck); //Kill it with fire
-            safetyCheck = null; //and discard its corpse
+            CancelInvoke("ProximityCheck");
         }
         
     }
 
-    IEnumerator ProximityCheck(Collider2D player) //Coroutine
-{
-    while (true) //Now for real start that shit
+    public void ProximityCheck()
     {
-       
-        if (CheckForFullEnter(player)) //Lets see if we are far enough in
+        if (CheckForFullEnter(GameObject.FindWithTag("Player").GetComponent<Collider2D>())) //Lets see if we are far enough in
+        //also we can do this since we know this only gets called for the player and when the player collides in OnTriggerEnter
         {
             GetComponentInParent<RoomScript>().OnRoomEnter(); //Yes we were and now we can call this rooms OnRoomEnter
-            safetyCheck = null; //And reset this check so it might run again if the room hasn't been cleared
-            yield break; //and now leave
-        }
-
-        yield return new WaitForSeconds(0.1f); // Check 10 times a second
+            CancelInvoke("ProximityCheck"); //and kill it
+        }  
     }
-}
+
 
 private bool CheckForFullEnter(Collider2D player)
     {

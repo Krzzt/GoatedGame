@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DashEnemy : Enemy
 {
-    private bool isDashing; 
-
     [SerializeField] private float distanceForDashing; //distance needed until a dash can start (length of the vector)
     [SerializeField] private float dashCooldown;
     private bool dashReady;
@@ -20,26 +18,24 @@ public class DashEnemy : Enemy
         dashReady = true;
     }
 
-    new void FixedUpdate()
+    new void Start()
     {
-        if (!isDashing)
-        {
-            TurnToPlayer();
-        }
-        MoveToPlayer(); //always move to the player but if we are dashing, keep the current direction
+        base.Start();
+        InvokeRepeating("CheckForDash",0,0.2f);
+    }
+    void CheckForDash()
+    {
         if (dashReady && Distance <= distanceForDashing) 
         {
             Dash();
         }
-
     }
 
     public void Dash()
     {
-        isDashing = true;
         dashReady = false;
         MoveSpeed *= dashSpeedIncrease; //increase the dash speed
-        
+        CancelInvoke("TurnToPlayer");
         //start 2 coroutines: 1 to check the dash cooldown and the other to check the dash duration
         StartCoroutine(WaitForDashReady());
         StartCoroutine(WaitForEndDash());
@@ -56,6 +52,6 @@ public class DashEnemy : Enemy
     {
         yield return new WaitForSeconds(dashDuration);
         MoveSpeed /= dashSpeedIncrease;
-        isDashing = false;
+        InvokeRepeating("TurnToPlayer",0,0.2f);
     }
 }

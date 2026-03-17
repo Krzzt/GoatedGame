@@ -35,6 +35,7 @@ public class Weapon : MonoBehaviour
         {
             Shoot(BulletAmount);
         }
+        //could maybe be improved (performance wise) if we get a function that only triggers onMouseDown
     }
 
 

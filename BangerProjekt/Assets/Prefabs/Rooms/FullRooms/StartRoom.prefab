@@ -55,8 +55,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <RoomDoors>k__BackingField:
   - {fileID: 4429532895284555612}
-  <State>k__BackingField: 0
+  <State>k__BackingField: 1
+  <ObstacleSpots>k__BackingField: []
+  <AllObstacles>k__BackingField: []
+  <IsBossRoom>k__BackingField: 0
+  <Depth>k__BackingField: 0
   <EnemiesInRoom>k__BackingField: []
+  <SpawnpointSpacingToEachOther>k__BackingField: 2
+  <Spawnpoints>k__BackingField: []
+  numOfSpawnpoints: 100
+  spawnpointSpacingToWall: 2
 --- !u!1001 &1932402228400135037
 PrefabInstance:
   m_ObjectHideFlags: 0

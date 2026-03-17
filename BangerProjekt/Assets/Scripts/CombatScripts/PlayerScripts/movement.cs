@@ -49,6 +49,7 @@ public class movement : MonoBehaviour
         Turn();
         ProcessInputs();
         Move();
+        //has to be set every frame so the player does not look clunky
     }
 
 

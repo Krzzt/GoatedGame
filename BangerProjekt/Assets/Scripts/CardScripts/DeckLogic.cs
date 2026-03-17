@@ -27,9 +27,22 @@ public class DeckLogic : MonoBehaviour
             }
         }
 
-        drawPile = entireDeck; //all cards go into the drawPile
+        drawPile.AddRange(entireDeck);
         ShuffleDrawPile();
         DrawCards(handSize); //we fill the hand with cards
+    }
+
+    private void OnEnable()
+    {
+        SaveManager.SavingGame += SaveCards;
+        SaveManager.LoadingGame += LoadCards;
+    }
+
+    private void OnDisable()
+    {
+        SaveManager.SavingGame -= SaveCards;
+        SaveManager.LoadingGame -= LoadCards;
+
     }
     public void DrawCards(int amount)
     {
@@ -72,7 +85,7 @@ public class DeckLogic : MonoBehaviour
         }
     }
 
-    public void PlayCard(int indexInHand)
+    public void PlayCard(Card cardToPlay)
     {
         //do a cool effect based in the ID of the card
         //would look probably like switch(cardsInHand[indexInHand].ID) {
@@ -81,8 +94,8 @@ public class DeckLogic : MonoBehaviour
         //....
         //}
 
-        discardPile.Add(cardsInHand[indexInHand]);
-        cardsInHand.RemoveAt(indexInHand);
+        discardPile.Add(cardToPlay);
+        cardsInHand.Remove(cardToPlay);
     }
 
     public void DebugHand() //this is a Debug function to just show every card in hand by name
@@ -91,5 +104,21 @@ public class DeckLogic : MonoBehaviour
         {
             Debug.Log("Card " + i + ": " + cardsInHand[i].Name);
         }
+    }
+
+    private void SaveCards()
+    {
+        SaveManager.currentSave.CardsInHand = cardsInHand;
+        SaveManager.currentSave.EntireDeck = entireDeck;
+        SaveManager.currentSave.DrawPile = drawPile;
+        SaveManager.currentSave.DiscardPile = discardPile;
+    }
+
+    private void LoadCards()
+    {
+        cardsInHand = SaveManager.currentSave.CardsInHand;
+        entireDeck = SaveManager.currentSave.EntireDeck;
+        drawPile = SaveManager.currentSave.DrawPile;
+        discardPile = SaveManager.currentSave.DiscardPile;
     }
 }

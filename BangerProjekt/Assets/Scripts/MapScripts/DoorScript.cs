@@ -5,7 +5,7 @@ public class DoorScript : MonoBehaviour
     [field:SerializeField] public Transform DoorMiddle{get; set;} //The middle part of the door
     [field:SerializeField] public Transform DoorFacing{get; set;} //The facing part of the door
     [field:SerializeField] public Enums.DoorState State{get; set;} = Enums.DoorState.Hidden; //Ohio
-    [field:SerializeField] public DoorScript linkedDoor{get; set;} //The door that is connected to this one
+    [field:SerializeField] public DoorScript LinkedDoor{get; set;} //The door that is connected to this one
 
 
     void Awake()
@@ -14,9 +14,9 @@ public class DoorScript : MonoBehaviour
     }
     public void LinkDoor(DoorScript door) //Link the 2 doors that belong together
     {
-        if (linkedDoor != door) //and link back so you only need to call link on one door
+        if (LinkedDoor != door) //and link back so you only need to call link on one door
         {
-            linkedDoor = door;
+            LinkedDoor = door;
             door.LinkDoor(this);
         }
         PaintDoor(); //Lets paint over it again for good measure (since their state might have changed)
@@ -26,20 +26,20 @@ public class DoorScript : MonoBehaviour
     public void OpenDoor() //Open ni noor
     {
         State = Enums.DoorState.Open;
-        linkedDoor.State = Enums.DoorState.Open;
+        LinkedDoor.State = Enums.DoorState.Open;
         gameObject.GetComponent<BoxCollider2D>().enabled = false; //make it passable
-        linkedDoor.gameObject.GetComponent<BoxCollider2D>().enabled = false; //and even on the linked door
+        LinkedDoor.gameObject.GetComponent<BoxCollider2D>().enabled = false; //and even on the linked door
         PaintDoor(); //Paint paint paint
-        linkedDoor.PaintDoor(); //Some more painting
+        LinkedDoor.PaintDoor(); //Some more painting
     }
         public void LockDoor() //Locked up and ready
     {
         State = Enums.DoorState.Locked;
-        linkedDoor.State = Enums.DoorState.Locked;
+        LinkedDoor.State = Enums.DoorState.Locked;
         gameObject.GetComponent<BoxCollider2D>().enabled = true; //make it not passable
-        linkedDoor.gameObject.GetComponent<BoxCollider2D>().enabled = true;//and even on the linked door
+        LinkedDoor.gameObject.GetComponent<BoxCollider2D>().enabled = true;//and even on the linked door
         PaintDoor(); //Phew it gets tiring slowly
-        linkedDoor.PaintDoor(); //Ohh no my paint brush hurts
+        LinkedDoor.PaintDoor(); //Ohh no my paint brush hurts
     }
 
     public void PaintDoor() //The root of all the art

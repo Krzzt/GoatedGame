@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -19,51 +20,41 @@ public class RangedEnemy : Enemy
 
     [SerializeField] private int bulletAmount;
 
-    private bool canShoot = true;
-
     [SerializeField] private int spreadAngle;
 
-
-    new void FixedUpdate()
+    new void Start()
     {
-        RB.velocity = new Vector2(0,0);
-        TurnToPlayer();
-        if (Distance > distanceForShooting) //if the enemy is further away than he should be for shooting
+        base.Start();
+        InvokeRepeating("Shoot",0,1/fireRate); //fireRate = shots per second so we need 1/fireRate (frequency to time)
+    }
+    private void Shoot()
+    {
+        if (Distance <= distanceForShooting)
         {
-            MoveToPlayer();
-        }
-        else //if the enemy is close enough
-        {
-            if (canShoot) //do not put this in a "else if" above, unless you also want to specify that the distance has to be lower than the if above
+            for(int i = 0; i < bulletAmount ; i++) //shoot as many bullets as the bulletAmount states
             {
-                Shoot(bulletAmount);
-            }
-
+                GameObject newBullet = Instantiate(enemyBulletPrefab,shootingPoint.position, shootingPoint.rotation, gameObject.transform);
+                //all these parameters: we instantiate the bulletPrefab at the position of the shooting point with the rotation of the enemy
+                //the parent of the bullet in the hierarchy will be this gameObject
+                //after getting all the values it needs, the bullet will not be the child of this gameobject anymore
+                //since we dont want the rotation of the gameobject to transfer over to the bullets
+                newBullet.transform.Rotate(new Vector3(0,0,UnityEngine.Random.Range(-spreadAngle,spreadAngle+1)));
+                //should the enemy shoot more than 1 bullet, we get that "Shotgun Spread"
+                newBullet.GetComponent<Rigidbody2D>().AddForce(newBullet.transform.up * shotSpeed, ForceMode2D.Impulse);
+            } 
         }
+
+
     }
-
-
-    private void Shoot(int amount)
+    public new void MoveToPlayer()
     {
-        for(int i = 0; i < amount ; i++)
+        if (Distance > distanceForShooting)
         {
-            GameObject newBullet = Instantiate(enemyBulletPrefab,shootingPoint.position, shootingPoint.rotation, gameObject.transform);
-            //all these parameters: we instantiate the bulletPrefab at the position of the shooting point with the rotation of the enemy
-            //the parent of the bullet in the hierarchy will be this gameObject
-            //after getting all the values it needs, the bullet will not be the child of this gameobject anymore
-            //since we dont want the rotation of the gameobject to transfer over to the bullets
-            newBullet.transform.Rotate(new Vector3(0,0,UnityEngine.Random.Range(-spreadAngle,spreadAngle+1)));
-            //should the enemy shoot more than 1 bullet, we get that "Shotgun Spread"
-            newBullet.GetComponent<Rigidbody2D>().AddForce(newBullet.transform.up * shotSpeed, ForceMode2D.Impulse);
+            base.MoveToPlayer();
         }
-
-        StartCoroutine(ShootingCooldown());
-    }
-
-    private IEnumerator ShootingCooldown()
-    {
-        canShoot = false;
-        yield return new WaitForSeconds(1/fireRate);
-        canShoot = true;
+        else
+        {
+            RB.velocity = new Vector2(0,0);
+        }
     }
 }

@@ -7,11 +7,10 @@ public class StealthEnemy : Enemy
     [SerializeField] private float distanceToStartVisibility;
 
 
-    new void FixedUpdate()
+    new void Start()
     {
-        base.FixedUpdate();
-        SetVisibility();
-
+        base.Start();
+        InvokeRepeating("SetVisibility",0,0.2f);
     }
 
     public void SetVisibility()
