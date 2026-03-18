@@ -4,7 +4,6 @@ about: To simplify the layer feature issues.
 title: "[Layer] Layername"
 labels: Layer
 assignees: ''
-type: Feature
 
 ---
 
