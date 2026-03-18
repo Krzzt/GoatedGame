@@ -28,6 +28,11 @@ type: Feature
 
 ***
 
+- [ ] **Obstacles**:
+    - [ ] Placeholder Obstacle
+
+***
+
 - [ ]  **Sprites**:
     - [ ] Card Background
     - [ ] Floor Tiles
@@ -36,5 +41,6 @@ type: Feature
     - [ ] Items
     - [ ] Card Images
     - [ ] Bosses
+    - [ ] Obstacles
     - [ ] Shop Keeper?
     - [ ] Shop?
