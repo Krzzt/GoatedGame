@@ -31,12 +31,14 @@ public class InventoryLogic : MonoBehaviour
     {
         SaveManager.SavingGame += SaveInventory;
         SaveManager.LoadingGame += LoadInventory;
+        ShopHover.purchaseItem += ObtainItem;
     }
 
     private void OnDisable()
     {
         SaveManager.SavingGame -= SaveInventory;
         SaveManager.LoadingGame -= LoadInventory;
+        ShopHover.purchaseItem -= ObtainItem;
     }
 
     public void ObtainItem(Item itemToGet)
@@ -47,6 +49,8 @@ public class InventoryLogic : MonoBehaviour
         }
         else //if there isnt
         {
+            //probably need to change something here so items CAN lay on the ground. If someone purchases something with a full inv
+            //this item needs to lay on the ground
             Debug.Log("Inventory is full!");
         }
     }

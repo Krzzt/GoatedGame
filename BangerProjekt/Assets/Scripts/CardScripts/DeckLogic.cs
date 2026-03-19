@@ -36,13 +36,23 @@ public class DeckLogic : MonoBehaviour
     {
         SaveManager.SavingGame += SaveCards;
         SaveManager.LoadingGame += LoadCards;
+        ShopHover.purchaseCard += AddCard;
     }
 
     private void OnDisable()
     {
         SaveManager.SavingGame -= SaveCards;
         SaveManager.LoadingGame -= LoadCards;
+        ShopHover.purchaseCard -= AddCard;
 
+    }
+
+    public void AddCard(Card newCard)
+    {
+        entireDeck.Add(newCard);
+        drawPile.Add(newCard);
+        ShuffleDrawPile(); //because we added a new card to the drawpile, we shuffle it again so the new card can appear at any point
+        //but the discard pile stays where it is
     }
     public void DrawCards(int amount)
     {
