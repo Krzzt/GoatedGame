@@ -11,6 +11,7 @@ using UnityEngine.EventSystems;
 public class Item : ScriptableObject // Creating a item class for the standard item
 {   //weapon 
     public float fireRate;
+    public int bulletAmount;
 
     public int damage;
     //armour
