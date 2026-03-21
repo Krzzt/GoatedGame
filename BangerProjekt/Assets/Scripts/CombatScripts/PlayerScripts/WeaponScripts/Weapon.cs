@@ -74,7 +74,7 @@ public abstract class Weapon : MonoBehaviour
         ShotSpeed += CorrespondingItem.ShotSpeed;
         BulletAmount += CorrespondingItem.bulletAmount;
         spreadAngle += CorrespondingItem.SpreadAngle;
-        shotDelay += CorrespondingItem.ShotDelay;
+        shotDelay += CorrespondingItem.ShotDelayOrRange;
         bulletsLeft = BulletAmount;
         //we add everywhere in case the player shit gets called first to add the fucking stats (i dont think it could happen and even if, the stats would affect the old weapon, but fuck it)
     }

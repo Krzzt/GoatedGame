@@ -254,6 +254,7 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 100
   <MoveSpeed>k__BackingField: 5
   <InitialMoveSpeed>k__BackingField: 5
+  fistPrefab: {fileID: 6943489743176248935, guid: 0ab173016f0b2644eb421db9bff929d1, type: 3}
 --- !u!114 &4485591058771625045
 MonoBehaviour:
   m_ObjectHideFlags: 0

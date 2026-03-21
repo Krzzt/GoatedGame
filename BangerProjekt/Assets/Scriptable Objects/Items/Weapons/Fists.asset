@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cae3bbd55f72021c0b0879140b32ff88, type: 3}
-  m_Name: Revolver
+  m_Name: Fists
   m_EditorClassIdentifier: 
-  fireRate: 0.6
-  bulletAmount: 6
-  damage: 2
+  fireRate: 0.5
+  bulletAmount: 2
+  damage: 3
   defense: 0
   healthBonus: 0
-  ID: 3
+  ID: 6
   itemTag: 4
-  itemName: Revolver
+  itemName: Fists
   icon: {fileID: 0}
   itemClasses: 
   itemRarity: 0
-  description: Pew Pew
+  description: cool Spear
   <Cost>k__BackingField: 0
-  <ShotDelayOrRange>k__BackingField: 5
+  <ShotDelayOrRange>k__BackingField: 1
   <SpreadAngle>k__BackingField: 0
-  <ShotSpeed>k__BackingField: 9
-  <BulletPrefab>k__BackingField: {fileID: 3131984643514835129, guid: 6f23d7785a8902b46a2a9daa14d9c42f, type: 3}
-  <CorrespondingPrefab>k__BackingField: {fileID: 7906739187564051936, guid: 44980ecbb68651203bb88616ec38b2a1, type: 3}
+  <ShotSpeed>k__BackingField: 1
+  <BulletPrefab>k__BackingField: {fileID: 1459492833793691368, guid: 2508dc4299e57fb4ba7c9ae53e3e18be, type: 3}
+  <CorrespondingPrefab>k__BackingField: {fileID: 6943489743176248935, guid: 0ab173016f0b2644eb421db9bff929d1, type: 3}

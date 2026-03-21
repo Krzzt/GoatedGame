@@ -32,8 +32,9 @@ public class InventoryLogic : MonoBehaviour
         
         ObtainItem(allItemList.Items[1]); //free dash
         EquipItem(0);
-        ObtainItem(allItemList.Items[4]); //free Blade?
+        ObtainItem(allItemList.Items[3]); //free Revolver??
         EquipItem(0);
+        //UnEquipItem(4); if you want to start with fists :)
     }
     private void OnEnable()
     {
@@ -134,9 +135,19 @@ public class InventoryLogic : MonoBehaviour
     }
     public void UnEquipItem(int tagOfItemInt)
     {
-        InventoryItems.Add(ItemsEquipped[tagOfItemInt]);
-        ChangeItemPlayerStats?.Invoke(ItemsEquipped[tagOfItemInt], false); // false because subtract the stats
+        Item ItemToUnequip = ItemsEquipped[tagOfItemInt];
+        InventoryItems.Add(ItemToUnequip);
         ItemsEquipped[tagOfItemInt] = null;
+        if (ItemToUnequip is WeaponItem)
+        {
+            SendNewWeapon?.Invoke(null); //just dont send a new weapon the PlayerScript does the magic :)
+        }
+        else
+        {
+            ChangeItemPlayerStats?.Invoke(ItemsEquipped[tagOfItemInt], false); // false because subtract the stats
+        }
+
+
     }
 
     private void SaveInventory()

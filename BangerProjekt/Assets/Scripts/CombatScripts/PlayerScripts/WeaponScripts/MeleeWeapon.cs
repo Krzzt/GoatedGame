@@ -5,9 +5,9 @@ using System;
 
 public class MeleeWeapon : Weapon
 {
-    private bool isSwinging = false;
-    private int swingNumber = 0;
-    private GameObject currBlade;
+    protected bool isSwinging = false;
+    protected int swingNumber = 0;
+    protected GameObject currBlade;
     public override void Shoot(int bulletCount)
     {
         CanShoot = false;

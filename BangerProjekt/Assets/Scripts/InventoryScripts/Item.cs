@@ -47,7 +47,7 @@ public class Item : ScriptableObject // Creating a item class for the standard i
         AddStat(sb, "Health Bonus", healthBonus);
         return sb.ToString();
     }
-    private void AddStat(StringBuilder sb, string label, float value, string suffix = "")
+    protected virtual void AddStat(StringBuilder sb, string label, float value, string suffix = "")
     {
         if (value != 0)
         {

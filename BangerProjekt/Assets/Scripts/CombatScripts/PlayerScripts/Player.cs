@@ -8,6 +8,7 @@ public class Player : Unit
 {
 
     private Weapon weaponScript;
+    [SerializeField] private GameObject fistPrefab;
 
     //Start of Card variables --------------------------------
 
@@ -183,14 +184,18 @@ public class Player : Unit
 
     public void NewWeapon(GameObject newWeaponItem)
     {
-        Debug.Log("Setting new Weapon...");
+        if (!newWeaponItem)
+        {
+            newWeaponItem = fistPrefab;
+        }
         Destroy(GameObject.FindWithTag("Weapon")); //the weapon gets fucking blasted
-        GameObject newWeaponObject = Instantiate(newWeaponItem,gameObject.transform); //new weapon yippie
+        GameObject newWeaponObject = Instantiate(newWeaponItem, gameObject.transform);
         Weapon newWeaponScript = newWeaponObject.GetComponent<Weapon>();
         newWeaponScript.Damage += BonusDamage;
         newWeaponScript.FireRate += BonusFireRate;
         //simply adding that shit (might need to get a function later)
-        //set new weapon and add stats    
+        //set new weapon and add stats 
+
     }
     //end of inventory functions
 
