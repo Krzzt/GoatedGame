@@ -190,9 +190,9 @@ public class Player : Unit
         }
         Destroy(GameObject.FindWithTag("Weapon")); //the weapon gets fucking blasted
         GameObject newWeaponObject = Instantiate(newWeaponItem, gameObject.transform);
-        Weapon newWeaponScript = newWeaponObject.GetComponent<Weapon>();
-        newWeaponScript.Damage += BonusDamage;
-        newWeaponScript.FireRate += BonusFireRate;
+        weaponScript = newWeaponObject.GetComponent<Weapon>();
+        weaponScript.Damage += BonusDamage;
+        weaponScript.FireRate += BonusFireRate;
         //simply adding that shit (might need to get a function later)
         //set new weapon and add stats 
 

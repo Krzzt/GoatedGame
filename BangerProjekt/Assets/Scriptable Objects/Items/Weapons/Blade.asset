@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 5
   bulletAmount: 6
-  damage: 3
+  damage: 5
   defense: 0
   healthBonus: 0
   ID: 4
@@ -25,7 +25,7 @@ MonoBehaviour:
   itemRarity: 0
   description: cool Blade
   <Cost>k__BackingField: 0
-  <ShotDelay>k__BackingField: 0
+  <ShotDelayOrRange>k__BackingField: 0
   <SpreadAngle>k__BackingField: 90
   <ShotSpeed>k__BackingField: 3
   <BulletPrefab>k__BackingField: {fileID: 1459492833793691368, guid: 2508dc4299e57fb4ba7c9ae53e3e18be, type: 3}
