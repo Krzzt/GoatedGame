@@ -32,7 +32,7 @@ public class InventoryLogic : MonoBehaviour
         
         ObtainItem(allItemList.Items[1]); //free dash
         EquipItem(0);
-        ObtainItem(allItemList.Items[5]); //free Revolver??
+        ObtainItem(allItemList.Items[3]); //free Revolver??
         EquipItem(0);
         //UnEquipItem(4); if you want to start with fists :)
     }

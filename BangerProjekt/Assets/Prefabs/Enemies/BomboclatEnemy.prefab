@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5160597119346462990}
   - component: {fileID: 6339880479546290565}
   - component: {fileID: 1760573225191666784}
-  - component: {fileID: 8046521909666437933}
   m_Layer: 0
   m_Name: BomboclatIndicator
   m_TagString: Untagged
@@ -121,18 +120,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &8046521909666437933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4733067770283982713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b1332d4799175419f66135a576fbeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6225008022414177484
 GameObject:
   m_ObjectHideFlags: 0

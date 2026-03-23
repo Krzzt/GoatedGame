@@ -11,13 +11,14 @@ public class KamikazeEnemy : Enemy
     [SerializeField] private float timeUntilBomboclat; //the time the player has to react until the enemy actually explodes
 
     private GameObject rangeIndicatorObject; //this is the grey circle that shows the range of the explosion
-    private rangeIndicatorDamageGiver playerInRangeScript;
     private GameObject redIndicator; //this is he growing red circle
 
     private float indicatorGrowPerTick;
     [SerializeField] private float bomboClatSize;
 
     private bool isBomboclating = false;
+
+    private bool isInRange = false;
 
     new void Awake()
     {
@@ -26,7 +27,6 @@ public class KamikazeEnemy : Enemy
         redIndicator = gameObject.transform.GetChild(1).gameObject;
         rangeIndicatorObject.SetActive(false);
         redIndicator.SetActive(false);
-        playerInRangeScript = rangeIndicatorObject.GetComponent<rangeIndicatorDamageGiver>();
     }
 
     new void Start()
@@ -68,7 +68,18 @@ public class KamikazeEnemy : Enemy
     public void Bomboclat()
     {
         //Explode
-        if (playerInRangeScript.PlayerIsInRange)
+        ContactFilter2D filter = new ContactFilter2D();
+        Collider2D[] results = new Collider2D[20];
+        GetComponent<Collider2D>().OverlapCollider(filter, results);
+
+        foreach (Collider2D col in results)
+        {
+            if (col && col.gameObject.CompareTag("Player"))
+            {
+                isInRange = true;
+            }
+        }
+        if (isInRange)
         {
             playerScript.TakeDamage(Damage);
         }
