@@ -14,8 +14,23 @@ public class GameManager : MonoBehaviour
     public static bool isSeeded = false;
     public static bool seedSet = false;
     public static int credits = 0; // Yay Money. WOOOOOO. (Name pending)
+    [field:SerializeField] public List<Weapon> AllWeaponScripts {get; set;}
+    public static GameManager Instance = null;
 
-
+    void Awake()
+    {
+        
+    if (Instance == null) //straight up copied from the discord (thx qutun)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // <--- The Magic Line
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    
+    }
     private void Start()
     {
         //the gameManager Start is loaded after everything else so if something depends on the seed or other things being already loaded from the save in start, it needs to wait via coroutine

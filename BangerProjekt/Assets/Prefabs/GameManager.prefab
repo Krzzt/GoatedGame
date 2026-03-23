@@ -62,7 +62,6 @@ MonoBehaviour:
   tries: 0
   maxTries: 10000000
   <Obstacles>k__BackingField: []
-  EnemyListForRooms: []
 --- !u!114 &6513762326970411520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,8 +197,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9242dc747c6b344e841658bffe2f45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopButton: {fileID: 0}
-  mainCanvas: {fileID: 0}
+  shopPanel: {fileID: 0}
+  itemSpots: []
+  table: {fileID: 0}
+  detailView: {fileID: 0}
+  cardPrefab: {fileID: 0}
+  itemViewPrefab: {fileID: 0}
 --- !u!1 &4786725471986129535
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,6 +325,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cac2bb0ec71f763d980714860a29b0ee, type: 2}
   - {fileID: 11400000, guid: 1b13c2c1c8a5555f3b5f2cd6f1081e14, type: 2}
   - {fileID: 11400000, guid: 58bb1f4cb774556ea8d49ab9cb5ae7e9, type: 2}
+  - {fileID: 11400000, guid: f181f1f0fce92dc49bde8d6204706418, type: 2}
+  - {fileID: 11400000, guid: e643f4846bcbd1b44a9288ff56c58627, type: 2}
+  - {fileID: 11400000, guid: a1d7bfb99b6318043b0ce33cd2f15cc3, type: 2}
+  - {fileID: 11400000, guid: 2aceb7892fb3120458bc3fdc300dfe33, type: 2}
 --- !u!1 &6198578848231318724
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,3 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09107a5855be14f43b280e543409fcd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AllWeaponScripts>k__BackingField:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

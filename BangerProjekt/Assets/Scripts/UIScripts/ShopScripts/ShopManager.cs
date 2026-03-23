@@ -43,7 +43,6 @@ public class ShopManager : MonoBehaviour
     {
         
         Layer layer = LayerManager.CurrentLayer;
-        Debug.Log(layer.name);
          if (layer == null)
          {
              Debug.LogError("CurrentLayer is null in ShopManager");
@@ -60,20 +59,17 @@ public class ShopManager : MonoBehaviour
             itemsToSend.Add(layer.PossibleItems[Random.Range(0, layer.PossibleItems.Count)]); //Pick some items. Currently they may double, but that is not a problem for now and can be changed later if needed
         }
         PlaceItemsOnShelf(itemsToSend);
-        Debug.Log("Trying to place items");
 
         List<Card> cardsToSend = new List<Card>();
         for(int i = 0; i < 5; i++)
         {
             cardsToSend.Add(layer.PossibleCards[Random.Range(0, layer.PossibleCards.Count)]); //same here with the cards
         }
-        Debug.Log("Trying to place cards");
         PlaceCardsOnTable(cardsToSend);
     }
 
         void PlaceCardsOnTable(List<Card> cards)
         {
-        Debug.Log("PlacingCards");
         int cardNumber = 0;
             foreach(Card card in cards)
             { //Make the cards look fancy and put them on the table with the correct info and a shop hover

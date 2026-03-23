@@ -16,6 +16,7 @@ public class RoomScript : MonoBehaviour
    [field:SerializeField] public int Budget {get; set;} 
    public static Action<int> StartWaves;
    public static Action SpawnBoss;
+   public static Action RoomCleared;
    [field:SerializeField] public float SpawnpointSpacingToEachOther {get; set;} = 2f; //Public since we may want to change this as layers get deeper (May be replaced by arithmetic with layer number)
    [field:SerializeField] public List<GameObject> Spawnpoints{get; set;} //List of all available Spawnpoints in this room
    //[field:SerializeField] private Camera mainCam; //For future use
@@ -54,6 +55,7 @@ public class RoomScript : MonoBehaviour
    public void ClearRoom() //This name might change as clear room sounds a bit like it will be emptied but for now it just sets it as Cleared
    {
       State = Enums.RoomState.Cleared;
+      RoomCleared?.Invoke();
       foreach (GameObject door in RoomDoors)
       {
          if(door.GetComponent<DoorScript>().State == Enums.DoorState.Locked) //and unlocks the doors once it is

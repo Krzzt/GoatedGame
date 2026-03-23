@@ -14,7 +14,7 @@ public class PlayerBullet : MonoBehaviour
     private void Awake()
     {
         timeAlive = 20;
-        weaponScript = GameObject.FindWithTag("Player").GetComponent<Weapon>();
+        weaponScript = GameObject.FindWithTag("Weapon").GetComponent<Weapon>();
     }
 
     private void Start()

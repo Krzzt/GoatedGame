@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae3bbd55f72021c0b0879140b32ff88, type: 3}
+  m_Name: Blade
+  m_EditorClassIdentifier: 
+  fireRate: 5
+  bulletAmount: 6
+  damage: 5
+  defense: 0
+  healthBonus: 0
+  ID: 4
+  itemTag: 4
+  itemName: Blade
+  icon: {fileID: 0}
+  itemClasses: 
+  itemRarity: 0
+  description: cool Blade
+  <Cost>k__BackingField: 0
+  <ShotDelayOrRange>k__BackingField: 0
+  <SpreadAngle>k__BackingField: 90
+  <ShotSpeed>k__BackingField: 3
+  <BulletPrefab>k__BackingField: {fileID: 1459492833793691368, guid: 2508dc4299e57fb4ba7c9ae53e3e18be, type: 3}
+  <CorrespondingPrefab>k__BackingField: {fileID: 1658190228276873462, guid: 86326c62a2f28f443a491a937922f141, type: 3}

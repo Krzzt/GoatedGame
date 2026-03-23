@@ -14,6 +14,7 @@ public class InventoryLogic : MonoBehaviour
     [field: SerializeField] public static Item[] ItemsEquipped { get; set; } = new Item[(int)Enums.SlotTag.None]; //Serialized for testing
 
     public static Action<Item, bool> ChangeItemPlayerStats;
+    public static Action<GameObject> SendNewWeapon;
 
     private AllItems allItemList;
 
@@ -22,11 +23,19 @@ public class InventoryLogic : MonoBehaviour
         allItemList = gameObject.GetComponent<AllItems>();
         InventoryItems = new List<Item>();
 
-        ObtainItem(allItemList.Items[1]);
-        EquipItem(0);
 
     }
 
+
+    void Start()
+    {
+        
+        ObtainItem(allItemList.Items[1]); //free dash
+        EquipItem(0);
+        ObtainItem(allItemList.Items[3]); //free Revolver??
+        EquipItem(0);
+        //UnEquipItem(4); if you want to start with fists :)
+    }
     private void OnEnable()
     {
         SaveManager.SavingGame += SaveInventory;
@@ -68,21 +77,34 @@ public class InventoryLogic : MonoBehaviour
     
     public void EquipButton() //this should be used by the button that equips something
     {
-        EquipItem(SelectedItem); //we search for the playerScript and call its equip function
+        EquipItem(SelectedItem); //we call our equip item : )
         //and give the Selected Items slotNumber in the Inventory as an argument
     }
 
     public void EquipItem(int invIDToEquip)
     {
         Enums.SlotTag tagOfItem = InventoryItems[invIDToEquip].itemTag; //we get the ItemTag
+        Debug.Log("The item is: " + InventoryItems[invIDToEquip].name);
         if (ItemsEquipped[(int)tagOfItem]) //if we already have something equipped at that tag
         {
-            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], false); // false because we subtract the stats
             Item tempItemSave = ItemsEquipped[(int)tagOfItem];
-            ItemsEquipped[(int)tagOfItem] = InventoryItems[invIDToEquip];
-            InventoryItems[invIDToEquip] = tempItemSave;
-            //standard Swap
-            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], true); // true because we add the stats
+            if (tempItemSave is WeaponItem) //if we have a weapon
+            {
+                Debug.Log("We equip a weapon wooooooooooo");
+                WeaponItem tempWeapon = (WeaponItem)ItemsEquipped[(int)tagOfItem]; //hope this works
+                ItemsEquipped[(int)tagOfItem] = InventoryItems[invIDToEquip]; //code dupe is forced sadly because of the events :()
+                InventoryItems[invIDToEquip] = tempItemSave; 
+                SendNewWeapon?.Invoke(tempWeapon.CorrespondingPrefab); //gets called in player btw
+            }
+            else //if we do not have a weapon
+            {
+                ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], false); // false because we subtract the stats
+                ItemsEquipped[(int)tagOfItem] = InventoryItems[invIDToEquip];
+                InventoryItems[invIDToEquip] = tempItemSave;
+                //standard Swap
+                ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], true); // true because we add the stats   
+            }
+
 
         }
         else
@@ -96,16 +118,36 @@ public class InventoryLogic : MonoBehaviour
     public void EquipFreshItem(Item itemToEquip)
     {
         ItemsEquipped[(int)itemToEquip.itemTag] = itemToEquip;
-        ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)itemToEquip.itemTag], true); // true because we add the stats
         InventoryItems.Remove(itemToEquip);
-       //if nothing is equipped, we equip the one we have and increase our stats accordingly
-       //this gets called when the Player has nothing equipped
+        if (itemToEquip is WeaponItem)
+        {
+            WeaponItem tempWeapon = (WeaponItem)itemToEquip; //hope this works
+            Debug.Log("shotSpeed: " + tempWeapon.ShotSpeed);
+            SendNewWeapon?.Invoke(tempWeapon.CorrespondingPrefab); //gets called in player btw
+        }
+        else
+        {
+            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)itemToEquip.itemTag], true); // true because we add the stats
+            //if nothing is equipped, we equip the one we have and increase our stats accordingly
+            //this gets called when the Player has nothing equipped 
+        }
+
     }
     public void UnEquipItem(int tagOfItemInt)
     {
-        InventoryItems.Add(ItemsEquipped[tagOfItemInt]);
-        ChangeItemPlayerStats?.Invoke(ItemsEquipped[tagOfItemInt], false); // false because subtract the stats
+        Item ItemToUnequip = ItemsEquipped[tagOfItemInt];
+        InventoryItems.Add(ItemToUnequip);
         ItemsEquipped[tagOfItemInt] = null;
+        if (ItemToUnequip is WeaponItem)
+        {
+            SendNewWeapon?.Invoke(null); //just dont send a new weapon the PlayerScript does the magic :)
+        }
+        else
+        {
+            ChangeItemPlayerStats?.Invoke(ItemsEquipped[tagOfItemInt], false); // false because subtract the stats
+        }
+
+
     }
 
     private void SaveInventory()

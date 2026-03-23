@@ -92,7 +92,7 @@ public class Enemy : Unit
         } 
     }
 
-    public void Die()
+    public virtual void Die()
     {
         playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
         xpObject = Instantiate(xpObject, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable

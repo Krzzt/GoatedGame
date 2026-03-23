@@ -93,7 +93,7 @@ public class Boss0 : Boss
         //and then we turn and move there
     }
 
-    public new void Die()
+    public override void Die()
     {
         List<GameObject> allEnemies = GameObject.FindGameObjectsWithTag("Enemy").ToList();
         foreach(GameObject enemyObject in allEnemies)
