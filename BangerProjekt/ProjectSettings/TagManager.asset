@@ -23,6 +23,8 @@ TagManager:
   - GameOver
   - MiniMapCam
   - MiniMapSquare
+  - CooldownIndicator
+  - AbilityImage
   layers:
   - Default
   - TransparentFX

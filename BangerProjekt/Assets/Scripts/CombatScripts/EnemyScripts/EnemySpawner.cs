@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -11,24 +12,15 @@ public class EnemySpawner : MonoBehaviour
     private int waveAmount;
     private List<GameObject> aliveEnemies = new List<GameObject>();
     private bool doneSpawning = false;
-    private GameObject skipButton;
-    private TMP_Text waveText;
-    private TMP_Text enemiesAliveText;
+
+
     private List<GameObject> spawnPoints = new List<GameObject>();
 
     private List<GameObject> currentEnemyList = new List<GameObject>();
 
-    private void Awake()
-    {
-        skipButton = GameObject.FindWithTag("SkipWaveButton");
-        skipButton.SetActive(false);
-
-        waveText = GameObject.FindWithTag("WaveText").GetComponent<TMP_Text>(); //i prefer tags since they dont change as often as names
-        waveText.gameObject.SetActive(false);
-        enemiesAliveText = GameObject.FindWithTag("EnemiesAliveText").GetComponent<TMP_Text>();
-        enemiesAliveText.gameObject.SetActive(false);
-    }
-
+    public static event Action<int> NewEnemiesRemaining;
+    public static event Action<int, int> NewWaveText;
+    public static event Action LastWave;
     void Start()
     {
         InvokeRepeating("CheckForNextWave",0,0.2f); //checks for next wave / end of room every .2 seconds
@@ -64,22 +56,15 @@ public class EnemySpawner : MonoBehaviour
         if (aliveEnemies.Count == 0 && GameManager.currentRoom.State == Enums.RoomState.Uncleared && doneSpawning) //and the room ur currently in is not cleared and the spawning is finished
         {
            GameManager.currentRoom.ClearRoom();
-            waveText.gameObject.SetActive(false);
-            enemiesAliveText.gameObject.SetActive(false);
         }
     }
     public void RemoveEnemy(GameObject enemyToRemove) //gets called as an event every time an enemy dies
     {
         aliveEnemies.Remove(enemyToRemove);
-        enemiesAliveText.SetText("Enemies Remaining: " + aliveEnemies.Count);
+        NewEnemiesRemaining?.Invoke(aliveEnemies.Count);
     }
     public void GenerateWaves(int budget)
     {
-            skipButton.SetActive(true);
-            enemiesAliveText.gameObject.SetActive(true);
-            enemiesAliveText.SetText("Enemies Remaining: 0");
-            waveText.gameObject.SetActive(true);
-            //Set everything active
             currentWave = 0; //reset waves as this gets called every new room via an event (0 because nextWave does currentwave++)
             enemiesToSpawn.Clear(); //clear previous possible EnemySpawns
             List<Enemy> enemyScriptList = new List<Enemy>();
@@ -123,14 +108,13 @@ public class EnemySpawner : MonoBehaviour
         {
             currentWave++;
             doneSpawning = false;
-            waveText.SetText("Wave " + currentWave + "/" + waveAmount); //only set this now because we want the new number (after the ++)
+            NewWaveText?.Invoke(currentWave, waveAmount);
             StartWaveSpawn();
         }
         else //if we are done spawning
         {
             doneSpawning = true;
-            skipButton.SetActive(false);
-            //Hide the button to skip waves
+            LastWave?.Invoke();
         }
 
     }
@@ -163,14 +147,14 @@ public class EnemySpawner : MonoBehaviour
         GameObject newEnemy = Instantiate(enemiesToSpawn[currentWave][0]);
         enemiesToSpawn[currentWave].RemoveAt(0);
         aliveEnemies.Add(newEnemy);
-        enemiesAliveText.SetText("Enemies Remaining: " + aliveEnemies.Count);
+        NewEnemiesRemaining?.Invoke(aliveEnemies.Count);
         SetEnemyPos(newEnemy);
     }
     public void SpawnEnemy(GameObject enemy) //if we want to Spawn a specific enemy
     {        
         GameObject newEnemy = Instantiate(enemy);
         aliveEnemies.Add(newEnemy);
-        enemiesAliveText.SetText("Enemies Remaining: " + aliveEnemies.Count);
+        NewEnemiesRemaining?.Invoke(aliveEnemies.Count);
         SetEnemyPos(newEnemy);
     }
 

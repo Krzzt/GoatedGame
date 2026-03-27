@@ -16,8 +16,6 @@ public class movement : MonoBehaviour
     private Vector2 moveDirection; //The Vector in which we save the movement direction as a Vector2
 
     private Player playerScript;
-
-    private bool canDash;
     private bool isDashing;
 
     private PlayerControls pc; //playercontrols detects the inputs
@@ -28,7 +26,6 @@ public class movement : MonoBehaviour
         //this is also not possible in inspector because we set the mainCamera to private (to avoid bloating the inspector and we dont need to reference this instance of the MainCamera anywhere
         //playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
         playerScript = gameObject.GetComponent<Player>();
-        canDash = true;
         isDashing = false;
         pc = new PlayerControls();
     }
@@ -76,28 +73,14 @@ public class movement : MonoBehaviour
         rb.rotation = aimAngle; //and set the rotation of the character to this  new rotation (because the character technically always shoots "up", we just rotate this "up" position)
     }
 
-    public void Dash(float speedMult, float dashDuration, float dashCooldown)
+    public void Dash(float speedMult, float dashDuration)
     {
-        if (!canDash) return;
         playerScript.MoveSpeed *= speedMult;  //the player gets really fast
         //Debug.Log("new moveSpeed: " + playerScript.MoveSpeed);
         isDashing = true; 
-        canDash = false;
         StartCoroutine(EndDash(dashDuration,speedMult));
-        StartCoroutine(DashCooldown(dashCooldown));
-        //start 2 coroutines to end the dash and start the cooldown
-
-
-
-
     }
     
-    public IEnumerator DashCooldown(float cooldown)
-    {
-        yield return new WaitForSeconds(cooldown);
-        canDash = true;
-        //dash is up again
-    }
 
     public IEnumerator EndDash(float duration, float speedMult)
     {

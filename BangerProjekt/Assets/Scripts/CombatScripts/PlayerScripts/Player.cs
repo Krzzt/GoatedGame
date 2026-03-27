@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using Random = UnityEngine.Random;
 
 public class Player : Unit
 {
 
     private Weapon weaponScript;
+    private UseAbilities abilityScript;
     [SerializeField] private GameObject fistPrefab;
     [SerializeField] private GameObject GameOverScreen;
 
@@ -36,6 +38,9 @@ public class Player : Unit
     public float BonusFireRate {get; private set;}
     //End of Bonus Stat Variables (for now only Weapon) -----------
 
+    //Start of Item Variables -----------
+    public static event Action<AbilityItem> NewAbility;
+    //End of Item Variables ------------
 
     //_______________________________________________________________________________________________________________
     //START OF FUNCTIONS
@@ -44,6 +49,7 @@ public class Player : Unit
     new void Awake()
     {   
         weaponScript = gameObject.GetComponent<Weapon>(); //gameObject with small g = this.GameObject
+        abilityScript = gameObject.GetComponent<UseAbilities>();
         base.Awake();    
     }
 
@@ -212,6 +218,13 @@ public class Player : Unit
             //defense not implemented
             AddMaxHealth(-itemToChangeStats.healthBonus);
             //if equipment adds / subtracts more stats, this has to be added here
+        }
+        if (itemToChangeStats is AbilityItem)
+        {
+            AbilityItem tempAbility = itemToChangeStats as AbilityItem;
+            abilityScript.Cooldown = tempAbility.AbilityCooldown;
+            NewAbility?.Invoke(tempAbility);
+
         }
 
 

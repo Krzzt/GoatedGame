@@ -8,7 +8,7 @@ using System.Text;
 
 
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Items/Item")]
 public class Item : ScriptableObject // Creating a item class for the standard item
 {   //weapon 
     public float fireRate;

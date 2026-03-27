@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e426954fab93b54f1b424c6a76e51dd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 70be2f99dc455a845a5d4d56dfbf5e20, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
   fireRate: 0
@@ -20,8 +20,9 @@ MonoBehaviour:
   ID: 1
   itemTag: 3
   itemName: Dash
-  icon: {fileID: 0}
+  icon: {fileID: -6753520581118053319, guid: b5405f9efebe87d4a93b638c59109002, type: 3}
   itemClasses: 00000000
   itemRarity: 0
-  description: Dash Wheeee
+  description: Dash wheeee
   <Cost>k__BackingField: 0
+  <AbilityCooldown>k__BackingField: 2

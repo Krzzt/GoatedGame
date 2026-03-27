@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public static bool seedSet = false;
     public static int credits = 0; // Yay Money. WOOOOOO. (Name pending)
     public static GameManager Instance = null;
-    private TMP_Text creditsText;
     public static Action CreditsChanged;
     [field: SerializeField] public GameObject LootChest {  get; set; }
 
@@ -31,7 +30,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        creditsText = GameObject.FindWithTag("CreditsText").GetComponent<TMP_Text>();
+
     }
     private void Start()
     {
@@ -93,7 +92,6 @@ public class GameManager : MonoBehaviour
     public void ChangeCredits(int amount)
     {
         credits += amount;
-        creditsText.SetText("Credits: " + credits);
         CreditsChanged?.Invoke();
         //we change the text here for now
     }

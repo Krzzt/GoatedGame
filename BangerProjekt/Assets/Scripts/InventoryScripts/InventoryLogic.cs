@@ -123,7 +123,7 @@ public class InventoryLogic : MonoBehaviour
         InventoryItems.Remove(itemToEquip);
         if (itemToEquip is WeaponItem)
         {
-            WeaponItem tempWeapon = (WeaponItem)itemToEquip; //hope this works
+            WeaponItem tempWeapon = itemToEquip as WeaponItem; //this works man this is scuffed
             SendNewWeapon?.Invoke(tempWeapon.CorrespondingPrefab); //gets called in player btw
         }
         else

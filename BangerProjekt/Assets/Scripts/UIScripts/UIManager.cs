@@ -1,0 +1,98 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class UIManager : MonoBehaviour
+{
+    //WAVE RELATED
+    private TMP_Text waveText;
+    private TMP_Text enemiesAliveText;
+    private GameObject skipButton;
+    //END OF WAVE RELATED
+
+    //ABILITY RELATED
+    private Image abilityFill;
+    private Image abilityImage;
+    //END OF ABILITY RELATED
+
+    //Credits Text
+    private TMP_Text creditsText;
+    //End of Credits Text
+
+
+    private void Awake()
+    {
+        skipButton = GameObject.FindWithTag("SkipWaveButton");
+        skipButton.SetActive(false);
+        waveText = GameObject.FindWithTag("WaveText").GetComponent<TMP_Text>(); //i prefer tags since they dont change as often as names
+        waveText.gameObject.SetActive(false);
+        enemiesAliveText = GameObject.FindWithTag("EnemiesAliveText").GetComponent<TMP_Text>();
+        enemiesAliveText.gameObject.SetActive(false);
+
+        abilityFill = GameObject.FindWithTag("CooldownIndicator").GetComponent<Image>();
+        SetAbilityFill(0);
+        abilityImage = GameObject.FindWithTag("AbilityImage").GetComponent<Image>();
+
+        creditsText = GameObject.FindWithTag("CreditsText").GetComponent<TMP_Text>();
+    }
+    private void OnEnable()
+    {
+        RoomScript.StartWaves += SetWaveVisible;
+        RoomScript.RoomCleared += SetWaveInvisible;
+        EnemySpawner.NewWaveText += SetWaveText;
+        EnemySpawner.NewEnemiesRemaining += SetEnemiesAliveText;
+        EnemySpawner.LastWave += DisableButton;
+        UseAbilities.SetAbilityUI += SetAbilityFill;
+        Player.NewAbility += SetAbilityImage;
+        GameManager.CreditsChanged += SetCreditText;
+    }
+    public void SetWaveText(int currWave, int maxWave)
+    {
+        waveText.SetText("Wave " + currWave + "/" + maxWave);
+    }
+
+    public void SetWaveVisible(int dontCare)
+    {
+        waveText.gameObject.SetActive(true);
+        enemiesAliveText.gameObject.SetActive(true);
+        SetEnemiesAliveText(0); //reset it yes
+        skipButton.SetActive(true);
+    }
+
+    public void DisableButton()
+    {
+        skipButton.SetActive(false);
+    }
+
+    public void SetWaveInvisible()
+    {
+        waveText.gameObject.SetActive(false);
+        enemiesAliveText.gameObject.SetActive(false);
+        skipButton.SetActive(false);
+    }
+
+    public void SetEnemiesAliveText(int amount)
+    {
+        enemiesAliveText.SetText("Enemies Remaining: " + amount);
+    }
+
+    public void SetAbilityFill(float fillAmount)
+    {
+        abilityFill.fillAmount = fillAmount;
+    }
+
+    public void SetAbilityImage(AbilityItem item)
+    {
+        abilityImage.sprite = item.icon;
+    }
+
+    public void SetCreditText()
+    {
+        creditsText.SetText("Credits: " + GameManager.credits);
+    }
+
+
+}
