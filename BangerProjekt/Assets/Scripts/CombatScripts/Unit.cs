@@ -31,7 +31,7 @@ public class Unit : MonoBehaviour
             CurrentHealth -= damageAmount;
         }
         //subtract damage Taken from the currentHealth
-        //this Script does NOT handle dying!!!! Dying needs to be handled in different scripts
+        //this Script does NOT handle dying!!!! Dying needs to be handled in children scripts
 
     }
 

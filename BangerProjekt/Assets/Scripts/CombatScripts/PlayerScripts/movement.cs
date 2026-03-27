@@ -77,19 +77,17 @@ public class movement : MonoBehaviour
     }
 
     public void Dash(float speedMult, float dashDuration, float dashCooldown)
-    {   
-        if (canDash)
-        {
-            playerScript.MoveSpeed *= speedMult;  //the player gets really fast
-            //Debug.Log("new moveSpeed: " + playerScript.MoveSpeed);
-            isDashing = true; 
-            canDash = false;
-            StartCoroutine(EndDash(dashDuration,speedMult));
-            StartCoroutine(DashCooldown(dashCooldown));
-            //start 2 coroutines to end the dash and start the cooldown
+    {
+        if (!canDash) return;
+        playerScript.MoveSpeed *= speedMult;  //the player gets really fast
+        //Debug.Log("new moveSpeed: " + playerScript.MoveSpeed);
+        isDashing = true; 
+        canDash = false;
+        StartCoroutine(EndDash(dashDuration,speedMult));
+        StartCoroutine(DashCooldown(dashCooldown));
+        //start 2 coroutines to end the dash and start the cooldown
 
 
-        }
 
 
     }

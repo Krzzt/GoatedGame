@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class RoomScript : MonoBehaviour
 {
-   [field:SerializeField] public List<GameObject> RoomDoors{get; set;} //Doors this room has
+   [field:SerializeField] public List<GameObject> RoomDoors{get; set;} //Doors this room has.
    [field:SerializeField] public Enums.RoomState State {get; private set;} = Enums.RoomState.Uncleared; //The state of the room
    [field:SerializeField] public List<Transform> ObstacleSpots{get; set;}
    [field:SerializeField] public List<GameObject> AllObstacles{get; set;}
@@ -86,29 +86,30 @@ public class RoomScript : MonoBehaviour
  
     public void OnRoomEnter() //Gets called by RoomBoundScript on each rooms bounds and that checks if the player is inside of the room
     {
-      if (State == Enums.RoomState.Uncleared && IsReady)
+      if (!(State == Enums.RoomState.Uncleared && IsReady))
       {
-         foreach (GameObject door in RoomDoors) //This locks the doors of the room so he may not leave until the room is cleared
-         {
-            if(door.GetComponent<DoorScript>().State == Enums.DoorState.Open)
-            {
-               door.GetComponent<DoorScript>().LockDoor();
-            }
-         }
-            GameManager.SetCurrentRoom(this);
-            if (!IsBossRoom) //if its a "normal" room (so no boss room)
-            {
-               Budget = Random.Range(15,41) * LayerManager.CurrentLayerNumber + GameManager.roomsCleared * 3; //currently random number, not set in stone
-               StartWaves?.Invoke(Budget);
-               //send event to start enemy Spawn
-            }
-            else //if we have a boss room
-            {
-               //spawn boss :o
-               SpawnBoss?.Invoke();
-            }
-
+        return;
       }
+      foreach (GameObject door in RoomDoors) //This locks the doors of the room so he may not leave until the room is cleared  
+      {
+        if (door.GetComponent<DoorScript>().State == Enums.DoorState.Open)
+        {
+            door.GetComponent<DoorScript>().LockDoor();
+        }
+      }
+      GameManager.SetCurrentRoom(this);
+      if (!IsBossRoom) //if its a "normal" room (so no boss room)
+      {
+        Budget = Random.Range(15, 41) * LayerManager.CurrentLayerNumber + GameManager.roomsCleared * 3; //currently random number, not set in stone
+        StartWaves?.Invoke(Budget);
+        //send event to start enemy Spawn
+      }
+      else //if we have a boss room
+      {
+      //spawn boss :o
+      SpawnBoss?.Invoke();
+      }
+
     }
 
     public void GenerateSpawnPoints() //Generate the Spawnpoints of the Room (Why am i even explaining self explanatory names?)
@@ -185,12 +186,12 @@ public class RoomScript : MonoBehaviour
         bool shouldBeVisible = false;
         foreach (GameObject door in RoomDoors)
         {
-            if (door.GetComponent<DoorScript>().State == Enums.DoorState.Open)
+            if (door.GetComponent<DoorScript>().State == Enums.DoorState.Open) //basically if any door is open in the room, it should be visible
             {
                 shouldBeVisible = true;
             }
         }
-        foreach(Transform obj in transform)
+        foreach(Transform obj in transform) //then we set every object to either visible or invisible, except for the BG, since it needs its own layer
         {
             if (obj.gameObject.layer != 6) //if we even want to change
             {
@@ -206,7 +207,7 @@ public class RoomScript : MonoBehaviour
 
         }
         List<GameObject> squares = new List<GameObject>(GameObject.FindGameObjectsWithTag("MiniMapSquare")).FindAll(g => g.transform.IsChildOf(this.transform));
-        foreach (GameObject s in squares)
+        foreach (GameObject s in squares) //to find the BG, we find every MiniMapSquare Object in the Room itself, and set them individually
         {
             if (shouldBeVisible)
             {
@@ -216,7 +217,8 @@ public class RoomScript : MonoBehaviour
             {
                 s.layer = 7;
             }
-            if (IsCleared())
+
+            if (IsCleared()) //after that we give colors based upon the State of the room
             {
                 s.GetComponent<SpriteRenderer>().color = new Color(0.035f, 0.566f, 0.16f,1f);
             }

@@ -90,19 +90,15 @@ public class Player : Unit
     //Start of HP related functions -----------------------------
     public void TakeDamage(int amount)
     {
-        if (!IsImmune)
-        {
-            //This damage currently does not involve something like immunity frames or shit like that
-            //also every enemy damages you on collision, if you hug them forever, you only take damage once!
-            DamageUnit(amount);
-            AddImmunityFrames(ImmuFramesOnHit);
-            PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), amount.ToString(), Color.red);
-            //Update the Healthbar if existent
-            if (CurrentHealth <= 0)
-            {
-                Die();
-            }
-        }
+        if (IsImmune) return;
+        if (amount <= 0) return;
+        //This damage currently does not involve something like immunity frames or shit like that
+        //also every enemy damages you on collision, if you hug them forever, you only take damage once!
+        DamageUnit(amount);
+        AddImmunityFrames(ImmuFramesOnHit);
+        PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), amount.ToString(), Color.red);
+        //Update the Healthbar if existent
+        if (CurrentHealth <= 0) Die();
     }
 
     public void Heal(int amount)
@@ -149,7 +145,6 @@ public class Player : Unit
     //start of Pickup related functions ------------------
     public void AddBuff(int pickupType, float pickupDuration) 
     {
-        
             switch (pickupType) // determinate the typ of pickup 
             {
                 case 0: // Speed
@@ -198,28 +193,27 @@ public class Player : Unit
     //start of inventory functions -----------------------
     public void ChangeItemStats(Item itemToChangeStats, bool addSub)
     {
-        if (itemToChangeStats) //to catch errors, see if an item even got sent
+        if (!itemToChangeStats) //to catch errors, see if an item even got sent
         {
-            if (addSub)
-            {
-                BonusDamage += itemToChangeStats.damage;
-                BonusFireRate += itemToChangeStats.fireRate; //because firerate is a frequency
-                                                             //defense not implemented
-                AddMaxHealth(itemToChangeStats.healthBonus);
-            }
-            else
-            {
-                BonusDamage -= itemToChangeStats.damage;
-                BonusFireRate -= itemToChangeStats.fireRate; //because firerate is a frequency
-                                                             //defense not implemented
-                AddMaxHealth(-itemToChangeStats.healthBonus);
-                //if equipment adds / subtracts more stats, this has to be added here
-            }
+            Debug.LogError("no item sent!");
+            return;
+        }
+        if (addSub)
+        {
+            BonusDamage += itemToChangeStats.damage;
+            BonusFireRate += itemToChangeStats.fireRate; //because firerate is a frequency
+            //defense not implemented
+            AddMaxHealth(itemToChangeStats.healthBonus);
         }
         else
         {
-            Debug.Log("no item sent!");
+            BonusDamage -= itemToChangeStats.damage;
+            BonusFireRate -= itemToChangeStats.fireRate; //because firerate is a frequency
+            //defense not implemented
+            AddMaxHealth(-itemToChangeStats.healthBonus);
+            //if equipment adds / subtracts more stats, this has to be added here
         }
+
 
 
     }

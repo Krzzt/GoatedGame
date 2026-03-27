@@ -95,8 +95,11 @@ public class Enemy : Unit
     public virtual void Die()
     {
         playerObject.GetComponent<Player>().KillCount++; //killcount goes up by 1
-        xpObject = Instantiate(xpObject, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
-        xpObject.GetComponent<XP>().Amount = xpValue;  //Edit the XP amount of the Created XP object instance
+        if (xpObject)
+        {
+            xpObject = Instantiate(xpObject, gameObject.transform.position, Quaternion.identity); //Create an XP GameObject and make it Addressable
+            xpObject.GetComponent<XP>().Amount = xpValue;  //Edit the XP amount of the Created XP object instance
+        }
         if (ShouldPickupDrop())
         {
            pickup = Instantiate(pickup, gameObject.transform.position, Quaternion.identity); //Creating the Pickup

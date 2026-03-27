@@ -29,6 +29,7 @@ public class UseAbilities : MonoBehaviour
                 break;
             case 2: //big Damage
                 //nothing because the gimmick is to not have an ability
+                playerScript.AddBonusDamage(3); //idk 3 damage i guess
                 break;
         }
     }

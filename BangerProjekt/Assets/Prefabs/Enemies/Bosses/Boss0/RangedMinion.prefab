@@ -17,6 +17,10 @@ PrefabInstance:
       value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 116634397884239882, guid: d1f53385dae281428ac1b7c7b24713cb, type: 3}
+      propertyPath: xpObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 116634397884239882, guid: d1f53385dae281428ac1b7c7b24713cb, type: 3}
       propertyPath: shotSpeed
       value: 3
       objectReference: {fileID: 0}

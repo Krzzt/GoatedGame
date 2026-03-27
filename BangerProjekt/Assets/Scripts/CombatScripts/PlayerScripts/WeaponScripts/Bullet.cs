@@ -43,7 +43,7 @@ public class PlayerBullet : MonoBehaviour
             }
 
         }
-        if (currObject.CompareTag("Wall") || currObject.CompareTag("Door")) //if the bullets collide with a wall
+        else if (currObject.CompareTag("Wall") || currObject.CompareTag("Door")) //if the bullets collide with a wall
         {
             Destroy(gameObject); //destroy the bullet
         }
