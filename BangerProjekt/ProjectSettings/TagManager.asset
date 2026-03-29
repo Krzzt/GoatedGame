@@ -25,6 +25,8 @@ TagManager:
   - MiniMapSquare
   - CooldownIndicator
   - AbilityImage
+  - Debug
+  - UIManager
   layers:
   - Default
   - TransparentFX

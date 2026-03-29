@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -26,12 +27,11 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         skipButton = GameObject.FindWithTag("SkipWaveButton");
-        skipButton.SetActive(false);
+        //skipButton.SetActive(false);
         waveText = GameObject.FindWithTag("WaveText").GetComponent<TMP_Text>(); //i prefer tags since they dont change as often as names
-        waveText.gameObject.SetActive(false);
+        //waveText.gameObject.SetActive(false);
         enemiesAliveText = GameObject.FindWithTag("EnemiesAliveText").GetComponent<TMP_Text>();
-        enemiesAliveText.gameObject.SetActive(false);
-
+        //enemiesAliveText.gameObject.SetActive(false);
         abilityFill = GameObject.FindWithTag("CooldownIndicator").GetComponent<Image>();
         SetAbilityFill(0);
         abilityImage = GameObject.FindWithTag("AbilityImage").GetComponent<Image>();
@@ -56,22 +56,30 @@ public class UIManager : MonoBehaviour
 
     public void SetWaveVisible(int dontCare)
     {
-        waveText.gameObject.SetActive(true);
-        enemiesAliveText.gameObject.SetActive(true);
-        SetEnemiesAliveText(0); //reset it yes
-        skipButton.SetActive(true);
+        if (waveText && enemiesAliveText && skipButton)
+        {
+            waveText.gameObject.SetActive(true);
+            enemiesAliveText.gameObject.SetActive(true);
+            SetEnemiesAliveText(0); //reset it yes
+            skipButton.SetActive(true);
+        }
     }
 
     public void DisableButton()
     {
-        skipButton.SetActive(false);
+        if (skipButton) skipButton.SetActive(false);
+
     }
 
     public void SetWaveInvisible()
     {
-        waveText.gameObject.SetActive(false);
-        enemiesAliveText.gameObject.SetActive(false);
-        skipButton.SetActive(false);
+        if (waveText && enemiesAliveText && skipButton)
+        {
+            waveText.gameObject.SetActive(false);
+            enemiesAliveText.gameObject.SetActive(false);
+            skipButton.SetActive(false);
+        }
+
     }
 
     public void SetEnemiesAliveText(int amount)
@@ -81,7 +89,8 @@ public class UIManager : MonoBehaviour
 
     public void SetAbilityFill(float fillAmount)
     {
-        abilityFill.fillAmount = fillAmount;
+        if (abilityFill) abilityFill.fillAmount = fillAmount;
+
     }
 
     public void SetAbilityImage(AbilityItem item)
@@ -92,6 +101,13 @@ public class UIManager : MonoBehaviour
     public void SetCreditText()
     {
         creditsText.SetText("Credits: " + GameManager.credits);
+    }
+
+    public void ChangeInput(InputAction inputToChange)
+    {
+        var rebindOperation = inputToChange.PerformInteractiveRebinding().WithCancelingThrough("<Keyboard>/escape"); //cancelled with escape
+        rebindOperation.OnMatchWaitForAnother(0.1f); //to wait shortly after the input is pressed
+        rebindOperation.Start();
     }
 
 

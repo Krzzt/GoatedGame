@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public class Player : Unit
 {
@@ -50,7 +51,9 @@ public class Player : Unit
     {   
         weaponScript = gameObject.GetComponent<Weapon>(); //gameObject with small g = this.GameObject
         abilityScript = gameObject.GetComponent<UseAbilities>();
-        base.Awake();    
+        base.Awake();
+
+
     }
 
 
