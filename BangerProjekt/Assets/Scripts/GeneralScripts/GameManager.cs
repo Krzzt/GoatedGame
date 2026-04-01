@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public static int credits = 0; // Yay Money. WOOOOOO. (Name pending)
     public static GameManager Instance = null;
     public static Action CreditsChanged;
+    [field:SerializeField] public TMP_FontAsset GameFont {  get; set; }
     [field: SerializeField] public GameObject LootChest {  get; set; }
 
     void Awake()

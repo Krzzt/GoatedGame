@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,7 +15,8 @@ public class CharacterSelect : MonoBehaviour
 
     private InputField seedInput;
 
-
+    [SerializeField] private GameObject titleScreen;
+    [SerializeField] private TMP_Text selectedText;
     
     private void OnEnable()
     {
@@ -35,6 +37,7 @@ public class CharacterSelect : MonoBehaviour
     {
         classSelected = classToPick;
         newSaveState = new SaveState(classSelected);
+        selectedText.SetText("Selected Class: " + classSelected.Name);
     }
 
     public void SetSeed(string input)
@@ -69,5 +72,11 @@ public class CharacterSelect : MonoBehaviour
         StartCoroutine(SaveManager.SaveGame());
 
 
+    }
+
+    public void LoadTitleScreen()
+    {
+        titleScreen.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
