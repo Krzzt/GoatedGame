@@ -20,8 +20,8 @@ public static class Enums
         public enum Class //CAPITAL C means not class
     {
         Universal, //0 = Universal
-        Fighter, //1 = Fighter
-        Mage //2 = Mage
+        Cowboy,
+        Knight
         //This is currently just for testing purposes, these Classes are not depicting actual classes we want later
     }
     public enum SlotTag

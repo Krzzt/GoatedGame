@@ -73,10 +73,10 @@ public abstract class Weapon : MonoBehaviour
     public void SetItemStats()
     {
         bulletPrefab = CorrespondingItem.BulletPrefab;
-        Damage += CorrespondingItem.damage;
-        FireRate += CorrespondingItem.fireRate;
+        Damage += CorrespondingItem.Damage;
+        FireRate += CorrespondingItem.FireRate;
         ShotSpeed += CorrespondingItem.ShotSpeed;
-        BulletAmount += CorrespondingItem.bulletAmount;
+        BulletAmount += CorrespondingItem.BulletAmount;
         spreadAngle += CorrespondingItem.SpreadAngle;
         shotDelay += CorrespondingItem.ShotDelayOrRange;
         bulletsLeft = BulletAmount;

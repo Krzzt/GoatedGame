@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70be2f99dc455a845a5d4d56dfbf5e20, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
-  fireRate: 0
-  bulletAmount: 0
-  damage: 0
-  defense: 0
-  healthBonus: 0
-  ID: 1
-  itemTag: 3
-  itemName: Dash
-  icon: {fileID: -6753520581118053319, guid: b5405f9efebe87d4a93b638c59109002, type: 3}
-  itemClasses: 00000000
-  itemRarity: 0
-  description: Dash wheeee
+  <FireRate>k__BackingField: 0
+  <BulletAmount>k__BackingField: 0
+  <Damage>k__BackingField: 0
+  <Defense>k__BackingField: 0
+  <HealthBonus>k__BackingField: 0
+  <ID>k__BackingField: 1
+  <ItemTag>k__BackingField: 3
+  <ItemName>k__BackingField: Dash
+  <Icon>k__BackingField: {fileID: -6753520581118053319, guid: b5405f9efebe87d4a93b638c59109002, type: 3}
+  <ItemClasses>k__BackingField: 
+  <ItemRarity>k__BackingField: 0
+  <Description>k__BackingField: Whoosh
   <Cost>k__BackingField: 0
   <AbilityCooldown>k__BackingField: 2

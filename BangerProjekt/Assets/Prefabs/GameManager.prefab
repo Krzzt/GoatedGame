@@ -485,4 +485,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09107a5855be14f43b280e543409fcd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <GameFont>k__BackingField: {fileID: 11400000, guid: e3a99922838e77649a024f1543af470c, type: 2}
   <LootChest>k__BackingField: {fileID: 7365225781240671842, guid: e59f07af595f6c04181197bf8e1f224f, type: 3}

@@ -102,7 +102,7 @@ public class ShopManager : MonoBehaviour
 
         for(int i = 0; i < 4; i++)
         {
-            itemSpots[i].GetComponent<Image>().sprite = items[i].icon;
+            itemSpots[i].GetComponent<Image>().sprite = items[i].Icon;
             ShopHover hover = itemSpots[i].GetComponent<ShopHover>();
              if (hover == null)
              {

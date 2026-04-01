@@ -32,6 +32,7 @@ public class Player : Unit
 
     [field: SerializeField] public int ImmuFramesOnHit; //how many frames of Immunity the player gets on hit (no shit sherlock)
 
+    [field: SerializeField] public Class PlayerClass { get; set;}
     //End of general Player variables -------------------------
 
     //Start of Bonus Stat Variables (for now only Weapon) --------
@@ -49,7 +50,7 @@ public class Player : Unit
     //Start of Unity specific functions ----------------------------
     new void Awake()
     {   
-        weaponScript = gameObject.GetComponent<Weapon>(); //gameObject with small g = this.GameObject
+        weaponScript = GameObject.FindWithTag("Weapon").GetComponent<Weapon>(); //gameObject with small g = this.GameObject
         abilityScript = gameObject.GetComponent<UseAbilities>();
         base.Awake();
 
@@ -142,10 +143,12 @@ public class Player : Unit
     {
         level++;
         requiredExp = (int)(requiredExp * 1.5f);
-        Debug.Log("Level Up!");
-        AddBonusDamage(1); //do 1 extra Damage
+        if (level % 2 == 0)
+        {
+            AddBonusDamage(1); //do 1 extra Damage
+            AddBonusFireRate(0.1f); //slightly higher fireRate
+        }
         AddMaxHealth(10); //get 10 max Health
-        AddBonusFireRate(0.1f); //slightly higher fireRate
         PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), "Level Up!", Color.yellow);
         //stat increase probably
     }
@@ -209,17 +212,18 @@ public class Player : Unit
         }
         if (addSub)
         {
-            BonusDamage += itemToChangeStats.damage;
-            BonusFireRate += itemToChangeStats.fireRate; //because firerate is a frequency
+            AddBonusDamage(itemToChangeStats.Damage);
+            AddBonusFireRate(itemToChangeStats.FireRate);
             //defense not implemented
-            AddMaxHealth(itemToChangeStats.healthBonus);
+            AddMaxHealth(itemToChangeStats.HealthBonus);
+            Debug.Log("Bonus DMG (ChangeItemStats): " + BonusDamage);
         }
         else
         {
-            BonusDamage -= itemToChangeStats.damage;
-            BonusFireRate -= itemToChangeStats.fireRate; //because firerate is a frequency
+            AddBonusDamage(-itemToChangeStats.Damage);
+            AddBonusFireRate(-itemToChangeStats.FireRate);
             //defense not implemented
-            AddMaxHealth(-itemToChangeStats.healthBonus);
+            AddMaxHealth(-itemToChangeStats.HealthBonus);
             //if equipment adds / subtracts more stats, this has to be added here
         }
         if (itemToChangeStats is AbilityItem)
@@ -236,6 +240,7 @@ public class Player : Unit
 
     public void NewWeapon(GameObject newWeaponItem)
     {
+        Debug.Log("NewWeapon called");
         if (!newWeaponItem)
         {
             newWeaponItem = fistPrefab;
@@ -243,8 +248,8 @@ public class Player : Unit
         Destroy(GameObject.FindWithTag("Weapon")); //the weapon gets fucking blasted
         GameObject newWeaponObject = Instantiate(newWeaponItem, gameObject.transform);
         weaponScript = newWeaponObject.GetComponent<Weapon>();
-        AddBonusDamage(0);
-        AddBonusFireRate(0);
+        weaponScript.Damage += BonusDamage;
+        weaponScript.FireRate += BonusFireRate;
         //both 0 to just add the extra damage
         //simply adding that shit (might need to get a function later)
         //set new weapon and add stats 
@@ -252,9 +257,11 @@ public class Player : Unit
     }
     public void AddBonusDamage(int amount)
     {
+        Debug.Log("AddBonusDamage Called. current BonusDMG: " + BonusDamage);
         weaponScript.Damage -= BonusDamage; //subtract so we can add everything at the end
         BonusDamage += amount;
         weaponScript.Damage += BonusDamage;
+        Debug.Log("End of BONUSDMG. BonusDMG: " + BonusDamage);
     }
     public void AddBonusFireRate(float amount)
     {
@@ -268,11 +275,22 @@ public class Player : Unit
     private void SaveStats()
     {
         SaveManager.currentSave.EnemiesKilled = KillCount;
+        SaveManager.currentSave.Level = level;
+        SaveManager.currentSave.PlayerClass = PlayerClass;
     }
 
     private void LoadStats()
     {
         KillCount = SaveManager.currentSave.EnemiesKilled;
+        level = SaveManager.currentSave.Level;
+        PlayerClass = SaveManager.currentSave.PlayerClass;
+        //literally just set everything from the Class
+        InitialMoveSpeed = PlayerClass.StartingMoveSpeed;
+        MoveSpeed += PlayerClass.StartingMoveSpeed;
+        AddBonusDamage(PlayerClass.StartingBonusDamage);
+        AddBonusFireRate(PlayerClass.StartingBonusFireRate);
+        AddMaxHealth(PlayerClass.StartingHealth);
+        Debug.Log("Bonus DMG (Loading)" + BonusDamage);
     }
     //End of Saving/Loading Function
 

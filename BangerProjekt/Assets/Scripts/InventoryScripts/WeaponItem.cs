@@ -16,12 +16,12 @@ public class WeaponItem : Item
     public override string BuildStatString()
     {
         StringBuilder sb = new StringBuilder();
-        AddStat(sb, "Damage", damage);
-        AddStat(sb, "Fire Rate", fireRate);
+        AddStat(sb, "Damage", Damage);
+        AddStat(sb, "Fire Rate", FireRate);
         AddStat(sb, "ShotSpeed", ShotSpeed);
         //maybe something for Spears with range or some shit but i dont care i hate this shit :(
-        AddStat(sb, "Defense", defense);
-        AddStat(sb, "Health Bonus", healthBonus);
+        AddStat(sb, "Defense", Defense);
+        AddStat(sb, "Health Bonus", HealthBonus);
         //i guess if some weapons wanna do it go for it???
         return sb.ToString();
     }

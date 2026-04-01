@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae3bbd55f72021c0b0879140b32ff88, type: 3}
   m_Name: Blade
   m_EditorClassIdentifier: 
-  fireRate: 5
-  bulletAmount: 6
-  damage: 5
-  defense: 0
-  healthBonus: 0
-  ID: 4
-  itemTag: 2
-  itemName: Blade
-  icon: {fileID: 0}
-  itemClasses: 
-  itemRarity: 0
-  description: cool Blade
+  <FireRate>k__BackingField: 1
+  <BulletAmount>k__BackingField: 3
+  <Damage>k__BackingField: 9
+  <Defense>k__BackingField: 0
+  <HealthBonus>k__BackingField: 0
+  <ID>k__BackingField: 4
+  <ItemTag>k__BackingField: 2
+  <ItemName>k__BackingField: Blade
+  <Icon>k__BackingField: {fileID: 0}
+  <ItemClasses>k__BackingField: 
+  <ItemRarity>k__BackingField: 0
+  <Description>k__BackingField: 
   <Cost>k__BackingField: 0
   <DamageMult>k__BackingField: 1
   <ShotDelayOrRange>k__BackingField: 0
   <SpreadAngle>k__BackingField: 90
-  <ShotSpeed>k__BackingField: 3
+  <ShotSpeed>k__BackingField: 4
   <BulletPrefab>k__BackingField: {fileID: 1459492833793691368, guid: 2508dc4299e57fb4ba7c9ae53e3e18be, type: 3}
   <CorrespondingPrefab>k__BackingField: {fileID: 1658190228276873462, guid: 86326c62a2f28f443a491a937922f141, type: 3}

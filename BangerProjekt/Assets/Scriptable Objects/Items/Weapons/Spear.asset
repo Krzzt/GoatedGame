@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae3bbd55f72021c0b0879140b32ff88, type: 3}
   m_Name: Spear
   m_EditorClassIdentifier: 
-  fireRate: 5
-  bulletAmount: 2
-  damage: 8
-  defense: 0
-  healthBonus: 0
-  ID: 5
-  itemTag: 2
-  itemName: Spear
-  icon: {fileID: 0}
-  itemClasses: 
-  itemRarity: 0
-  description: cool Spear
+  <FireRate>k__BackingField: 1
+  <BulletAmount>k__BackingField: 0
+  <Damage>k__BackingField: 0
+  <Defense>k__BackingField: 0
+  <HealthBonus>k__BackingField: 0
+  <ID>k__BackingField: 5
+  <ItemTag>k__BackingField: 2
+  <ItemName>k__BackingField: Spear
+  <Icon>k__BackingField: {fileID: 0}
+  <ItemClasses>k__BackingField: 
+  <ItemRarity>k__BackingField: 0
+  <Description>k__BackingField: 
   <Cost>k__BackingField: 0
   <DamageMult>k__BackingField: 1
   <ShotDelayOrRange>k__BackingField: 2.5

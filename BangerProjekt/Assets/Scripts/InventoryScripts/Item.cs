@@ -11,40 +11,40 @@ using System.Text;
 [CreateAssetMenu(menuName = "Items/Item")]
 public class Item : ScriptableObject // Creating a item class for the standard item
 {   //weapon 
-    public float fireRate;
-    public int bulletAmount;
+    [field: SerializeField] public float FireRate { get; set; }
+    [field: SerializeField] public int BulletAmount { get; set; }
 
-    public int damage;
+    [field: SerializeField] public int Damage { get; set; }
     //armour
-    public float defense;
+    [field: SerializeField] public float Defense { get; set; }
 
-    public int healthBonus;
+    [field: SerializeField] public int HealthBonus { get; set; }
     //item
-    public int ID;
-    public Enums.SlotTag itemTag; //Why are all of these public? *Shrug* Not my problem.
-    public string itemName;
-    public Sprite icon;
+    [field: SerializeField] public int ID { get; set; }
+    [field: SerializeField] public Enums.SlotTag ItemTag { get; set; }
+    [field: SerializeField] public string ItemName { get; set; }
+    [field: SerializeField] public Sprite Icon { get; set; }
 
-    public List<Enums.Class> itemClasses; //as a list in case an item should be usable for multiple, but not every class
-    public Enums.Rarity itemRarity;
-    public string description;
+    [field: SerializeField] public List<Enums.Class> ItemClasses { get; set; } //as a list in case an item should be usable for multiple, but not every class
+    [field: SerializeField] public Enums.Rarity ItemRarity { get; set; }
+    [field: SerializeField] public string Description { get; set; }
     [field:SerializeField] public int Cost{get; set;} //Pricy stuff
     void Awake()
     {
-        if (itemName == null) Debug.Log("Item is missing Name!!!");
-        if (itemTag == Enums.SlotTag.None) Debug.Log(itemName + " is missing a Tag!");
-        if (ID < 0) Debug.Log(itemName + " has an invalid ID!");
-        if (description == null) Debug.Log(itemName + " is missing a Description!");
-        if (icon == null) Debug.Log(itemName + " is missing an Icon!");
+        if (ItemName == null) Debug.Log("Item is missing Name!!!");
+        if (ItemTag == Enums.SlotTag.None) Debug.Log(ItemName + " is missing a Tag!");
+        if (ID < 0) Debug.Log(ItemName + " has an invalid ID!");
+        if (Description == null) Debug.Log(ItemName + " is missing a Description!");
+        if (Icon == null) Debug.Log(ItemName + " is missing an Icon!");
     }
 
     public virtual string BuildStatString()
     {
         StringBuilder sb = new StringBuilder();
-        AddStat(sb, "Damage", damage);
-        AddStat(sb, "Fire Rate", fireRate);
-        AddStat(sb, "Defense", defense);
-        AddStat(sb, "Health Bonus", healthBonus);
+        AddStat(sb, "Damage", Damage);
+        AddStat(sb, "Fire Rate", FireRate);
+        AddStat(sb, "Defense", Defense);
+        AddStat(sb, "Health Bonus", HealthBonus);
         return sb.ToString();
     }
     protected virtual void AddStat(StringBuilder sb, string label, float value, string suffix = "")

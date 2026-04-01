@@ -95,7 +95,7 @@ public class UIManager : MonoBehaviour
 
     public void SetAbilityImage(AbilityItem item)
     {
-        abilityImage.sprite = item.icon;
+        abilityImage.sprite = item.Icon;
     }
 
     public void SetCreditText()

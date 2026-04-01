@@ -12,10 +12,10 @@ public class AbilityItem : Item
     public override string BuildStatString()
     {
         StringBuilder sb = new StringBuilder();
-        AddStat(sb, "Damage", damage);
-        AddStat(sb, "Fire Rate", fireRate);
-        AddStat(sb, "Defense", defense);
-        AddStat(sb, "Health Bonus", healthBonus);
+        AddStat(sb, "Damage", Damage);
+        AddStat(sb, "Fire Rate", FireRate);
+        AddStat(sb, "Defense", Defense);
+        AddStat(sb, "Health Bonus", HealthBonus);
         AddStat(sb, "Seconds Cooldown", AbilityCooldown); //how scuffed can it be
         return sb.ToString();
     }

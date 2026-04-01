@@ -12,6 +12,9 @@ public class MeleeWeapon : Weapon
     {
         CanShoot = false;
         currBlade = Instantiate(bulletPrefab,ShootingPoint.position, ShootingPoint.rotation, ShootingPoint.transform);
+        Vector3 normDirection = (ShootingPoint.position - ShootingMiddle.transform.position).normalized; //we want the blades to always be at the shootingpoint but the hilt of it not the middle
+        normDirection *= (currBlade.transform.GetChild(0).position - currBlade.transform.position).magnitude; //basically by adding this vector we get the back of the sword to be at the shootingpoint
+        currBlade.transform.position += normDirection;
         ShootingMiddle.transform.Rotate(0,0,spreadAngle); //set the rotation to the right
         //as a child of the shooting point so it rotates with the shooting point
 

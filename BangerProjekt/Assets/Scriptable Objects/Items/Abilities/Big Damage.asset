@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e426954fab93b54f1b424c6a76e51dd1, type: 3}
   m_Name: Big Damage
   m_EditorClassIdentifier: 
-  fireRate: 0
-  bulletAmount: 0
-  damage: 4
-  defense: 0
-  healthBonus: 0
-  ID: 2
-  itemTag: 3
-  itemName: Big Damage
-  icon: {fileID: 0}
-  itemClasses: 00000000
-  itemRarity: 0
-  description: Who needs an ability when you can have more stats?
+  <FireRate>k__BackingField: 0
+  <BulletAmount>k__BackingField: 0
+  <Damage>k__BackingField: 4
+  <Defense>k__BackingField: 0
+  <HealthBonus>k__BackingField: 0
+  <ID>k__BackingField: 2
+  <ItemTag>k__BackingField: 3
+  <ItemName>k__BackingField: Big Damage
+  <Icon>k__BackingField: {fileID: 0}
+  <ItemClasses>k__BackingField: 
+  <ItemRarity>k__BackingField: 0
+  <Description>k__BackingField: 
   <Cost>k__BackingField: 0

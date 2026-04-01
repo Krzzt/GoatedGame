@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae3bbd55f72021c0b0879140b32ff88, type: 3}
   m_Name: Revolver
   m_EditorClassIdentifier: 
-  fireRate: 0.6
-  bulletAmount: 6
-  damage: 6
-  defense: 0
-  healthBonus: 0
-  ID: 3
-  itemTag: 2
-  itemName: Revolver
-  icon: {fileID: 0}
-  itemClasses: 
-  itemRarity: 0
-  description: Pew Pew
+  <FireRate>k__BackingField: 0.8
+  <BulletAmount>k__BackingField: 6
+  <Damage>k__BackingField: 5
+  <Defense>k__BackingField: 0
+  <HealthBonus>k__BackingField: 0
+  <ID>k__BackingField: 3
+  <ItemTag>k__BackingField: 2
+  <ItemName>k__BackingField: Revolver
+  <Icon>k__BackingField: {fileID: 0}
+  <ItemClasses>k__BackingField: 
+  <ItemRarity>k__BackingField: 0
+  <Description>k__BackingField: Pew Pew
   <Cost>k__BackingField: 0
   <DamageMult>k__BackingField: 1
-  <ShotDelayOrRange>k__BackingField: 6
+  <ShotDelayOrRange>k__BackingField: 4.5
   <SpreadAngle>k__BackingField: 0
   <ShotSpeed>k__BackingField: 9
   <BulletPrefab>k__BackingField: {fileID: 3131984643514835129, guid: 6f23d7785a8902b46a2a9daa14d9c42f, type: 3}

@@ -36,8 +36,8 @@ public class InventoryLogic : MonoBehaviour
         }
         ObtainItem(allItemList.Items[1]); //free dash
         EquipItem(0);
-        ObtainItem(allItemList.Items[3]); //free Revolver??
-        EquipItem(0);
+        //ObtainItem(allItemList.Items[3]); //free Revolver??
+        //EquipItem(0);
         //UnEquipItem(2); //if you want to start with fists :)
     }
     private void OnEnable()
@@ -87,7 +87,7 @@ public class InventoryLogic : MonoBehaviour
 
     public void EquipItem(int invIDToEquip)
     {
-        Enums.SlotTag tagOfItem = InventoryItems[invIDToEquip].itemTag; //we get the ItemTag
+        Enums.SlotTag tagOfItem = InventoryItems[invIDToEquip].ItemTag; //we get the ItemTag
         if (ItemsEquipped[(int)tagOfItem]) //if we already have something equipped at that tag
         {
             Item tempItemSave = ItemsEquipped[(int)tagOfItem];
@@ -119,7 +119,7 @@ public class InventoryLogic : MonoBehaviour
 
     public void EquipFreshItem(Item itemToEquip)
     {
-        ItemsEquipped[(int)itemToEquip.itemTag] = itemToEquip;
+        ItemsEquipped[(int)itemToEquip.ItemTag] = itemToEquip;
         InventoryItems.Remove(itemToEquip);
         if (itemToEquip is WeaponItem)
         {
@@ -128,7 +128,7 @@ public class InventoryLogic : MonoBehaviour
         }
         else
         {
-            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)itemToEquip.itemTag], true); // true because we add the stats
+            ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)itemToEquip.ItemTag], true); // true because we add the stats
             //if nothing is equipped, we equip the one we have and increase our stats accordingly
             //this gets called when the Player has nothing equipped 
         }

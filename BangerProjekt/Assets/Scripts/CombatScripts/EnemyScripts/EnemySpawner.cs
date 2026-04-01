@@ -182,7 +182,7 @@ public class EnemySpawner : MonoBehaviour
         GameObject newBoss = Instantiate(bossPrefab);
         aliveEnemies.Add(newBoss);
         doneSpawning = true;
-        newBoss.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;
+        SetEnemyPos(newBoss);
         //for now a random position but we maybe change it later
     }
 
