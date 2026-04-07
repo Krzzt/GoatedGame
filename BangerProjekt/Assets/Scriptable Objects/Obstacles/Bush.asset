@@ -17,8 +17,8 @@ MonoBehaviour:
   <HigherThanPlayer>k__BackingField: 1
   <SpeedModifier>k__BackingField: 0
   <Movable>k__BackingField: 0
-  <Destroyable>k__BackingField: 1
-  <Explosive>k__BackingField: 1
+  <Destroyable>k__BackingField: 0
+  <Explosive>k__BackingField: 0
   <ExplodeRange>k__BackingField: 2
   <ExplodeDamage>k__BackingField: 5
   <Carnivore>k__BackingField: 0

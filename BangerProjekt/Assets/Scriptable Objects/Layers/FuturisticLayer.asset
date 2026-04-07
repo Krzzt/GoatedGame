@@ -26,6 +26,7 @@ MonoBehaviour:
   <PossibleLayers>k__BackingField: 010000000200000003000000
   <PossibleObstacles>k__BackingField:
   - {fileID: 11400000, guid: c5c95cab66f414e4c986db81c66fe6f5, type: 2}
+  - {fileID: 11400000, guid: 5298b262af84e194d86592160e90bdac, type: 2}
   <PossibleItems>k__BackingField:
   - {fileID: 11400000, guid: cac2bb0ec71f763d980714860a29b0ee, type: 2}
   - {fileID: 11400000, guid: f181f1f0fce92dc49bde8d6204706418, type: 2}

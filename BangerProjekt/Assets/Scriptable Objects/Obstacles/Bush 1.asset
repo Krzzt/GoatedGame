@@ -24,6 +24,6 @@ MonoBehaviour:
   <Carnivore>k__BackingField: 0
   <Herbivore>k__BackingField: 0
   <HP>k__BackingField: 10
-  <size>k__BackingField: 2
+  <size>k__BackingField: 1
   <ObstaclePrefab>k__BackingField: {fileID: 7043376445938757636, guid: 679fd999fd3a7b44293e0c5917056b13, type: 3}
   <ObstacleExplosionPrefab>k__BackingField: {fileID: 5582709537379413422, guid: ce4724440f4513248bb4ccb1e905c420, type: 3}
