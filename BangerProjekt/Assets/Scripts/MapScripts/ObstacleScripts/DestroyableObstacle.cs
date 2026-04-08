@@ -45,10 +45,12 @@ public class DestroyableObstacle : Unit, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if(Obstacle.Explosive)
         this.GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0.5f, 1f);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
+        if(Obstacle.Explosive)
         this.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }

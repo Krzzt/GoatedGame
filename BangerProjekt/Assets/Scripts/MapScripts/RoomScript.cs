@@ -21,7 +21,7 @@ public class RoomScript : MonoBehaviour
     [field:SerializeField] private int numOfSpawnpoints = 100; //Can be set via inspector for each room defaults to 100 but since the spacing doesnt allow more in smaller rooms this may be changed
     [field:SerializeField] public float SpawnpointSpacingToEachOther {get; set;} = 2f; //Public since we may want to change this as layers get deeper (May be replaced by arithmetic with layer number)
     private float spawnpointSpacingToWall = 2f; //So no enemies spawn in a wall or outside of a room
-    private int numOfObstacles = 25; //Can be set via inspector for each room defaults to 100 but since the spacing doesnt allow more in smaller rooms this may be changed
+    private int numOfObstacles = 10; //Can be set via inspector for each room defaults to 100 but since the spacing doesnt allow more in smaller rooms this may be changed
     private float obstaclesSpacingToEachOther = 7f; //Spacing between Obstacles
     private float obstaclesSpacingToWall = 5f; //Spacing between Obstacle and wall/Door
 
