@@ -61,7 +61,6 @@ MonoBehaviour:
   numOfRoomsInspector: 10
   tries: 0
   maxTries: 10000000
-  <ObstaclePrefab>k__BackingField: {fileID: 7043376445938757636, guid: 679fd999fd3a7b44293e0c5917056b13, type: 3}
 --- !u!114 &6513762326970411520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,7 +418,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e941f1962256eb44fa07d531e149660e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handSize: 10
+  drawAmount: 6
+  cardPrefab: {fileID: 6364277018909118052, guid: 047b710fd5785b044b952697bdc3f4a4, type: 3}
+  cardScreen: {fileID: 5108319154096890246, guid: 7562d7246fc4b6ce1a2585e92bea307d, type: 3}
+  roundCurrency: 5
 --- !u!114 &970491772365407086
 MonoBehaviour:
   m_ObjectHideFlags: 0

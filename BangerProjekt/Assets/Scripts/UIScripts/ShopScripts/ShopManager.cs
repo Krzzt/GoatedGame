@@ -75,10 +75,11 @@ public class ShopManager : MonoBehaviour
             { //Make the cards look fancy and put them on the table with the correct info and a shop hover
             GameObject GUIcard = Instantiate(cardPrefab, table, false);
             GUIcard.name = "Card_" + ++cardNumber;
-            GUIcard.transform.Find("CardBackgroundImage").GetComponent<Image>().sprite = LayerManager.CurrentLayer.CardBackround[(int)card.CardRarity + 1]; //+1 because 0 is the backside
+            GUIcard.transform.Find("CardBackgroundImage").GetComponent<Image>().sprite = LayerManager.CurrentLayer.CardBackground[(int)card.CardRarity + 1]; //+1 because 0 is the backside
             GUIcard.transform.Find("CardEffectImage").GetComponent<Image>().sprite = card.CardImage;
             GUIcard.transform.Find("CardName").GetComponent<TMP_Text>().SetText(card.Name);
             GUIcard.transform.Find("CardDescription").GetComponent<TMP_Text>().SetText(card.Description);
+            GUIcard.transform.Find("CurrencyCostImage").GetChild(0).GetComponent<TMP_Text>().SetText(card.CurrencyCost.ToString());
             GUIcard.transform.AddComponent<ShopHover>();
             GUIcard.GetComponent<ShopHover>().DetailView = detailView;
             GUIcard.GetComponent<ShopHover>().Card = card;

@@ -27,6 +27,9 @@ TagManager:
   - AbilityImage
   - Debug
   - UIManager
+  - MainCanvas
+  - CardSelect
+  - Card
   layers:
   - Default
   - TransparentFX

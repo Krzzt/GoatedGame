@@ -10,6 +10,8 @@ public class Card : ScriptableObject
     [field: SerializeField] public Enums.Class ClassOfCard{get;set;}
     [field: SerializeField] public Sprite CardImage {get;set;}
     [field: SerializeField] public int Cost {get;set;} //Pricy little things
+    [field: SerializeField] public Layer LayerOfCard {get; set;}
+    [field: SerializeField] public int CurrencyCost {get; set;}
     
 }
 
