@@ -191,11 +191,12 @@ public class DeckLogic : MonoBehaviour
         foreach(Card card in cardsInHand)
         {
             GameObject cardObject = Instantiate(cardPrefab, GameObject.FindWithTag("CardSelect").GetComponentInChildren<LayoutGroup>().transform);
-            cardObject.transform.GetChild(0).GetComponent<Image>().sprite = card.CardImage; //child 0 = image
-            cardObject.transform.GetChild(1).GetComponent<Image>().sprite = card.LayerOfCard.CardBackground[(int)card.CardRarity + 1];
-            cardObject.transform.GetChild(2).GetComponent<TMP_Text>().SetText(card.Name);
-            cardObject.transform.GetChild(3).GetComponent<TMP_Text>().SetText(card.Description); 
-            cardObject.transform.GetChild(4).GetComponentInChildren<TMP_Text>().SetText(card.CurrencyCost.ToString()); 
+            cardObject.name = "Card_" + counter;
+            cardObject.transform.Find("CardEffectImage").GetComponent<Image>().sprite = card.CardImage; //child 0 = image
+            cardObject.transform.Find("CardBackgroundImage").GetComponent<Image>().sprite = card.LayerOfCard.CardBackground[(int)card.CardRarity + 1];
+            cardObject.transform.Find("CardName").GetComponent<TMP_Text>().SetText(card.Name);
+            cardObject.transform.Find("CardDescription").GetComponent<TMP_Text>().SetText(card.Description); 
+            cardObject.transform.Find("CurrencyCostImage").GetChild(0).GetComponentInChildren<TMP_Text>().SetText(card.CurrencyCost.ToString()); 
             CardInHand cardScript = cardObject.AddComponent<CardInHand>();
             cardScript.CardSO = card;
             cardScript.cardInHandID = counter;
