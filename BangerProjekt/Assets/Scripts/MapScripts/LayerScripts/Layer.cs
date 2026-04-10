@@ -13,5 +13,5 @@ public class Layer : ScriptableObject
     [field:SerializeField] public List<Obstacle> PossibleObstacles {get; set;}
     [field:SerializeField] public List<Item> PossibleItems {get; set;}
     [field:SerializeField] public List<Card> PossibleCards {get; set;}
-    [field:SerializeField] public Sprite[] CardBackround {get; set;}
+    [field:SerializeField] public Sprite[] CardBackground {get; set;}
 }

@@ -62,8 +62,8 @@ public class SaveState
         EquippedItems = playerClass.StartingItems;
         InventoryItems = new List<Item>();
         CardsInHand = new List<Card>();
-        EntireDeck = playerClass.StartingDeck; //maybe needs to be changed in the future to a dummy deck
-        DrawPile = new List<Card>();
+        EntireDeck = new List<Card>(playerClass.StartingDeck); //maybe needs to be changed in the future to a dummy deck
+        DrawPile = new List<Card>(playerClass.StartingDeck); //yippie we can draw cards
         DiscardPile = new List<Card>();
         ActiveLayer = null; //maybe needs to be changed to a dummy layer
         LayerNumber = 1;

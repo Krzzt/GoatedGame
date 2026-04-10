@@ -35,7 +35,7 @@ MonoBehaviour:
   <PossibleCards>k__BackingField:
   - {fileID: 11400000, guid: 696e9ce4088adf744af6d765b34910ac, type: 2}
   - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
-  <CardBackround>k__BackingField:
+  <CardBackground>k__BackingField:
   - {fileID: -4039347457592529159, guid: 365d6f788ecddc04fafd1e355bc5063b, type: 3}
   - {fileID: -1590663162976490830, guid: 365d6f788ecddc04fafd1e355bc5063b, type: 3}
   - {fileID: 8266549005830874930, guid: 365d6f788ecddc04fafd1e355bc5063b, type: 3}
