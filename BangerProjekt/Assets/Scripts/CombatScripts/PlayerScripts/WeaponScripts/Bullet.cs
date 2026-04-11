@@ -53,7 +53,7 @@ public class PlayerBullet : MonoBehaviour
         }
         else return;
     }
-    public Vector2 BulletBounceCalculate(Rigidbody2D _Rigidbody, GameObject currObject)
+    public void BulletBounceCalculate(Rigidbody2D _Rigidbody, GameObject currObject)
     { // Like a smart man ones said "Einfallswinkel = Ausfallswinkel" but i never thought he meant some bs like this
         StartCoroutine(IsBouncingcd());
 
@@ -64,7 +64,10 @@ public class PlayerBullet : MonoBehaviour
         Vector2 newVelocity = Vector2.Reflect(bulletvelocity, normal); // Reflecting the bullet "mirroring" it on the normal
 
         RemainingBulletBounces--; // now we remove a Bounce
-        return newVelocity;
+
+        rb.velocity = newVelocity; // calculating the new velocity
+        float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg - 90f; // Atan2 converts the velocity to an Angle in degrees // -90f because how the sprite is drawn
+        transform.rotation = Quaternion.Euler(0f, 0f, angle); // Here i apply the Angle to the Rotation Axis (Z) 
     }
     public IEnumerator IsBouncingcd() // no more bouncing thru walls
     {
@@ -74,16 +77,27 @@ public class PlayerBullet : MonoBehaviour
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject currObject = collision.gameObject; //the object with which the collision occured
-        if (currObject.CompareTag("Enemy")) //if its an enemy (as set by its tag)
+        if ((!currObject.CompareTag("Enemy") && !currObject.GetComponent<ObstacleScript>().Obstacle.Passable) && !currObject.CompareTag("Untagged"))
         {
-            //Damage the Enemy
-            float CritDamage = CritCalculate();
-            currObject.GetComponent<Enemy>().TakeDamage((int)((weaponScript.Damage * weaponScript.DamageMult) * CritDamage), CritDamage);
-            LifeStealCalculate();
-            RemainingPierce--; //reduce the pierce
-            if (RemainingPierce <= 0) //and if there is no pierce left
+            if (!isBouncing && RemainingBulletBounces > 0)
+            {
+                isBouncing = true;
+                bulletPos = transform.position; // getting current bullet position
+
+                BulletBounceCalculate(rb, currObject);
+            }
+        }
+        else
+        {
+            if (currObject.CompareTag("Obstacle"))
             {
                 currObject.GetComponent<Unit>().DamageUnit((int)(weaponScript.Damage * weaponScript.DamageMult));
+            }
+            else
+            {
+                float CritDamage = CritCalculate();
+                currObject.GetComponent<Enemy>().TakeDamage((int)((weaponScript.Damage * weaponScript.DamageMult) * CritDamage), CritDamage);
+                LifeStealCalculate();
                 RemainingPierce--; //reduce the pierce
                 if (RemainingPierce <= 0) //and if there is no pierce left
                 {
@@ -91,23 +105,5 @@ public class PlayerBullet : MonoBehaviour
                 }
             }
         }
-        else if (currObject.CompareTag("Wall") || currObject.CompareTag("Door")) //if the bullets collide with a wall
-        {
-            if (RemainingBulletBounces <= 0) // checking for remaining bulletbounces 
-            {
-                Destroy(gameObject); //destroy the bullet if no bounce left
-            }
-
-            else if (!isBouncing)
-            {
-                isBouncing = true;
-                bulletPos = transform.position; // getting current bullet position
-
-                rb.velocity = BulletBounceCalculate(rb, currObject); // calculating the new velocity
-                float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg - 90f; // Atan2 converts the velocity to an Angle in degrees // -90f because how the sprite is drawn
-                transform.rotation = Quaternion.Euler(0f, 0f, angle); // Here i apply the Angle to the Rotation Axis (Z) 
-            }
-        }
     }
 }
-// transform.forward
