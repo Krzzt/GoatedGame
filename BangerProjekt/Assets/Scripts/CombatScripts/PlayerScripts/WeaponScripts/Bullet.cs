@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
-
+using Unity.VisualScripting;
 public class PlayerBullet : MonoBehaviour
 {
     private float timeAlive; //the max time alive before spontaneously imploding
     protected Weapon weaponScript;
     protected Player playerScript;
     public Rigidbody2D rb;
+    bool isLifestealable;
     private int RemainingPierce;
     private int RemainingBulletBounces;
     public Vector2 bulletPos;
@@ -71,39 +72,56 @@ public class PlayerBullet : MonoBehaviour
     }
     public IEnumerator IsBouncingcd() // no more bouncing thru walls
     {
-        yield return new WaitForSeconds(0.001f);
+        yield return new WaitForSeconds(0.001f);//WaitForNextFrameUnit(); //WaitForEndOfFrame();
         isBouncing = false; 
     }
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    public void BounceInitiator(GameObject currObject)
     {
-        GameObject currObject = collision.gameObject; //the object with which the collision occured
-        if ((!currObject.CompareTag("Enemy") && !currObject.GetComponent<ObstacleScript>().Obstacle.Passable) && !currObject.CompareTag("Untagged"))
+        if (isBouncing) return;
+        if (!isBouncing && RemainingBulletBounces > 0)
         {
-            if (!isBouncing && RemainingBulletBounces > 0)
-            {
-                isBouncing = true;
-                bulletPos = transform.position; // getting current bullet position
+            isBouncing = true;
+            bulletPos = transform.position; // getting current bullet position
 
-                BulletBounceCalculate(rb, currObject);
-            }
+            BulletBounceCalculate(rb, currObject);
         }
         else
         {
-            if (currObject.CompareTag("Obstacle"))
-            {
-                currObject.GetComponent<Unit>().DamageUnit((int)(weaponScript.Damage * weaponScript.DamageMult));
-            }
-            else
-            {
-                float CritDamage = CritCalculate();
-                currObject.GetComponent<Enemy>().TakeDamage((int)((weaponScript.Damage * weaponScript.DamageMult) * CritDamage), CritDamage);
-                LifeStealCalculate();
-                RemainingPierce--; //reduce the pierce
-                if (RemainingPierce <= 0) //and if there is no pierce left
-                {
-                    Destroy(gameObject); //and destroy the bullet
-                }
-            }
+            Destroy(gameObject);
         }
     }
-}
+    public void ObstacleTester(GameObject currObject)
+    {
+        if (currObject.GetComponent<ObstacleScript>().Obstacle.Passable) { return; }
+        if (currObject.GetComponent<DestroyableObstacle>())
+        {
+            DamageCalculation(currObject, false);
+        }
+        else{ BounceInitiator(currObject); }
+    }
+    public void DamageCalculation(GameObject currObject, bool isLifestealable)
+    {
+        if (isLifestealable) { LifeStealCalculate(); }
+        float CritDamage = CritCalculate();
+        currObject.GetComponent<Unit>().DamageUnit((int)((weaponScript.Damage * weaponScript.DamageMult) * CritDamage), CritDamage);
+        RemainingPierce--; //reduce the pierce
+        if (RemainingPierce <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject currObject = collision.gameObject; //the object with which the collision occured
+        switch (currObject.tag)
+        {
+            case "Enemy":DamageCalculation(currObject, true); break;
+            case "Wall":BounceInitiator(currObject); break;
+            case "Door":BounceInitiator(currObject); break;
+            case "Obstacle":ObstacleTester(currObject); break;
+            default: ; break;
+        }
+        
+    }
+} 

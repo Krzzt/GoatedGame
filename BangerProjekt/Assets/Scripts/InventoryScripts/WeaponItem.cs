@@ -16,6 +16,8 @@ public class WeaponItem : Item
     [field: SerializeField] public int BulletPierce{get; set;}
     // TEST?
     [field: SerializeField] public int BulletBounces{get; set;}
+    [field: SerializeField] public int defense{get; set;}
+    [field: SerializeField] public int healthBonus{get; set;}
 
 
     [field: SerializeField] public GameObject BulletPrefab {get; set;}

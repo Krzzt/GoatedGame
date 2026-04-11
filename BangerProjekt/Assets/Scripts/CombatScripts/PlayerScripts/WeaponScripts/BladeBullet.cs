@@ -16,7 +16,7 @@ public class BladeBullet : PlayerBullet // Blade bullet is now a child of Player
         {
             //Damage the Enemy
             float CritDamage = CritCalculate();
-            currObject.GetComponent<Enemy>().TakeDamage((int)((weaponScript.Damage * weaponScript.DamageMult) * CritDamage),CritDamage);
+            currObject.GetComponent<Enemy>().DamageUnit((int)((weaponScript.Damage * weaponScript.DamageMult) * CritDamage),CritDamage);
             LifeStealCalculate(); // starts the lifesteal gambling
         }
 

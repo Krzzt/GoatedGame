@@ -68,7 +68,7 @@ public class KamikazeEnemy : Enemy
         if (gameObject.transform.GetChild(0).GetComponent<Collider2D>().IsTouching(GameObject.FindWithTag("Player").GetComponent<Collider2D>()))
         {
             //if Player and our Collider is Touching, big ouch
-            playerScript.DamageUnit(Damage);
+            playerScript.DamageUnit(Damage, 1);
         }
         enemyDies?.Invoke(gameObject); //counts As Dying
         Destroy(gameObject);

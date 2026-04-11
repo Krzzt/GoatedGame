@@ -27,12 +27,21 @@ public class Unit : MonoBehaviour
         CurrentHealth = MaxHealth;
         CalculateDamageReduction();
     }
-    public virtual void DamageUnit(int damageAmount)
+    public virtual void DamageUnit(int damageAmount, float crit)
     {
+
         if (CurrentHealth > 0)
         {
             damageAmount = Mathf.RoundToInt(damageAmount * (1 - DamageReduction)); // calculates damage ammount based on Damage Reduction
             CurrentHealth -= damageAmount;
+        }
+            if (crit == 1)
+        {
+            PopUp.Create(gameObject.transform.position + new Vector3(0.3f, 1.5f, 0), damageAmount.ToString(), Color.white, 5);
+        }
+        else
+        {
+            PopUp.Create(gameObject.transform.position + new Vector3(0.3f, 1.5f, 0), damageAmount.ToString(), Color.red, 7);
         }
         //subtract damage Taken from the currentHealth
         //this Script does NOT handle dying!!!! Dying needs to be handled in children scripts

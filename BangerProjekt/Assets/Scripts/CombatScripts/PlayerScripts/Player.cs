@@ -65,7 +65,7 @@ public class Player : Unit
     {
         if (collision.gameObject.CompareTag("Enemy")) //if the collision is an enemy (as seen by its tag)
         {
-            DamageUnit(collision.gameObject.GetComponent<Enemy>().Damage);
+            DamageUnit(collision.gameObject.GetComponent<Enemy>().Damage, 1);
         }
     }
 
@@ -73,7 +73,7 @@ public class Player : Unit
     {
         if (!IsImmune && collision.gameObject.CompareTag("Enemy")) //IsImmune to not spam check tags
         {
-            DamageUnit(collision.gameObject.GetComponent<Enemy>().Damage);
+            DamageUnit(collision.gameObject.GetComponent<Enemy>().Damage, 1);
         }
     }
     private void OnEnable()
@@ -101,13 +101,13 @@ public class Player : Unit
 
 
     //Start of HP related functions -----------------------------
-    public override void DamageUnit(int amount)
+    public override void DamageUnit(int amount, float crit)
     {
         if (IsImmune) return;
         if (amount <= 0) return;
         //This damage currently does not involve something like immunity frames or shit like that
         //also every enemy damages you on collision, if you hug them forever, you only take damage once!
-        base.DamageUnit(amount);
+        base.DamageUnit(amount, crit);
         AddImmunityFrames(ImmuFramesOnHit);
         PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), amount.ToString(), Color.red, 5);
         //Update the Healthbar if existent
