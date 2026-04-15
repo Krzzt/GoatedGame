@@ -36,7 +36,7 @@ public class ShopHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         else
         {
             GameObject newCard = Instantiate(gameObject,DetailView,false); //Just copy the small card 
-            newCard.transform.localScale = new Vector2(4,4); //and make it big
+            newCard.transform.localScale = new Vector2(3,3); //and make it big
             Destroy(newCard.GetComponent<ShopHover>()); //We dont need a shop hover on the big card
         }
     }

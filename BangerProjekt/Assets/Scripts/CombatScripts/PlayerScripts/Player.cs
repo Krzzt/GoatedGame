@@ -258,11 +258,9 @@ public class Player : Unit
     }
     public void AddBonusDamage(int amount)
     {
-        Debug.Log("AddBonusDamage Called. current BonusDMG: " + BonusDamage);
         weaponScript.Damage -= BonusDamage; //subtract so we can add everything at the end
         BonusDamage += amount;
         weaponScript.Damage += BonusDamage;
-        Debug.Log("End of BONUSDMG. BonusDMG: " + BonusDamage);
     }
     public void AddBonusFireRate(float amount)
     {

@@ -28,6 +28,9 @@ TagManager:
   - Debug
   - UIManager
   - Inventory
+  - MainCanvas
+  - CardSelect
+  - Card
   layers:
   - Default
   - TransparentFX

@@ -29,6 +29,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
   - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
   - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
+  - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
   <StartingBonusDamage>k__BackingField: 1
   <StartingBonusFireRate>k__BackingField: 0
   <StartingHealth>k__BackingField: 60
