@@ -17,6 +17,7 @@ public class InventoryLogic : MonoBehaviour
     public static Action<GameObject> SendNewWeapon;
 
     private AllItems allItemList;
+    public static InventoryLogic Instance;
 
     private void Awake()
     {

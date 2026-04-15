@@ -19,6 +19,10 @@ public class UIManager : MonoBehaviour
     private Image abilityImage;
     //END OF ABILITY RELATED
 
+    //INVENTORY RELATED
+    private GameObject inventory;
+    //END OF INVENTORY RELATED
+
     //Credits Text
     private TMP_Text creditsText;
     //End of Credits Text
@@ -37,6 +41,8 @@ public class UIManager : MonoBehaviour
         abilityImage = GameObject.FindWithTag("AbilityImage").GetComponent<Image>();
 
         creditsText = GameObject.FindWithTag("CreditsText").GetComponent<TMP_Text>();
+        inventory = GameObject.FindWithTag("Inventory");
+
     }
     private void OnEnable()
     {
@@ -48,6 +54,7 @@ public class UIManager : MonoBehaviour
         UseAbilities.SetAbilityUI += SetAbilityFill;
         Player.NewAbility += SetAbilityImage;
         GameManager.CreditsChanged += SetCreditText;
+        Player.ToggleInventory += ToggleInventory;
     }
     public void SetWaveText(int currWave, int maxWave)
     {
@@ -108,6 +115,11 @@ public class UIManager : MonoBehaviour
         var rebindOperation = inputToChange.PerformInteractiveRebinding().WithCancelingThrough("<Keyboard>/escape"); //cancelled with escape
         rebindOperation.OnMatchWaitForAnother(0.1f); //to wait shortly after the input is pressed
         rebindOperation.Start();
+    }
+
+    public void ToggleInventory()
+    {
+        inventory.SetActive(!inventory.activeSelf);
     }
 
 

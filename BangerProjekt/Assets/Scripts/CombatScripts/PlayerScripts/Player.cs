@@ -42,6 +42,7 @@ public class Player : Unit
 
     //Start of Item Variables -----------
     public static event Action<AbilityItem> NewAbility;
+    public static event Action ToggleInventory;
     //End of Item Variables ------------
 
     //_______________________________________________________________________________________________________________
@@ -329,7 +330,9 @@ public class Player : Unit
             CancelInvoke("CountdownImmunityFrames");
         }
     }
-
-
+    public void toggleInventory()
+    {
+        ToggleInventory?.Invoke();
+    }
     //End of General Functions
 }
