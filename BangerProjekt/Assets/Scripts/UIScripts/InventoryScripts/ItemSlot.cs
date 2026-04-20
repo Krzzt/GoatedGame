@@ -1,26 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour, IDropHandler
 {
-   // [field: SerializeField] public Item Item { get; set; }
+    // [field: SerializeField] public Item Item { get; set; }
     [field: SerializeField] public int SlotId { get; set; }
+    [field: SerializeField] public bool equipSlot { get; set; } = false;
+    [field: SerializeField] public Enums.SlotTag SlotTag { get; set; }
+
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (eventData.pointerDrag != null && eventData.pointerDrag.GetComponent<ScrollRect>() == null)
-        {
-            Debug.Log(eventData.pointerDrag.name);
-            RectTransform itemTransform = eventData.pointerDrag.GetComponent<RectTransform>();
-            RectTransform thisTransform = this.GetComponent<RectTransform>();
-            //this.Item = eventData.pointerDrag.GetComponent<ItemInSlot>()?.Item;
-            itemTransform.SetParent(transform);
-            itemTransform.anchoredPosition = thisTransform.anchoredPosition;
+        GameObject droppedObject = eventData.pointerDrag;
+        if (droppedObject == null) return;
 
+        ItemInSlot draggedItem = droppedObject.GetComponent<ItemInSlot>();
+        if (draggedItem == null) return;
+        ItemSlot sourceSlot = draggedItem.parentBeforeDrag.GetComponent<ItemSlot>();
+        if (sourceSlot != null && sourceSlot.equipSlot)
+        {
+            InventoryLogic.UnEquipItem((int)draggedItem.Item.ItemTag);
         }
+        if (equipSlot && draggedItem.Item.ItemTag != SlotTag)
+        {
+            draggedItem.transform.SetParent(draggedItem.parentBeforeDrag);
+            draggedItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            return;
+        }
+        if (equipSlot && draggedItem.Item.ItemTag == SlotTag && !sourceSlot.equipSlot)
+        {
+            if (transform.childCount > 0)
+            {
+                InventoryLogic.UnEquipItem((int)SlotTag);
+                Debug.Log(SlotTag);
+                Debug.Log(draggedItem.Item.ItemTag);
+            }
+
+            InventoryLogic.EquipItem(draggedItem.Item);
+        }
+        if (transform.childCount > 0)
+        {
+            Transform currentItemInSlot = transform.GetChild(0);
+            currentItemInSlot.SetParent(eventData.pointerDrag.GetComponent<ItemInSlot>().parentBeforeDrag);
+            currentItemInSlot.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        }
+        draggedItem.parentBeforeDrag = transform;
+        droppedObject.transform.SetParent(transform);
+        droppedObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
     }
+
 
 }

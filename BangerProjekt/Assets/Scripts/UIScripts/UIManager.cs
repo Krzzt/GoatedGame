@@ -120,6 +120,15 @@ public class UIManager : MonoBehaviour
     public void ToggleInventory()
     {
         inventory.SetActive(!inventory.activeSelf);
+
+        if (inventory.activeSelf)
+        {
+            GameObject.FindWithTag("Player").GetComponent<PlayerInput>().actions.FindAction("Fire").Disable();
+        }
+        else
+        {
+            GameObject.FindWithTag("Player").GetComponent<PlayerInput>().actions.FindAction("Fire").Enable();
+        }
     }
 
 

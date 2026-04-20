@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class ItemInSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
+public class ItemInSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler, IDropHandler
 {
-    [field:SerializeField]public Item Item{get; set;}
+    [field: SerializeField] public Item Item { get; set; }
     private Image image;
     private RectTransform rectTransform;
-    protected Transform parentBeforeDrag;
+    public Transform parentBeforeDrag { get; set; }
     private CanvasGroup canvasGroup;
-    [field:SerializeField] private Canvas canvas;
+    [field: SerializeField] private Canvas canvas;
 
     void Awake()
     {
@@ -25,7 +21,7 @@ public class ItemInSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
     public void OnBeginDrag(PointerEventData eventData)
     {
         parentBeforeDrag = transform.parent;
-        Debug.Log(parentBeforeDrag.gameObject.name);
+        //Debug.Log(parentBeforeDrag.gameObject.name);
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         canvasGroup.blocksRaycasts = false;
@@ -39,17 +35,23 @@ public class ItemInSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
         if (!eventData.pointerCurrentRaycast.gameObject || !eventData.pointerCurrentRaycast.gameObject.GetComponent<ItemSlot>())
         {
             transform.SetParent(parentBeforeDrag);
-            rectTransform.anchoredPosition = parentBeforeDrag.position;
+            rectTransform.anchoredPosition = Vector2.zero;
         }
-        
+
     }
     public void OnDrag(PointerEventData eventData)
     {
-         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
-	public void OnPointerClick(PointerEventData eventData)
-	{
-		Debug.Log("Clicked");
-	}
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Clicked");
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        ItemSlot isc = GetComponentInParent<ItemSlot>();
+        isc.OnDrop(eventData);
+    }
 }
