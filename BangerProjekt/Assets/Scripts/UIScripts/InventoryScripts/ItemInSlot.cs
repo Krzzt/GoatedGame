@@ -46,7 +46,7 @@ public class ItemInSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Clicked");
+        Debug.Log("clicked");
     }
 
     public void OnDrop(PointerEventData eventData)

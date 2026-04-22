@@ -246,8 +246,10 @@ public class Player : Unit
         {
             newWeaponItem = fistPrefab;
         }
+        Debug.Log("Destroying: " +GameObject.FindWithTag("Weapon").name);
         Destroy(GameObject.FindWithTag("Weapon")); //the weapon gets fucking blasted
         GameObject newWeaponObject = Instantiate(newWeaponItem, gameObject.transform);
+        Debug.Log("newWeaponObject = " + newWeaponObject.name);
         weaponScript = newWeaponObject.GetComponent<Weapon>();
         weaponScript.Damage += BonusDamage;
         weaponScript.FireRate += BonusFireRate;

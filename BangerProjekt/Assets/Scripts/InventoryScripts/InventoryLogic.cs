@@ -89,39 +89,8 @@ public class InventoryLogic : MonoBehaviour
         //and give the Selected Items slotNumber in the Inventory as an argument
     }
 
+
     public static void EquipItem(Item itemToEquip)
-    {
-        Enums.SlotTag tagOfItem = itemToEquip.ItemTag; //we get the ItemTag
-        if (ItemsEquipped[(int)tagOfItem]) //if we already have something equipped at that tag
-        {
-            Item tempItemSave = ItemsEquipped[(int)tagOfItem];
-            if (tempItemSave is WeaponItem) //if we have a weapon
-            {
-                WeaponItem tempWeapon = (WeaponItem)ItemsEquipped[(int)tagOfItem]; //hope this works
-                ItemsEquipped[(int)tagOfItem] = itemToEquip; //code dupe is forced sadly because of the events :()
-                itemToEquip = tempItemSave;
-                SendNewWeapon?.Invoke(tempWeapon.CorrespondingPrefab); //gets called in player btw
-            }
-            else //if we do not have a weapon
-            {
-                ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], false); // false because we subtract the stats
-                ItemsEquipped[(int)tagOfItem] = itemToEquip;
-                itemToEquip = tempItemSave;
-                //standard Swap
-                ChangeItemPlayerStats?.Invoke(ItemsEquipped[(int)tagOfItem], true); // true because we add the stats   
-            }
-
-
-        }
-        else
-        {
-            EquipFreshItem(itemToEquip); //if nothing is equipped, we call this method
-        }
-
-
-    }
-
-    public static void EquipFreshItem(Item itemToEquip)
     {
         ItemsEquipped[(int)itemToEquip.ItemTag] = itemToEquip;
         InventoryItems.Remove(itemToEquip);
@@ -169,7 +138,7 @@ public class InventoryLogic : MonoBehaviour
         {
             if (item != null)
             {
-                EquipFreshItem(item);
+                EquipItem(item);
             }
 
         }

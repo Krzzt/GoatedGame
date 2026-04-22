@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,11 +15,10 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     {
         GameObject droppedObject = eventData.pointerDrag;
         if (droppedObject == null) return;
-
         ItemInSlot draggedItem = droppedObject.GetComponent<ItemInSlot>();
         if (draggedItem == null) return;
         ItemSlot sourceSlot = draggedItem.parentBeforeDrag.GetComponent<ItemSlot>();
-        if (sourceSlot != null && sourceSlot.equipSlot)
+        if (sourceSlot != null && sourceSlot.equipSlot && !equipSlot)
         {
             InventoryLogic.UnEquipItem((int)draggedItem.Item.ItemTag);
         }
@@ -33,11 +33,10 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             if (transform.childCount > 0)
             {
                 InventoryLogic.UnEquipItem((int)SlotTag);
-                Debug.Log(SlotTag);
-                Debug.Log(draggedItem.Item.ItemTag);
             }
-
-            InventoryLogic.EquipItem(draggedItem.Item);
+            StartCoroutine(waitForFrame(draggedItem.Item));
+               
+            
         }
         if (transform.childCount > 0)
         {
@@ -50,5 +49,10 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         droppedObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
     }
 
+    IEnumerator waitForFrame(Item draggedItem)
+    {
+        yield return new WaitForEndOfFrame();
+        InventoryLogic.EquipItem(draggedItem);
+    }
 
 }
