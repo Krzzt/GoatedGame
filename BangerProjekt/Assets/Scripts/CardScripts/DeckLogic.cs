@@ -14,6 +14,7 @@ public class DeckLogic : MonoBehaviour
     private List<Card> drawPile = new List<Card>();
     private List<Card> cardsInHand = new List<Card>();
     private List<Card> discardPile = new List<Card>();
+    private List<Card> activeCards = new List<Card>();
 
     [SerializeField] private const int MAX_CARDS = 13; //13 is hard cap
     [SerializeField] private int drawAmount;
@@ -64,7 +65,6 @@ public class DeckLogic : MonoBehaviour
     {
         for (int i = 0; i < amount && cardsInHand.Count < MAX_CARDS && (drawPile.Count > 0 || discardPile.Count > 0); i++) //for every amount, we draw 1 Card. Alternatively, stop if the hand is "full"
         {
-            Debug.Log("Sent" + i);
             if (drawPile.Count <= 0) //if the drawPile is empty
             {
                 RecycleDiscardPile(); //Recycle the Discard Pile
@@ -72,7 +72,7 @@ public class DeckLogic : MonoBehaviour
             cardsInHand.Add(drawPile[0]);  //we draw a card by adding it to our HandList and removing index 0 from the draw List
             drawPile.RemoveAt(0);
         }
-        DebugHand();
+        //DebugHand();
     }
 
     public void RecycleDiscardPile() //to shuffle the discard pile back into the drawPile
@@ -118,10 +118,26 @@ public class DeckLogic : MonoBehaviour
                 //cool stuff based on ID
             break;
         }
+        activeCards.Add(card);
         DiscardCard(cardIDinHand);
         if (currencyText) currencyText.SetText("Currency: " + currencyAmount + "/" + roundCurrency);
 
 
+    }
+
+    public void ResetCardEffects()
+    {
+		//reset effects foreach card in the list
+        foreach(Card card in activeCards)
+        {
+            switch(card.ID)
+            {
+                case 0:
+                    //cool stuff based on ID
+                break;
+            }
+        }
+		activeCards.Clear();
     }
 
     public void DiscardCard(int IDtoDiscard)
@@ -157,10 +173,6 @@ public class DeckLogic : MonoBehaviour
         cardsInHand = SaveManager.currentSave.CardsInHand;
         entireDeck = SaveManager.currentSave.EntireDeck;
         drawPile = SaveManager.currentSave.DrawPile;
-        foreach(Card card in drawPile)
-        {
-            Debug.Log("Card!");
-        }
         discardPile = SaveManager.currentSave.DiscardPile;
         if (discardPile.Count <= 0) ShuffleDrawPile(); //if nothing is discarded, its a new game so shuffle (and if its not it doesnt matter anyways)
     }
@@ -168,7 +180,9 @@ public class DeckLogic : MonoBehaviour
 
     public void StartTurn()
     {
+        
         currencyAmount = roundCurrency;
+        ResetCardEffects();
         DrawCards(drawAmount); //draw as many cards as
         Time.timeScale = 0; //Scary oooooo
         GameObject newScreen = Instantiate(cardScreen, GameObject.FindWithTag("MainCanvas").transform);

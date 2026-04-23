@@ -37,6 +37,9 @@
                     "name": "Open Inventory",
                     "type": "Button",
                     "id": "f696a797-ff36-406c-be42-b17f31425158",
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "5f0d0aa9-176a-4b4d-878c-91b7e694f428",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -234,7 +237,7 @@
                 {
                     "name": "",
                     "id": "7acfd27b-1e06-442e-af13-54ee8ed3b612",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -261,6 +264,12 @@
                     "processors": "",
                     "groups": "",
                     "action": "Open Inventory",
+                    "id": "91cbe1dc-a14e-496c-afa4-524dc4990d7c",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

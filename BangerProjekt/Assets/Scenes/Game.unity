@@ -2251,6 +2251,10 @@ PrefabInstance:
     - target: {fileID: 7279486484741676131, guid: 1499c7b2c0dee594e9680a40a071ac8f, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 782401062}
+    - target: {fileID: 8945232667066654407, guid: b1c7e591a4957044b861184c7a73b88d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -709.0376
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

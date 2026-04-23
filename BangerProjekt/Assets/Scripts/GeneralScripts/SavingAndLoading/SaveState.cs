@@ -46,7 +46,7 @@ public class SaveState
         DrawPile = new List<Card>();
         DiscardPile = new List<Card>();
         ActiveLayer = null; //maybe needs to be changed to a dummy layer
-        LayerNumber = 1;
+        LayerNumber = 0;
         EnemiesKilled = 0;
         Level = 1; //Starting Level is 1
         PlayerClass = null; //no class given because that should happen externally in the Char Select
@@ -66,7 +66,7 @@ public class SaveState
         DrawPile = new List<Card>(playerClass.StartingDeck); //yippie we can draw cards
         DiscardPile = new List<Card>();
         ActiveLayer = null; //maybe needs to be changed to a dummy layer
-        LayerNumber = 1;
+        LayerNumber = 0;
         EnemiesKilled = 0;
         Level = 1; //Starting Level is 1
         PlayerClass = playerClass; //no class given because that should happen externally in the Char Select
