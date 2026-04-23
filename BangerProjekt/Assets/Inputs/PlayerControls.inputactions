@@ -34,6 +34,9 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Open Inventory",
+                    "type": "Button",
+                    "id": "f696a797-ff36-406c-be42-b17f31425158",
                     "name": "Interact",
                     "type": "Button",
                     "id": "5f0d0aa9-176a-4b4d-878c-91b7e694f428",
@@ -244,6 +247,23 @@
                 },
                 {
                     "name": "",
+                    "id": "537323b8-07e9-4c27-86c3-22a461fa9da8",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "207bb477-b30d-4bae-a864-b1b7e48459f6",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Inventory",
                     "id": "91cbe1dc-a14e-496c-afa4-524dc4990d7c",
                     "path": "<Keyboard>/e",
                     "interactions": "",

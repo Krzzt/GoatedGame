@@ -42,6 +42,7 @@ public class Player : Unit
 
     //Start of Item Variables -----------
     public static event Action<AbilityItem> NewAbility;
+    public static event Action ToggleInventory;
     //End of Item Variables ------------
 
     //Interaction Event
@@ -254,8 +255,10 @@ public class Player : Unit
         {
             newWeaponItem = fistPrefab;
         }
+        Debug.Log("Destroying: " +GameObject.FindWithTag("Weapon").name);
         Destroy(GameObject.FindWithTag("Weapon")); //the weapon gets fucking blasted
         GameObject newWeaponObject = Instantiate(newWeaponItem, gameObject.transform);
+        Debug.Log("newWeaponObject = " + newWeaponObject.name);
         weaponScript = newWeaponObject.GetComponent<Weapon>();
         weaponScript.Damage += BonusDamage;
         weaponScript.FireRate += BonusFireRate;
@@ -336,7 +339,9 @@ public class Player : Unit
             CancelInvoke("CountdownImmunityFrames");
         }
     }
-
-
+    public void toggleInventory()
+    {
+        ToggleInventory?.Invoke();
+    }
     //End of General Functions
 }

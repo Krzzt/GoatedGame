@@ -437,6 +437,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6547559521655480698}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: toggleInventory
         m_MethodName: Interact
         m_Mode: 1
         m_Arguments:
@@ -447,6 +448,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_ActionId: f696a797-ff36-406c-be42-b17f31425158
+    m_ActionName: Player/Open Inventory[/Keyboard/tab]
     m_ActionId: 5f0d0aa9-176a-4b4d-878c-91b7e694f428
     m_ActionName: Player/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0

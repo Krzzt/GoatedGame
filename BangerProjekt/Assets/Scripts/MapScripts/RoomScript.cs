@@ -59,6 +59,7 @@ public class RoomScript : MonoBehaviour
         if(allAvailableObstacles != null && allAvailableObstacles.Count > 0 && this.gameObject.name != "StartRoom(Clone)")
         SetObstacles();
         GenerateSpawnPoints(); //Generate the spawnpoints of the room
+        //Debug.Log("Awake Called");
     }
    
     public bool IsCleared() //Returns a simple bool to check if the room is cleared. (Self explaining)
@@ -152,6 +153,7 @@ public class RoomScript : MonoBehaviour
 
    private void SetObstacles()
    {
+    //Debug.Log("SettingObs");
     int tries = 0; //Helper variable to count up
     CompositeCollider2D roomBounds = GetComponentInChildren<CompositeCollider2D>(); //Get the collider (The only CompositCollider in the room is the one of the floor)
     Bounds bounds = roomBounds.bounds; //Get its bounds to later check the overlap
