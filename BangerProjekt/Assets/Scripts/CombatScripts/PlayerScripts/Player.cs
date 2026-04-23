@@ -44,6 +44,10 @@ public class Player : Unit
     public static event Action<AbilityItem> NewAbility;
     //End of Item Variables ------------
 
+    //Interaction Event
+    public static Action InteractEvent;
+    //End of Interactuon Event
+
     //_______________________________________________________________________________________________________________
     //START OF FUNCTIONS
 
@@ -92,6 +96,11 @@ public class Player : Unit
         GameManager.currRoomChanged -= RoomChange;
         RoomScript.RoomCleared -= RoomChange;
 
+    }
+
+    public void Interact()
+    {
+        InteractEvent?.Invoke();
     }
 
     //End of Unity specific functions ----------------------------

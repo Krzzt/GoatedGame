@@ -33,11 +33,18 @@ public class movement : MonoBehaviour
     void OnEnable()
     {
         pc.Enable();
+        LayerManager.newLayer += SetLayerPosition;
     }
 
     void OnDisable()
     {
         pc.Disable();
+        LayerManager.newLayer -= SetLayerPosition;
+    }
+
+    public void SetLayerPosition()
+    {
+        gameObject.transform.position = new Vector3(0,0,0); //reset position
     }
 
 

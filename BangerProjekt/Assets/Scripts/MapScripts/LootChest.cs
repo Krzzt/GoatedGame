@@ -20,7 +20,6 @@ public class LootChest : MonoBehaviour
 
     public IEnumerator OpenChest(int creditAmount)
     {
-        Debug.Log("creditAmount: " + creditAmount);
         //play cool opening animation and shit and probably particles and yippie
         int creditsPaid = 0;
         while (creditsPaid < creditAmount)

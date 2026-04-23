@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -82,9 +83,10 @@ public class RoomScript : MonoBehaviour
         RoomCleared?.Invoke();
         GameManager.roomsCleared++;
         if (IsBossRoom)
-         {
+        {
          //also do all the fun stuff that boss rooms do like nextLayer shit and stuff
-         }
+         GameObject newPortal = Instantiate(RoomManager.Instance.BossPortal, LootPoint.position, Quaternion.identity, transform);
+        }
         else if (LootPoint)//normal room gets normal chest while boss gets something cooler ig (except for startroom loser)
         {
             GameObject newLootChest = Instantiate(GameManager.Instance.LootChest, LootPoint.position, Quaternion.identity, LootPoint);
@@ -290,6 +292,12 @@ public class RoomScript : MonoBehaviour
             }
         }
     }
+
+
+	void OnDestroy()
+	{
+		gameObject.SetActive(false);
+	}
 
 }
 
