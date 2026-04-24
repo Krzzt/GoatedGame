@@ -66,7 +66,7 @@ public class InventoryScript : MonoBehaviour
     IEnumerator waitUntilItem()
     {
         yield return new WaitForSecondsRealtime(0.1f);
-        MaxInventorySlots = InventoryLogic.MaxInventorySlots;
+        MaxInventorySlots = InventoryLogic.InventorySlots;
         content = this.GetComponentInChildren<ScrollRect>().GetComponentInChildren<GridLayoutGroup>().gameObject.transform;
         SetupInventory();
     }

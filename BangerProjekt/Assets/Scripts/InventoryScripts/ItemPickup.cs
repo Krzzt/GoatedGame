@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,8 +12,11 @@ public class ItemPickup : MonoBehaviour
     private SpriteRenderer SR;
     private TMP_Text text;
 
+    private InputAction interactAction;
+
     private void Awake()
-    {
+    {   
+        interactAction = Player.playerInput.actions.FindAction("Interact");
         SR = this.GetComponentInChildren<SpriteRenderer>(true);
         text = this.GetComponentInChildren<TMP_Text>(true);
     }
@@ -22,17 +26,18 @@ public class ItemPickup : MonoBehaviour
         SR.sprite = item.Icon;
         
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            text.SetText($"press '{other.GetComponent<PlayerInput>().actions.FindAction("")}' ");
+            string controlBinding = interactAction.GetBindingDisplayString(options:InputBinding.DisplayStringOptions.DontIncludeInteractions,group: Player.playerInput.currentControlScheme);
+            text.SetText($"press '{controlBinding}' to pick up '{Item.ItemName}'");
             PopUp.SetActive(true);
         }
     }
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             PopUp.SetActive(false);
         }

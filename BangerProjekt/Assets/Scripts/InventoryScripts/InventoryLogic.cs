@@ -5,7 +5,9 @@ using UnityEngine;
 public class InventoryLogic : MonoBehaviour
 {
     public static List<Item> InventoryItems { get; set; }//the acutal items
-    [field: SerializeField] public static int MaxInventorySlots { get; set; } = 18; //amount of slots in the inv
+    [field: SerializeField] public static int InventorySlots { get; set; } = 18; //amount of slots in the inv
+    [field: SerializeField] public Inventory InventoryBlueprint{ get; set; }
+    public static Inventory ActiveInventory;
 
     public static Action<Item> SendItem;
 
@@ -14,11 +16,14 @@ public class InventoryLogic : MonoBehaviour
     public static Action<Item, bool> ChangeItemPlayerStats;
     public static Action<GameObject> SendNewWeapon;
 
+    
+
     private AllItems allItemList;
     public static InventoryLogic Instance;
 
     private void Awake()
     {
+        ActiveInventory = Instantiate(InventoryBlueprint);
         allItemList = gameObject.GetComponent<AllItems>();
         InventoryItems = new List<Item>();
     }
@@ -26,6 +31,7 @@ public class InventoryLogic : MonoBehaviour
 
     void Start()
     {
+        ActiveInventory.Init(InventorySlots);
         for (int i = 0; i < ItemsEquipped.Length; i++)
         {
             ItemsEquipped[i] = null;
@@ -57,7 +63,8 @@ public class InventoryLogic : MonoBehaviour
 
     public static void ObtainItem(Item itemToGet)
     {
-        if (InventoryItems.Count < MaxInventorySlots) //if there is space
+
+        if (InventoryItems.Count < InventorySlots) //if there is space
         {
             InventoryItems.Add(itemToGet);
         }

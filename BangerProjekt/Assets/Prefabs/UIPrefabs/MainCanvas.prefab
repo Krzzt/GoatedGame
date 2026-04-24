@@ -1899,10 +1899,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516441f436d06fc4d863f40523322a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DetailView>k__BackingField: {fileID: 0}
+  <DetailView>k__BackingField: {fileID: 1572020149335756911}
   <Item>k__BackingField: {fileID: 0}
   <Card>k__BackingField: {fileID: 0}
-  <ItemViewPrefab>k__BackingField: {fileID: 0}
+  <ItemViewPrefab>k__BackingField: {fileID: 4957930218678977338, guid: 4097c9cd4d9a4a74fb2669412c61a741, type: 3}
 --- !u!1 &5013868618758429799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2493,10 +2493,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516441f436d06fc4d863f40523322a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DetailView>k__BackingField: {fileID: 0}
+  <DetailView>k__BackingField: {fileID: 1572020149335756911}
   <Item>k__BackingField: {fileID: 0}
   <Card>k__BackingField: {fileID: 0}
-  <ItemViewPrefab>k__BackingField: {fileID: 0}
+  <ItemViewPrefab>k__BackingField: {fileID: 4957930218678977338, guid: 4097c9cd4d9a4a74fb2669412c61a741, type: 3}
 --- !u!1 &5825481873321809976
 GameObject:
   m_ObjectHideFlags: 0
@@ -2881,10 +2881,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516441f436d06fc4d863f40523322a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DetailView>k__BackingField: {fileID: 0}
+  <DetailView>k__BackingField: {fileID: 1572020149335756911}
   <Item>k__BackingField: {fileID: 0}
   <Card>k__BackingField: {fileID: 0}
-  <ItemViewPrefab>k__BackingField: {fileID: 0}
+  <ItemViewPrefab>k__BackingField: {fileID: 4957930218678977338, guid: 4097c9cd4d9a4a74fb2669412c61a741, type: 3}
 --- !u!1 &6344704497399921265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3181,10 +3181,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516441f436d06fc4d863f40523322a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DetailView>k__BackingField: {fileID: 0}
+  <DetailView>k__BackingField: {fileID: 1572020149335756911}
   <Item>k__BackingField: {fileID: 0}
   <Card>k__BackingField: {fileID: 0}
-  <ItemViewPrefab>k__BackingField: {fileID: 0}
+  <ItemViewPrefab>k__BackingField: {fileID: 4957930218678977338, guid: 4097c9cd4d9a4a74fb2669412c61a741, type: 3}
 --- !u!1 &7096535813775932059
 GameObject:
   m_ObjectHideFlags: 0

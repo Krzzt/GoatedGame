@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Player : Unit
 {
@@ -46,6 +47,7 @@ public class Player : Unit
     //End of Item Variables ------------
 
     //Interaction Event
+    public static PlayerInput playerInput{ get; set; }
     public static Action InteractEvent;
     //End of Interactuon Event
 
@@ -57,6 +59,7 @@ public class Player : Unit
     {   
         weaponScript = GameObject.FindWithTag("Weapon").GetComponent<Weapon>(); //gameObject with small g = this.GameObject
         abilityScript = gameObject.GetComponent<UseAbilities>();
+        playerInput = this.GetComponent<PlayerInput>();
         base.Awake();
 
 
@@ -250,15 +253,15 @@ public class Player : Unit
 
     public void NewWeapon(GameObject newWeaponItem)
     {
-        Debug.Log("NewWeapon called");
+        //Debug.Log("NewWeapon called");
         if (!newWeaponItem)
         {
             newWeaponItem = fistPrefab;
         }
-        Debug.Log("Destroying: " +GameObject.FindWithTag("Weapon").name);
+        //Debug.Log("Destroying: " +GameObject.FindWithTag("Weapon").name);
         Destroy(GameObject.FindWithTag("Weapon")); //the weapon gets fucking blasted
         GameObject newWeaponObject = Instantiate(newWeaponItem, gameObject.transform);
-        Debug.Log("newWeaponObject = " + newWeaponObject.name);
+        //Debug.Log("newWeaponObject = " + newWeaponObject.name);
         weaponScript = newWeaponObject.GetComponent<Weapon>();
         weaponScript.Damage += BonusDamage;
         weaponScript.FireRate += BonusFireRate;

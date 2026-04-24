@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 465180607008969978e90e10017bd90c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxInventorySlots>k__BackingField: 20
+  <InventoryBlueprint>k__BackingField: {fileID: 11400000, guid: 2cfd8b48aa385a74eb9ebb3542977728, type: 2}
 --- !u!114 &4860721557269610677
 MonoBehaviour:
   m_ObjectHideFlags: 0

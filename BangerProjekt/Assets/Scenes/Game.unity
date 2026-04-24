@@ -993,6 +993,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2782773005541754450, guid: b1c7e591a4957044b861184c7a73b88d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2050953938}
+    - target: {fileID: 2782773005541754450, guid: b1c7e591a4957044b861184c7a73b88d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleShop
+      objectReference: {fileID: 0}
     - target: {fileID: 2908234454546285129, guid: b1c7e591a4957044b861184c7a73b88d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
