@@ -28,9 +28,9 @@ public static class Enums
     {  
         None = 4, //Default to Catch laziness. Has to be updated when new Values are added!!!
         Armor = 0,
-        Accessory,
-        Weapon,
-        Ability //only works with 1 Ability for now
+        Accessory = 1,
+        Weapon = 2,
+        Ability = 3 //only works with 1 Ability for now
     }
 
     public enum DoorState

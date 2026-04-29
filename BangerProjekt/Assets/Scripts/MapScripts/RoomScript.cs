@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -58,6 +59,7 @@ public class RoomScript : MonoBehaviour
         if(allAvailableObstacles != null && allAvailableObstacles.Count > 0 && this.gameObject.name != "StartRoom(Clone)")
         SetObstacles();
         GenerateSpawnPoints(); //Generate the spawnpoints of the room
+        //Debug.Log("Awake Called");
     }
    
     public bool IsCleared() //Returns a simple bool to check if the room is cleared. (Self explaining)
@@ -82,9 +84,10 @@ public class RoomScript : MonoBehaviour
         RoomCleared?.Invoke();
         GameManager.roomsCleared++;
         if (IsBossRoom)
-         {
+        {
          //also do all the fun stuff that boss rooms do like nextLayer shit and stuff
-         }
+         GameObject newPortal = Instantiate(RoomManager.Instance.BossPortal, LootPoint.position, Quaternion.identity, transform);
+        }
         else if (LootPoint)//normal room gets normal chest while boss gets something cooler ig (except for startroom loser)
         {
             GameObject newLootChest = Instantiate(GameManager.Instance.LootChest, LootPoint.position, Quaternion.identity, LootPoint);
@@ -150,6 +153,7 @@ public class RoomScript : MonoBehaviour
 
    private void SetObstacles()
    {
+    //Debug.Log("SettingObs");
     int tries = 0; //Helper variable to count up
     CompositeCollider2D roomBounds = GetComponentInChildren<CompositeCollider2D>(); //Get the collider (The only CompositCollider in the room is the one of the floor)
     Bounds bounds = roomBounds.bounds; //Get its bounds to later check the overlap
@@ -290,6 +294,12 @@ public class RoomScript : MonoBehaviour
             }
         }
     }
+
+
+	void OnDestroy()
+	{
+		gameObject.SetActive(false);
+	}
 
 }
 

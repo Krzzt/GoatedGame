@@ -1,6 +1,7 @@
 using NavMeshPlus.Components;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,18 +18,23 @@ public class RoomManager : MonoBehaviour
    [SerializeField] private int maxTries = 10000000; //Number of max Tries before the Loop breaks (To prevent infinite Loops)
    private GameObject startRoom; //The one and only start room instance
     public static NavMeshSurface meshSurface;
+
+    [field: SerializeField] public GameObject BossPortal {get; set;}
     
 
     public void Awake()
     {
         meshSurface = gameObject.GetComponent<NavMeshSurface>();
-        startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity); //Make tha start room
-        startRoom.GetComponent<RoomScript>().Depth = 0;
-        rooms.Add(startRoom); //Yes exactly this room should be added to the rooms list
-        GameManager.currentRoom = startRoom.GetComponent<RoomScript>();
-        startRoom.GetComponent<RoomScript>().ClearRoom();
-        GameManager.roomsCleared--; //to prevent startroom counting as a cleared room (fuck this)
-        availableDoors.Add(GameObject.FindWithTag("Door")); //And lets also get the first door.
+        GenerateStartRoom();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
     private void Start()
     {
@@ -37,29 +43,65 @@ public class RoomManager : MonoBehaviour
     public IEnumerator WaitToGenerateRooms()
     {
         yield return new WaitUntil(() => LayerManager.CurrentLayer); //wait until the seed is set
+        SetStartRoomAngle();
+        GenerateRooms(numOfRoomsInspector);
+    }
+
+    public void GenerateStartRoom()
+    {
+        if (LayerManager.CurrentLayerNumber == 1) return;
+        startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity); //Make tha start room
+        startRoom.GetComponent<RoomScript>().Depth = 0;
+        rooms.Add(startRoom); //Yes exactly this room should be added to the rooms list
+        GameManager.currentRoom = startRoom.GetComponent<RoomScript>();
+        startRoom.GetComponent<RoomScript>().ClearRoom();
+        GameManager.roomsCleared--; //to prevent startroom counting as a cleared room (fuck this)
+        availableDoors.Add(GameObject.FindWithTag("Door")); //And lets also get the first door.
+        SetStartRoomAngle();
+               
+    }
+
+    public void SetStartRoomAngle()
+    {   
+        if (LayerManager.CurrentLayerNumber < 1) return;    
         float[] angles = { 0f, 90f, 180f, 270f }; //Simple array, because its not gonna change
         float randomAngle = angles[Random.Range(0, angles.Length)]; //Pick a random start rotation
         startRoom.transform.rotation = Quaternion.Euler(0, 0, randomAngle); // and apply it.
+    }
+
+    public void SetNewLayer()
+    {
+        if (LayerManager.CurrentLayerNumber <= 1) return;
+        availableDoors.Clear();
+        rooms.Clear();
+        usedDoors.Clear();
+        GenerateStartRoom();
         GenerateRooms();
     }
 
     private void OnEnable()
     {
         RoomScript.RoomCleared += SetMiniMap;
+        LayerManager.newLayer += SetNewLayer;
     }
 
     private void OnDisable()
     {
-        RoomScript.RoomCleared -= SetMiniMap;
+        RoomScript.RoomCleared -= SetMiniMap; 
+        LayerManager.newLayer -= SetNewLayer;       
     }
+
 
     [ContextMenu("Generate Rooms")] //To call GenerateRooms from the inspector (Will probably get obsolete once the Game Manager etc handles when to gen rooms)
     public void GenerateRooms() //Helper methode to be overriden that can be called from the inspector (Since it isn't possible to do so with a methode that has Parameters)
     {
+        if (LayerManager.CurrentLayerNumber <= 1) return;
+        meshSurface.BuildNavMesh(); //after everything is generated, build the NavMesh for the Enemies
         GenerateRooms(numOfRoomsInspector); //I use this to be able to default to the number set in the inspector if the call was not from an outside source.
     }
    public void GenerateRooms(int numOfRooms) //might later be called by something else, hence public and the Parameter(Optional)
    {
+        tries = 0;
        for (int i = 0; i < numOfRooms; i++) //iterrate over how many rooms should be generated
        {
             tries++;

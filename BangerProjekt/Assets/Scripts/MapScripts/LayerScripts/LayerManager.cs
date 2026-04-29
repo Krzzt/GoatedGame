@@ -6,14 +6,20 @@ using Random = UnityEngine.Random;
 
 public class LayerManager : MonoBehaviour
 {
+
+    public static LayerManager Instance;
     [field:SerializeField] public static Layer CurrentLayer {get; set;}
     [field: SerializeField] public static int CurrentLayerNumber { get; set; } = 0;
     public static Action newLayer;
     private AllLayers AllLayerScript;
 
+    [SerializeField] private List<String> permanentObjects;
+
     private void Awake()
     {
         AllLayerScript = gameObject.GetComponent<AllLayers>(); //Both is in the LayerManager
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
 
     }
 
@@ -63,7 +69,10 @@ public class LayerManager : MonoBehaviour
         {
             CurrentLayer = AllLayerScript.Layers[0]; //if nothing is found, default to the first in the allLayerScript
         }
+
+        if (CurrentLayerNumber > 1) {GenerateNewLayer();}
         newLayer?.Invoke();
+
         //Debug.Log("Layer sent?");
     }
 
@@ -88,5 +97,30 @@ public class LayerManager : MonoBehaviour
     {
         CurrentLayer = SaveManager.currentSave.ActiveLayer;
         CurrentLayerNumber = SaveManager.currentSave.LayerNumber;
+    }
+
+    public void GenerateNewLayer()
+    {
+        //Delete everything except for the "permanents" (Player, GameManager, MainCanvas, MainCamera, PopUpPrefab, EventSystem)
+        GameObject[] allRootObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        bool isSaved = false;
+        foreach(GameObject obj in allRootObjects)
+        {
+            foreach(string objName in permanentObjects)
+            {
+                if (obj.name == objName)
+                {
+                    isSaved = true;
+                    break;
+                }
+            }
+            if (!isSaved)
+            {
+                obj.SetActive(false); //to prevent navmesh being shit
+                Destroy(obj);
+            }
+            isSaved = false;
+        }
+        GameManager.Instance.Save();
     }
 }

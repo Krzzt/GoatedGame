@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Fists
   m_EditorClassIdentifier: 
   <FireRate>k__BackingField: 0.7
-  <BulletAmount>k__BackingField: 0
-  <Damage>k__BackingField: 0
+  <BulletAmount>k__BackingField: 2
+  <Damage>k__BackingField: 2
   <Defense>k__BackingField: 0
   <HealthBonus>k__BackingField: 0
   <ID>k__BackingField: 6

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public abstract class Weapon : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public abstract class Weapon : MonoBehaviour
     protected int bulletsLeft; //the amount in your magazine
 
     public bool CanShoot{get;set;}
+    private PlayerInput playerInput;
+    private InputAction fire;
+    private bool holdingTrigger = false;
 
     [SerializeField] protected int spreadAngle;
     //if you shoot more than 1 bullet at a time (like at the same time), this decides how high the spread for a bullet is (its not random but exact)
@@ -46,6 +50,11 @@ public abstract class Weapon : MonoBehaviour
     [field:SerializeField] public WeaponItem CorrespondingItem {get; set;}
     private void Awake()
     {
+        playerInput = GameObject.FindWithTag("Player").GetComponent<PlayerInput>();
+        if(playerInput != null)
+        {
+            fire = playerInput.actions.FindAction("Fire");
+        }
         CanShoot = true;
         bulletsLeft = BulletAmount;
         ShootingMiddle = GameObject.Find("ShootingMiddle"); //we find by name to not bloat the tags aaaaaaaa help names are so bad aaaaaa
@@ -53,10 +62,24 @@ public abstract class Weapon : MonoBehaviour
         SetItemStats();
     }
 
+	private void OnEnable()
+	{
+		fire.started += FiringStart;
+        fire.canceled += FiringStopped;
+	}
+	void OnDisable()
+	{
+		fire.started -= FiringStart;
+        fire.canceled -= FiringStopped;
+	}
 
-    private void Update() //we check for the shooting in Update because we need to register clicks (depends on frames)
+	private void FiringStart(InputAction.CallbackContext context) {holdingTrigger = true;}
+    private void FiringStopped(InputAction.CallbackContext context) {holdingTrigger = false;}
+
+
+	private void Update() //we check for the shooting in Update because we need to register clicks (depends on frames)
     {
-        if (CanShoot && Input.GetMouseButton(0))
+        if (CanShoot && holdingTrigger)
         {
             if (shotDelay > 0)
             {
@@ -107,5 +130,9 @@ public abstract class Weapon : MonoBehaviour
         bulletsLeft = BulletAmount;
         CanShoot = true;
     }
+	private void OnDestroy()
+	{
+		holdingTrigger = false;
+	}
 
 }

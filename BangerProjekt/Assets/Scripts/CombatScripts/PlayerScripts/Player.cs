@@ -46,7 +46,12 @@ public class Player : Unit
 
     //Start of Item Variables -----------
     public static event Action<AbilityItem> NewAbility;
+    public static event Action ToggleInventory;
     //End of Item Variables ------------
+
+    //Interaction Event
+    public static Action InteractEvent;
+    //End of Interactuon Event
 
     //_______________________________________________________________________________________________________________
     //START OF FUNCTIONS
@@ -96,6 +101,11 @@ public class Player : Unit
         GameManager.currRoomChanged -= RoomChange;
         RoomScript.RoomCleared -= RoomChange;
 
+    }
+
+    public void Interact()
+    {
+        InteractEvent?.Invoke();
     }
 
     //End of Unity specific functions ----------------------------
@@ -266,8 +276,10 @@ public class Player : Unit
         {
             newWeaponItem = fistPrefab;
         }
+        Debug.Log("Destroying: " +GameObject.FindWithTag("Weapon").name);
         Destroy(GameObject.FindWithTag("Weapon")); //the weapon gets fucking blasted
         GameObject newWeaponObject = Instantiate(newWeaponItem, gameObject.transform);
+        Debug.Log("newWeaponObject = " + newWeaponObject.name);
         weaponScript = newWeaponObject.GetComponent<Weapon>();
         weaponScript.Damage += BonusDamage;
         weaponScript.FireRate += BonusFireRate;
@@ -348,7 +360,9 @@ public class Player : Unit
             CancelInvoke("CountdownImmunityFrames");
         }
     }
-
-
+    public void toggleInventory()
+    {
+        ToggleInventory?.Invoke();
+    }
     //End of General Functions
 }
