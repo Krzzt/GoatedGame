@@ -28,6 +28,13 @@ MonoBehaviour:
   <DamageMult>k__BackingField: 1
   <ShotDelayOrRange>k__BackingField: 4.5
   <SpreadAngle>k__BackingField: 0
-  <ShotSpeed>k__BackingField: 9
+  <ShotSpeed>k__BackingField: 6
+  <CritChance>k__BackingField: 50
+  <CritDamage>k__BackingField: 50
+  <LifeSteal>k__BackingField: 50
+  <BulletPierce>k__BackingField: 3
+  <BulletBounces>k__BackingField: 3
+  <defense>k__BackingField: 0
+  <healthBonus>k__BackingField: 0
   <BulletPrefab>k__BackingField: {fileID: 3131984643514835129, guid: 6f23d7785a8902b46a2a9daa14d9c42f, type: 3}
   <CorrespondingPrefab>k__BackingField: {fileID: 7906739187564051936, guid: 44980ecbb68651203bb88616ec38b2a1, type: 3}

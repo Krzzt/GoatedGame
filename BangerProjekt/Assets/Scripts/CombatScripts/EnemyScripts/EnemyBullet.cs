@@ -21,7 +21,7 @@ public class EnemyBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")||collision.CompareTag("Obstacle"))
         {
             if(collision.gameObject.GetComponent<Unit>())
-            collision.gameObject.GetComponent<Unit>().DamageUnit(damage);
+            collision.gameObject.GetComponent<Unit>().DamageUnit(damage, 1);
             Destroy(gameObject); //no Pierce or stuff like that necessary since there is only 1 player
             //so why add pierce 
             //maybe some bosses or something want piercing bullets that bounce?

@@ -23,10 +23,14 @@ public class Player : Unit
     private int currentExp = 0;
     private int requiredExp = 50;
     //End of level variables -------------------------------
+    //Start of LifeSteal variables
+    private bool IsStealingALife;
+    private int LifeStealAmount = 1;
+    //End of LifeSteal variables
 
     //Start of general Player variables ----------------------
 
-    public int KillCount{get;set;}//THIS IS PUBLIC //Public Property bitch
+    public int KillCount { get; set; }//THIS IS PUBLIC //Public Property bitch
     public int CurrImmunityFrames {get; private set;} //guess what that is
     public bool IsImmune { get; set;}
 
@@ -67,7 +71,7 @@ public class Player : Unit
     {
         if (collision.gameObject.CompareTag("Enemy")) //if the collision is an enemy (as seen by its tag)
         {
-            DamageUnit(collision.gameObject.GetComponent<Enemy>().Damage);
+            DamageUnit(collision.gameObject.GetComponent<Enemy>().Damage, 1);
         }
     }
 
@@ -75,7 +79,7 @@ public class Player : Unit
     {
         if (!IsImmune && collision.gameObject.CompareTag("Enemy")) //IsImmune to not spam check tags
         {
-            DamageUnit(collision.gameObject.GetComponent<Enemy>().Damage);
+            DamageUnit(collision.gameObject.GetComponent<Enemy>().Damage, 1);
         }
     }
     private void OnEnable()
@@ -108,15 +112,15 @@ public class Player : Unit
 
 
     //Start of HP related functions -----------------------------
-    public override void DamageUnit(int amount)
+    public override void DamageUnit(int amount, float crit)
     {
         if (IsImmune) return;
         if (amount <= 0) return;
         //This damage currently does not involve something like immunity frames or shit like that
         //also every enemy damages you on collision, if you hug them forever, you only take damage once!
-        base.DamageUnit(amount);
+        base.DamageUnit(amount, crit);
         AddImmunityFrames(ImmuFramesOnHit);
-        PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), amount.ToString(), Color.red);
+        PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), amount.ToString(), Color.red, 5);
         //Update the Healthbar if existent
         if (CurrentHealth <= 0) Die();
     }
@@ -127,6 +131,22 @@ public class Player : Unit
         //Update the healthbar if existent
     }
 
+    public void ApplyLifesteal() // starts the life steal Attempted
+    {
+        if (!IsStealingALife) // if hasnt stolen a life for 0.1 sec
+        {
+            HealUnit(LifeStealAmount); // heals for 1 
+            IsStealingALife = true; // Blocks other calls
+            PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), "1", Color.green, 5); // the Green 1 pop up
+            StartCoroutine(StartLifestealCooldown());
+        }
+    }
+
+    public IEnumerator StartLifestealCooldown() // Starting the 0.1 Secound Cooldown
+    {
+        yield return new WaitForSeconds(0.1f); 
+        IsStealingALife = false; // removing the LifeStealCD
+    }
     public void Die()
     {
         GameOverScreen.SetActive(true);
@@ -159,7 +179,8 @@ public class Player : Unit
             AddBonusFireRate(0.1f); //slightly higher fireRate
         }
         AddMaxHealth(10); //get 10 max Health
-        PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), "Level Up!", Color.yellow);
+        AddBonusFireRate(0.1f); //slightly higher fireRate
+        PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), "Level Up!", Color.yellow, 7);
         //stat increase probably
     }
 

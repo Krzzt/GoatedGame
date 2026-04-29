@@ -29,7 +29,6 @@ void OnTriggerEnter2D(Collider2D player) //Checks if something enters the collid
         {
             CancelInvoke("ProximityCheck");
         }
-        
     }
 
     public void ProximityCheck()
@@ -56,7 +55,6 @@ private bool CheckForFullEnter(Collider2D player)
         }
         return false; //and return false if it is not safe to close the door
     }
-
 }
 //Why didnt i use OnTriggerStay? I was stupid, thats why but i dont wanna rewrite everything i did so this is fine for now.
 //Besides, it only checks 10 times per second while OnTriggerStay would fire every fixed update so 50 times per second. (Saves some computing)

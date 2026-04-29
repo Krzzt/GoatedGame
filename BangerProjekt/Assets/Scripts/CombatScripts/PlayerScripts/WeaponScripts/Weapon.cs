@@ -22,8 +22,10 @@ public abstract class Weapon : MonoBehaviour
  
     [field: SerializeField] public int Damage{get;set;}
     public float DamageMult { get; set; } = 1f;
-
+    [field: SerializeField] public float LifeSteal{get;set;} // dont mind me nibbling on your neck
+    [field: SerializeField] public int BulletBounces{get;set;}
     [field: SerializeField] public int BulletAmount{get;set;}
+    public int BulletPierce{get;set;} //the pierce this bullet still has left
     protected int bulletsLeft; //the amount in your magazine
 
     public bool CanShoot{get;set;}
@@ -41,6 +43,9 @@ public abstract class Weapon : MonoBehaviour
     //if this is set to e.g 0.1, the delay between the shots in a "magazine" (u have infinite ammo but just need to reload like with a revolver)
     //the shots will come with small cooldown of 0.1. After that, the FireRate or as it is now called "reloadSpeed" comes into play to reload your new bulletAmount
     //so this acts as a kind of "second cooldown" for some weapons that want to use a magazine mechanic
+    
+    [field:SerializeField] public float CritChance{get;set;} // crit chance
+    [field:SerializeField] public float CritDamage{get;set;} // crit Damage
 
     [field:SerializeField] public WeaponItem CorrespondingItem {get; set;}
     private void Awake()
@@ -103,7 +108,11 @@ public abstract class Weapon : MonoBehaviour
         spreadAngle += CorrespondingItem.SpreadAngle;
         shotDelay += CorrespondingItem.ShotDelayOrRange;
         bulletsLeft = BulletAmount;
+        CritDamage += CorrespondingItem.CritDamage;
+        CritChance += CorrespondingItem.CritChance;
+        LifeSteal += CorrespondingItem.LifeSteal;
         //we add everywhere in case the player shit gets called first to add the fucking stats (i dont think it could happen and even if, the stats would affect the old weapon, but fuck it)
+        BulletBounces += CorrespondingItem.BulletBounces;
     }
     
 

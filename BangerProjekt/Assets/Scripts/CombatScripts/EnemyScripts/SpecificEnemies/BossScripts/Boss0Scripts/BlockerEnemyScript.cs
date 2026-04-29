@@ -14,7 +14,7 @@ public class BlockerEnemyScript : Enemy
         base.Awake();
         parentBoss = GameObject.FindObjectOfType<Boss>().gameObject; //we find the boss
     }
-    public override void DamageUnit(int amount)
+    public override void DamageUnit(int amount, float crit)
     {
         //it does not give a fuck
     }

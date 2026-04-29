@@ -80,13 +80,13 @@ public class Enemy : Unit
         return false;
     }
 
-    public override void DamageUnit(int amount)
+    public override void DamageUnit(int amount, float crit)
     {
-       base.DamageUnit(amount);
-       PopUp.Create(gameObject.transform.position + new Vector3(0.3f,1.5f,0),amount.ToString(),Color.white);
+       base.DamageUnit(amount, crit);
+
        //Create a damage pop up (via the static function in the popup script)
-       //Update health bar if existent
-       if (CurrentHealth <= 0)
+        //Update health bar if existent
+        if (CurrentHealth <= 0)
         {
             Die();
         } 

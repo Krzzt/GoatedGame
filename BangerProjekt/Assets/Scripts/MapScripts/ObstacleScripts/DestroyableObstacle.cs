@@ -11,9 +11,9 @@ public class DestroyableObstacle : Unit, IPointerEnterHandler, IPointerExitHandl
         Obstacle = this.GetComponent<ObstacleScript>().Obstacle;
         CurrentHealth = Obstacle.HP;
     }
-    public override void DamageUnit(int damageAmount)
+    public override void DamageUnit(int damageAmount,float crit)
     {
-        base.DamageUnit(damageAmount);
+        base.DamageUnit(damageAmount , crit );
         if (CurrentHealth <= 0)
         {
             if (Obstacle.Explosive) Explode();
@@ -35,7 +35,7 @@ public class DestroyableObstacle : Unit, IPointerEnterHandler, IPointerExitHandl
             if (victim == this.gameObject) continue;
             if (victim.gameObject.GetComponent<Unit>())
             {
-                victim.gameObject.GetComponent<Unit>().DamageUnit(Obstacle.ExplodeDamage);
+                victim.gameObject.GetComponent<Unit>().DamageUnit(Obstacle.ExplodeDamage, 0);
             }
         }
     }
