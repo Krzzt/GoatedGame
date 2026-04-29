@@ -8,11 +8,10 @@ public class PlayerBullet : MonoBehaviour
     private float timeAlive; //the max time alive before spontaneously imploding
     protected Weapon weaponScript;
     protected Player playerScript;
-    public Rigidbody2D rb;
-    bool isLifestealable;
+    private Rigidbody2D rb;
     private int RemainingPierce;
     private int RemainingBulletBounces;
-    public Vector2 bulletPos;
+    private Vector2 bulletPos;
     private bool isBouncing;
 
     private void Awake()
@@ -45,7 +44,7 @@ public class PlayerBullet : MonoBehaviour
             float CritValue = 1 + weaponScript.CritDamage / 100f;
             return CritValue; // returns the crit damage as a 1.x multiplier
         }
-        else return 1;
+        else return 1; //1 means a multiplier of 1.0, so normal DMG
     }
 
     public void LifeStealCalculate() // starts the lifesteal gambling
@@ -53,43 +52,41 @@ public class PlayerBullet : MonoBehaviour
         int temp = Random.Range(1, 101);
         if (temp <= weaponScript.LifeSteal)
         {
-            playerScript.StealALife(); // sends the success of hitting the lifsteal to the player
+            playerScript.ApplyLifesteal(); // sends the success of hitting the lifsteal to the player
         }
         else return;
     }
 
-    public void BulletBounceCalculate(Rigidbody2D _Rigidbody, GameObject currObject)
+    public void BounceBullet(GameObject currObject)
     { // Like a smart man ones said "Einfallswinkel = Ausfallswinkel" but i never thought he meant some bs like this
-        StartCoroutine(IsBouncingcd());
+        StartCoroutine(SecureOneBouncePerFrame());
 
-        Vector2 bulletvelocity = _Rigidbody.velocity; // getting the Velocity 
+        Vector2 bulletvelocity = rb.velocity; // getting the Velocity 
         Vector2 closestPoint = currObject.GetComponent<Collider2D>().ClosestPoint(bulletPos); // getting the exact collison point
-
         Vector2 normal = (bulletPos - closestPoint).normalized; // getting a normalized vector of our collsion 
-        Vector2 newVelocity = Vector2.Reflect(bulletvelocity, normal); // Reflecting the bullet "mirroring" it on the normal
 
         RemainingBulletBounces--; // now we remove a Bounce
 
-        rb.velocity = newVelocity; // calculating the new velocity
+        rb.velocity = Vector2.Reflect(bulletvelocity, normal); // calculating the new velocity, with the Reflect function (on the normal)
         float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg - 90f; // Atan2 converts the velocity to an Angle in degrees // -90f because how the sprite is drawn
         transform.rotation = Quaternion.Euler(0f, 0f, angle); // Here i apply the Angle to the Rotation Axis (Z) 
     }
 
-    public IEnumerator IsBouncingcd() // no more bouncing thru walls
+    public IEnumerator SecureOneBouncePerFrame() // no more bouncing thru walls
     {
-        yield return new WaitForSeconds(0.001f);//WaitForNextFrameUnit(); //WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
         isBouncing = false; 
     }
 
     public void BounceInitiator(GameObject currObject)
     {
         if (isBouncing) return;
-        if (!isBouncing && RemainingBulletBounces > 0)
+        if (RemainingBulletBounces > 0)
         {
             isBouncing = true;
             bulletPos = transform.position; // getting current bullet position
 
-            BulletBounceCalculate(rb, currObject);
+            BounceBullet(currObject);
         }
         else
         {
@@ -97,19 +94,19 @@ public class PlayerBullet : MonoBehaviour
         }
     }
 
-    public void ObstacleTester(GameObject currObject)
+    public void CheckObstacleAndSetBehaivour(GameObject currObject)
     {
-        if (currObject.GetComponent<ObstacleScript>().Obstacle.Passable) { return; }
-        if (currObject.GetComponent<DestroyableObstacle>())
+        if (currObject.GetComponent<ObstacleScript>().Obstacle.Passable) return; //we dont care about passable obstacles
+        if (currObject.GetComponent<DestroyableObstacle>()) //we damage obstacles that u can destroy
         {
             DamageCalculation(currObject, false);
         }
-        else{ BounceInitiator(currObject); }
+        else{ BounceInitiator(currObject); } //else means that they are basically like walls, so we bounce
     }
 
     public void DamageCalculation(GameObject currObject, bool isLifestealable)
     {
-        if (isLifestealable) { LifeStealCalculate(); }
+        if (isLifestealable) LifeStealCalculate(); 
         float CritDamage = CritCalculate();
         currObject.GetComponent<Unit>().DamageUnit((int)((weaponScript.Damage * weaponScript.DamageMult) * CritDamage), CritDamage);
         RemainingPierce--; //reduce the pierce
@@ -124,10 +121,10 @@ public class PlayerBullet : MonoBehaviour
         GameObject currObject = collision.gameObject; //the object with which the collision occured
         switch (currObject.tag)
         {
-            case "Enemy":DamageCalculation(currObject, true); break;
-            case "Wall":BounceInitiator(currObject); break;
-            case "Door":BounceInitiator(currObject); break;
-            case "Obstacle":ObstacleTester(currObject); break;
+            case "Enemy":DamageCalculation(currObject, true); break; //we just damage enemies, and we can lifesteal from them
+            case "Wall":BounceInitiator(currObject); break; //bounce on walls
+            case "Door":BounceInitiator(currObject); break; //bounce on doors
+            case "Obstacle":CheckObstacleAndSetBehaivour(currObject); break; //check which type of obstacle and do stuff accordingly
             default: ; break;
         }
         
