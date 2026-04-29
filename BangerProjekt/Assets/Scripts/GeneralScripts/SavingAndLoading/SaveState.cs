@@ -9,7 +9,7 @@ public class SaveState
 
     //INVENTORY RELATED (in InventoryLogic)
     [field: SerializeField] public Item[] EquippedItems { get; set; }
-    [field: SerializeField] public List<Item> InventoryItems { get; set; }
+    [field: SerializeField] public Item[] InventoryItems { get; set; }
 
     //CARD RELATED (in DeckLogic)
     [field: SerializeField] public List<Card> CardsInHand { get; set; }
@@ -40,7 +40,7 @@ public class SaveState
     public SaveState()
     {
         EquippedItems = new Item[(int)Enums.SlotTag.None];
-        InventoryItems = new List<Item>();
+        InventoryItems = new Item[18];
         CardsInHand = new List<Card>();
         EntireDeck = new List<Card>(); //maybe needs to be changed in the future to a dummy deck
         DrawPile = new List<Card>();
@@ -60,7 +60,7 @@ public class SaveState
     public SaveState(Class playerClass)
     {
         EquippedItems = playerClass.StartingItems;
-        InventoryItems = new List<Item>();
+        InventoryItems = new Item[18];
         CardsInHand = new List<Card>();
         EntireDeck = new List<Card>(playerClass.StartingDeck); //maybe needs to be changed in the future to a dummy deck
         DrawPile = new List<Card>(playerClass.StartingDeck); //yippie we can draw cards

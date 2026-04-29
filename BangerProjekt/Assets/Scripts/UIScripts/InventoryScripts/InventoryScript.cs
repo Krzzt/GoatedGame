@@ -51,7 +51,7 @@ public class InventoryScript : MonoBehaviour
         foreach (Item item in InventoryLogic.ItemsEquipped)
         {
             if (!item) continue;
-            Debug.Log(item.ItemName);
+            //Debug.Log(item.ItemName);
             GameObject parent = item.ItemTag switch
             {
                 Enums.SlotTag.Ability => AbilitySlot,
@@ -106,11 +106,10 @@ public class InventoryScript : MonoBehaviour
         droppedItem.GetComponent<ItemPickup>().setup(itemToDrop);
     }
 
-    private void UpdateUi()
+    public void UpdateUi()
     {
         if (content != null)
         {
-
             for (int i = 0; i < InventoryLogic.ActiveInventory.slots.Length; i++)
             {
                 GameObject IS = Instantiate(ItemSlotPrefab, content);
@@ -124,11 +123,11 @@ public class InventoryScript : MonoBehaviour
             }
         }
     }
-    private void OnEnable()
+    public void OnEnable()
     {
         UpdateUi();
     }
-    private void OnDisable()
+    public void OnDisable()
     {
         if (content != null)
         {

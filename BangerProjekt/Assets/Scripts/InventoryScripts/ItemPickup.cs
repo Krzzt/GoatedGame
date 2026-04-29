@@ -14,7 +14,16 @@ public class ItemPickup : MonoBehaviour
 
     private InputAction interactAction;
 
-    private void Awake()
+	void OnEnable()
+	{
+        interactAction.performed += PickUpItem;
+	}
+	void OnDisable()
+	{
+		interactAction.performed -= PickUpItem;
+	}
+
+	private void Awake()
     {   
         interactAction = Player.playerInput.actions.FindAction("Interact");
         SR = this.GetComponentInChildren<SpriteRenderer>(true);
@@ -23,8 +32,7 @@ public class ItemPickup : MonoBehaviour
     public void setup(Item item)
     {
         Item = item;
-        SR.sprite = item.Icon;
-        
+        SR.sprite = item.Icon; 
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -42,5 +50,11 @@ public class ItemPickup : MonoBehaviour
             PopUp.SetActive(false);
         }
     }
-
+    private void PickUpItem(InputAction.CallbackContext context)
+    {
+        if (InventoryLogic.ActiveInventory.TryAddItem(Item))
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

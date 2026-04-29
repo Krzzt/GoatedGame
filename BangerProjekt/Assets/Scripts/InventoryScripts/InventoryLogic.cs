@@ -28,22 +28,21 @@ public class InventoryLogic : MonoBehaviour
         InventoryItems = new List<Item>();
     }
 
-
     void Start()
     {
         ActiveInventory.Init(InventorySlots);
         for (int i = 0; i < ItemsEquipped.Length; i++)
         {
             ItemsEquipped[i] = null;
-            //reset all items, after that we can load them from save (still need to do tho D:)
+            //reset all items, after that we can load them from save
         }
         ObtainItem(allItemList.Items[1]); //free dash
         ObtainItem(allItemList.Items[1]); //free dash
         EquipItem(InventoryItems[0]);
-        ObtainItem(allItemList.Items[3]); //free Revolver??
+        /*ObtainItem(allItemList.Items[3]); //free Revolver??
         ObtainItem(allItemList.Items[3]); //free Revolver??
         ObtainItem(allItemList.Items[2]);
-        ObtainItem(allItemList.Items[4]);
+        ObtainItem(allItemList.Items[4]);*/
         //EquipItem(0);
         //UnEquipItem(2); //if you want to start with fists :)
     }
@@ -67,23 +66,8 @@ public class InventoryLogic : MonoBehaviour
         {
             InventoryScript.Instance.DropItem(itemToGet);
         }
-        
-        if (InventoryItems.Count < InventorySlots) //if there is space
-        {
-            InventoryItems.Add(itemToGet);
-        }
-        else //if there isnt
-        {
-            //probably need to change something here so items CAN lay on the ground. If someone purchases something with a full inv
-            //this item needs to lay on the ground
-            Debug.Log("Inventory is full!");
-        }
     }
 
-    public void RemoveItem(int idSlotToRemove)
-    {
-        InventoryItems.RemoveAt(idSlotToRemove);
-    }
 
     public void EquipButton() //this should be used by the button that equips something
     {
@@ -107,11 +91,10 @@ public class InventoryLogic : MonoBehaviour
             //if nothing is equipped, we equip the one we have and increase our stats accordingly
             //this gets called when the Player has nothing equipped 
         }
-
     }
+
     public static void UnEquipItem(int tagOfItemInt)
     {
-
         Item itemToUnequip = ItemsEquipped[tagOfItemInt];
         InventoryItems.Add(itemToUnequip);
         ItemsEquipped[tagOfItemInt] = null;
@@ -123,19 +106,18 @@ public class InventoryLogic : MonoBehaviour
         {
             ChangeItemPlayerStats?.Invoke(ItemsEquipped[tagOfItemInt], false); // false because subtract the stats
         }
-
-
     }
 
     private void SaveInventory()
     {
-        SaveManager.currentSave.InventoryItems = InventoryItems;
+        SaveManager.currentSave.InventoryItems = ActiveInventory.slots;
         SaveManager.currentSave.EquippedItems = ItemsEquipped;
     }
 
     private void LoadInventory()
     {
-        InventoryItems = SaveManager.currentSave.InventoryItems;
+        ActiveInventory.slots = SaveManager.currentSave.InventoryItems;
+
         foreach (Item item in SaveManager.currentSave.EquippedItems)
         {
             if (item != null)
