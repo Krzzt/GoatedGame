@@ -37,12 +37,21 @@ public class ItemInSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
     {
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
-        Debug.Log(parentBeforeDrag.gameObject.name);
-        if (!eventData.pointerCurrentRaycast.gameObject || !eventData.pointerCurrentRaycast.gameObject.GetComponent<ItemSlot>())
+        //Debug.Log(parentBeforeDrag.gameObject.name);
+        GameObject hitObject = eventData.pointerCurrentRaycast.gameObject;
+        if (hitObject != null && hitObject.GetComponent<ItemSlot>() != null)
         {
-            transform.SetParent(parentBeforeDrag);
-            rectTransform.anchoredPosition = Vector2.zero;
+            return;
         }
+
+        if (hitObject != null && hitObject.GetComponent<ItemInSlot>() != null)
+        {
+            return;
+        }
+        int slotId = parentBeforeDrag.GetComponent<ItemSlot>().SlotId;
+        InventoryScript.Instance.DropItem(this.Item, slotId, parentBeforeDrag.GetComponent<ItemSlot>().equipSlot, parentBeforeDrag.gameObject);
+        OnPointerExit(null);
+        Destroy(this.gameObject);
 
     }
     public void OnDrag(PointerEventData eventData)
@@ -63,25 +72,26 @@ public class ItemInSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
     public void OnPointerEnter(PointerEventData eventData)
     {
         GameObject itemView = Instantiate(itemHoverPrefab, itemHoverAnchor, false);
-            itemView.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-            TMP_Text nameText = itemView.transform.Find("NameText").GetComponent<TMP_Text>();
-            TMP_Text descriptionText = itemView.transform.Find("DescriptionText").GetComponent<TMP_Text>();
-            TMP_Text statText = itemView.transform.Find("StatText").GetComponent<TMP_Text>();
-            nameText.SetText(Item.name);
-            nameText.font = GameManager.Instance.GameFont;
-            descriptionText.SetText(Item.Description);
-            descriptionText.font = nameText.font;
-            statText.SetText(Item.BuildStatString());
-            statText.font = nameText.font;
-            itemView.transform.Find("ItemImage").GetComponent<Image>().sprite = Item.Icon;
-            
+        itemView.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        TMP_Text nameText = itemView.transform.Find("NameText").GetComponent<TMP_Text>();
+        TMP_Text descriptionText = itemView.transform.Find("DescriptionText").GetComponent<TMP_Text>();
+        TMP_Text statText = itemView.transform.Find("StatText").GetComponent<TMP_Text>();
+        nameText.SetText(Item.name);
+        nameText.font = GameManager.Instance.GameFont;
+        descriptionText.SetText(Item.Description);
+        descriptionText.font = nameText.font;
+        statText.SetText(Item.BuildStatString());
+        statText.font = nameText.font;
+        itemView.transform.Find("ItemImage").GetComponent<Image>().sprite = Item.Icon;
+
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-            if(itemHoverAnchor.childCount > 0){
-            foreach(Transform child in itemHoverAnchor.transform)
-            { 
-            Destroy(child.gameObject);
+        if (itemHoverAnchor.childCount > 0)
+        {
+            foreach (Transform child in itemHoverAnchor.transform)
+            {
+                Destroy(child.gameObject);
             }
         }
     }

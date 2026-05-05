@@ -123,11 +123,14 @@ public class UIManager : MonoBehaviour
 
         if (inventory.activeSelf)
         {
-            GameObject.FindWithTag("Player").GetComponent<PlayerInput>().actions.FindAction("Fire").Disable();
+            Player.playerInput.actions.FindAction("Fire").Disable();
+            Player.playerInput.actions.FindAction("Interact").Disable();
+
         }
         else
         {
-            GameObject.FindWithTag("Player").GetComponent<PlayerInput>().actions.FindAction("Fire").Enable();
+            Player.playerInput.actions.FindAction("Fire").Enable();
+            Player.playerInput.actions.FindAction("Interact").Enable();
         }
     }
 

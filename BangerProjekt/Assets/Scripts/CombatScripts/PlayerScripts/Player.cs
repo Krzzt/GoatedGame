@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Player : Unit
 {
@@ -50,6 +51,7 @@ public class Player : Unit
     //End of Item Variables ------------
 
     //Interaction Event
+    public static PlayerInput playerInput{ get; set; } //static way to get the player input from wherever its needed. Much more efficient than searching for the player.
     public static Action InteractEvent;
     //End of Interactuon Event
 
@@ -58,12 +60,11 @@ public class Player : Unit
 
     //Start of Unity specific functions ----------------------------
     new void Awake()
-    {   
+    {
         weaponScript = GameObject.FindWithTag("Weapon").GetComponent<Weapon>(); //gameObject with small g = this.GameObject
         abilityScript = gameObject.GetComponent<UseAbilities>();
+        playerInput = this.GetComponent<PlayerInput>();
         base.Awake();
-
-
     }
 
 
@@ -186,9 +187,9 @@ public class Player : Unit
 
     //end of exp related functions -----------------------
     //start of Pickup related functions ------------------
-    public void AddBuff(int pickupType, float pickupDuration) 
+    public void AddBuff(int pickupType, float pickupDuration)
     {
-            switch (pickupType) // determinate the typ of pickup 
+            switch (pickupType) // determinate the typ of pickup
             {
                 case 0: // Speed
                 //print(MoveSpeed);
@@ -203,11 +204,11 @@ public class Player : Unit
                 //print(weaponScript.Damage);
                     break;
                 case 2: // Hp
-                    CurrentHealth += 20; // adding hp 
+                    CurrentHealth += 20; // adding hp
                     break;
-                
+
             }
-        
+
     }
     public IEnumerator EndBuff(int pickupType, float pickupDuration)
     {
@@ -271,21 +272,21 @@ public class Player : Unit
 
     public void NewWeapon(GameObject newWeaponItem)
     {
-        Debug.Log("NewWeapon called");
+        //Debug.Log("NewWeapon called");
         if (!newWeaponItem)
         {
             newWeaponItem = fistPrefab;
         }
-        Debug.Log("Destroying: " +GameObject.FindWithTag("Weapon").name);
+        //Debug.Log("Destroying: " +GameObject.FindWithTag("Weapon").name);
         Destroy(GameObject.FindWithTag("Weapon")); //the weapon gets fucking blasted
         GameObject newWeaponObject = Instantiate(newWeaponItem, gameObject.transform);
-        Debug.Log("newWeaponObject = " + newWeaponObject.name);
+        //Debug.Log("newWeaponObject = " + newWeaponObject.name);
         weaponScript = newWeaponObject.GetComponent<Weapon>();
         weaponScript.Damage += BonusDamage;
         weaponScript.FireRate += BonusFireRate;
         //both 0 to just add the extra damage
         //simply adding that shit (might need to get a function later)
-        //set new weapon and add stats 
+        //set new weapon and add stats
 
     }
     public void AddBonusDamage(int amount)

@@ -25,6 +25,7 @@ public class UseAbilities : MonoBehaviour
     public void UseAbility()
     {
         if (!isReady) return;
+        if(InventoryLogic.ItemsEquipped[(int)Enums.SlotTag.Ability] == null) return;
         isReady = false;
         switch(InventoryLogic.ItemsEquipped[(int)Enums.SlotTag.Ability].ID)
         {

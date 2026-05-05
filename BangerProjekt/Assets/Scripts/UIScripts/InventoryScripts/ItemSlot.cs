@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -21,6 +22,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         if (sourceSlot != null && sourceSlot.equipSlot && !equipSlot)
         {
             InventoryLogic.UnEquipItem((int)draggedItem.Item.ItemTag);
+            InventoryLogic.ActiveInventory.AddItemToSlot(draggedItem.Item, SlotId);
         }
         if (equipSlot && draggedItem.Item.ItemTag != SlotTag)
         {
@@ -30,9 +32,11 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         }
         if (equipSlot && draggedItem.Item.ItemTag == SlotTag && !sourceSlot.equipSlot)
         {
+            InventoryLogic.ActiveInventory.RemoveItem(sourceSlot.SlotId);
             if (transform.childCount > 0)
             {
                 InventoryLogic.UnEquipItem((int)SlotTag);
+                InventoryLogic.ActiveInventory.AddItemToSlot(transform.GetChild(0).GetComponent<ItemInSlot>().Item, sourceSlot.SlotId);
             }
             StartCoroutine(waitForFrame(draggedItem.Item));
                
@@ -47,6 +51,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         draggedItem.parentBeforeDrag = transform;
         droppedObject.transform.SetParent(transform);
         droppedObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        if(!sourceSlot.equipSlot && !equipSlot)
+        InventoryLogic.ActiveInventory.SwapSlots(SlotId, sourceSlot.SlotId);
     }
 
     IEnumerator waitForFrame(Item draggedItem)
