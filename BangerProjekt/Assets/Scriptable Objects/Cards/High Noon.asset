@@ -10,14 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b27c9fd9eff6d11d281dbcd47d063780, type: 3}
-  m_Name: cardTest0
+  m_Name: High Noon
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 0
   <CardRarity>k__BackingField: 0
-  <Name>k__BackingField: test0
-  <Description>k__BackingField: dogshit
+  <Name>k__BackingField: High Noon
+  <Description>k__BackingField: +2 bulletAmount, FireRate way up, damage Way down
   <ClassOfCard>k__BackingField: 0
   <CardImage>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  <Cost>k__BackingField: 0
+  <Cost>k__BackingField: 10
   <LayerOfCard>k__BackingField: {fileID: 11400000, guid: 1df98d14c0ed7544994361b81eb0112f, type: 2}
   <CurrencyCost>k__BackingField: 2
+  <CardEffects>k__BackingField:
+  - <First>k__BackingField: {fileID: 11400000, guid: 118352c403d0c1fd5848c4b563e0e23b, type: 2}
+    <Second>k__BackingField: 2
+  - <First>k__BackingField: {fileID: 11400000, guid: 0aa11106ff5bc1acfa96f70e065bfe06, type: 2}
+    <Second>k__BackingField: 3
+  - <First>k__BackingField: {fileID: 11400000, guid: 3ce7554f29c9b088394f2110340b5cb0, type: 2}
+    <Second>k__BackingField: -2

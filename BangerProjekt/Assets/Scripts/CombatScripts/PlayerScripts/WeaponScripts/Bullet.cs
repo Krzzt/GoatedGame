@@ -108,7 +108,9 @@ public class PlayerBullet : MonoBehaviour
     {
         if (isLifestealable) LifeStealCalculate(); 
         float CritDamage = CritCalculate();
-        currObject.GetComponent<Unit>().DamageUnit((int)((weaponScript.Damage * weaponScript.DamageMult) * CritDamage), CritDamage);
+        int totalDamage = (int)((weaponScript.Damage * weaponScript.DamageMult) * CritDamage);
+        if (totalDamage <= 0) totalDamage = 1;
+        currObject.GetComponent<Unit>().DamageUnit(totalDamage, CritDamage);
         RemainingPierce--; //reduce the pierce
         if (RemainingPierce <= 0)
         {

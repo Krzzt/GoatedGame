@@ -112,11 +112,10 @@ public class DeckLogic : MonoBehaviour
         Card card = cardsInHand[cardIDinHand];
         if (currencyAmount < card.CurrencyCost) return;
         currencyAmount -= card.CurrencyCost;
-        switch(card.ID)
+        foreach(Pair<CardEffect, string> pair in card.CardEffects)
         {
-            case 0:
-                //cool stuff based on ID
-            break;
+            Debug.Log(pair.Second);
+            pair.First.ExecuteEffect(pair.Second);
         }
         activeCards.Add(card);
         DiscardCard(cardIDinHand);
@@ -130,11 +129,9 @@ public class DeckLogic : MonoBehaviour
 		//reset effects foreach card in the list
         foreach(Card card in activeCards)
         {
-            switch(card.ID)
+            foreach(Pair<CardEffect, string> pair in card.CardEffects)
             {
-                case 0:
-                    //cool stuff based on ID
-                break;
+                pair.First.RevertEffect(pair.Second);
             }
         }
 		activeCards.Clear();

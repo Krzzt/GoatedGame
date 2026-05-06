@@ -21,3 +21,6 @@ MonoBehaviour:
   <Cost>k__BackingField: 20
   <LayerOfCard>k__BackingField: {fileID: 11400000, guid: 1df98d14c0ed7544994361b81eb0112f, type: 2}
   <CurrencyCost>k__BackingField: 3
+  <CardEffects>k__BackingField:
+  - <First>k__BackingField: {fileID: 11400000, guid: 3ce7554f29c9b088394f2110340b5cb0, type: 2}
+    <Second>k__BackingField: 20

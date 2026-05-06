@@ -33,11 +33,11 @@ public abstract class Weapon : MonoBehaviour
     private InputAction fire;
     private bool holdingTrigger = false;
 
-    [SerializeField] protected int spreadAngle;
+    [field:SerializeField] public int SpreadAngle {get; set;}
     //if you shoot more than 1 bullet at a time (like at the same time), this decides how high the spread for a bullet is (its not random but exact)
     //if this is e.g set to 3 and you fire 4 bullets, the first one goes straight, the second one 3 degrees to the right, the third one 3 degrees to the left
     //and the fourth one 6 degrees to the right etc.
-    [SerializeField] protected float shotDelay; //if BulletAmount is higher than 1, this variable is important
+    [field:SerializeField] public float ShotDelay {get; set;} //if BulletAmount is higher than 1, this variable is important
     //also important to note that the player can increase their bulletAmount by other means than weapon choice (like Cards, Items etc.)
     //if this is set to 0, every shot is shot at the same time (with spread decided by the spreadAngle)
     //if this is set to e.g 0.1, the delay between the shots in a "magazine" (u have infinite ammo but just need to reload like with a revolver)
@@ -81,7 +81,7 @@ public abstract class Weapon : MonoBehaviour
     {
         if (CanShoot && holdingTrigger)
         {
-            if (shotDelay > 0)
+            if (ShotDelay > 0)
             {
                 Shoot(1); //one bullet at a time (maybe needs to be changed later)
             }
@@ -105,8 +105,8 @@ public abstract class Weapon : MonoBehaviour
         FireRate += CorrespondingItem.FireRate;
         ShotSpeed += CorrespondingItem.ShotSpeed;
         BulletAmount += CorrespondingItem.BulletAmount;
-        spreadAngle += CorrespondingItem.SpreadAngle;
-        shotDelay += CorrespondingItem.ShotDelayOrRange;
+        SpreadAngle += CorrespondingItem.SpreadAngle;
+        ShotDelay += CorrespondingItem.ShotDelayOrRange;
         bulletsLeft = BulletAmount;
         CritDamage += CorrespondingItem.CritDamage;
         CritChance += CorrespondingItem.CritChance;
@@ -119,7 +119,7 @@ public abstract class Weapon : MonoBehaviour
     public IEnumerator StartShotDelayCooldown()
     {
         CanShoot = false;
-        yield return new WaitForSeconds(1f / shotDelay);
+        yield return new WaitForSeconds(1f / ShotDelay);
         CanShoot = true;
     }
 
