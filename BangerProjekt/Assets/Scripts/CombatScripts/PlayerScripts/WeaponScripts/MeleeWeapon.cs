@@ -15,7 +15,7 @@ public class MeleeWeapon : Weapon
         Vector3 normDirection = (ShootingPoint.position - ShootingMiddle.transform.position).normalized; //we want the blades to always be at the shootingpoint but the hilt of it not the middle
         normDirection *= (currBlade.transform.GetChild(0).position - currBlade.transform.position).magnitude; //basically by adding this vector we get the back of the sword to be at the shootingpoint
         currBlade.transform.position += normDirection;
-        ShootingMiddle.transform.Rotate(0,0,spreadAngle); //set the rotation to the right
+        ShootingMiddle.transform.Rotate(0,0,SpreadAngle); //set the rotation to the right
         //as a child of the shooting point so it rotates with the shooting point
 
         InvokeRepeating("CheckForSwing", 0, 0.05f); //check pretty frequently
@@ -25,7 +25,7 @@ public class MeleeWeapon : Weapon
 
     public void CheckForSwing()
     {
-        float anglePerTick = (2 * spreadAngle) / ((1f / ShotSpeed) * 50f); // 1 / shotDelay = time for it to swing entirely, and we need 2x spreadAngle because we travel from one end to another
+        float anglePerTick = (2 * SpreadAngle) / ((1f / ShotSpeed) * 50f); // 1 / shotDelay = time for it to swing entirely, and we need 2x spreadAngle because we travel from one end to another
         if (!isSwinging)
         {
             if (bulletsLeft >= 0)
@@ -49,7 +49,7 @@ public class MeleeWeapon : Weapon
     public IEnumerator SwingWeapon(bool rightToLeft, float anglePerTick)
     {
         isSwinging = true;
-        float tickAmount = 2 * (spreadAngle / anglePerTick);
+        float tickAmount = 2 * (SpreadAngle / anglePerTick);
         if (!rightToLeft)
         {
             anglePerTick *= -1; //we change direction if we want to go from left to right

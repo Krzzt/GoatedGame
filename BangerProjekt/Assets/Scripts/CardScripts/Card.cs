@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [CreateAssetMenu]
 public class Card : ScriptableObject
@@ -12,6 +14,7 @@ public class Card : ScriptableObject
     [field: SerializeField] public int Cost {get;set;} //Pricy little things
     [field: SerializeField] public Layer LayerOfCard {get; set;}
     [field: SerializeField] public int CurrencyCost {get; set;}
+    [field:SerializeField] public List<Pair<CardEffect,string>> CardEffects {get; set;}
     
 }
 

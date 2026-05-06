@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 public class Player : Unit
 {
 
+    public static Player Instance;
     private Weapon weaponScript;
     private UseAbilities abilityScript;
     [SerializeField] private GameObject fistPrefab;
@@ -43,6 +44,9 @@ public class Player : Unit
     //Start of Bonus Stat Variables (for now only Weapon) --------
     public int BonusDamage {get; private set;}
     public float BonusFireRate {get; private set;}
+    public int BonusSpreadAngle {get; private set;}
+
+    public int BonusBulletAmount {get; private set;}
     //End of Bonus Stat Variables (for now only Weapon) -----------
 
     //Start of Item Variables -----------
@@ -61,6 +65,15 @@ public class Player : Unit
     //Start of Unity specific functions ----------------------------
     new void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+
         weaponScript = GameObject.FindWithTag("Weapon").GetComponent<Weapon>(); //gameObject with small g = this.GameObject
         abilityScript = gameObject.GetComponent<UseAbilities>();
         playerInput = this.GetComponent<PlayerInput>();
@@ -297,9 +310,31 @@ public class Player : Unit
     }
     public void AddBonusFireRate(float amount)
     {
+        bool hasShotDelay = false;
         weaponScript.FireRate -= BonusFireRate; //subtract so we can add everything at the end
+        if (weaponScript.ShotDelay > 0)
+        {
+           weaponScript.ShotDelay -= BonusFireRate / 3; 
+           hasShotDelay = true;
+        }
         BonusFireRate += amount;
         weaponScript.FireRate += BonusFireRate;
+        if (hasShotDelay) weaponScript.ShotDelay += BonusFireRate / 3;
+        
+    }
+
+    public void AddBonusSpreadAngle(int amount)
+    {
+        weaponScript.SpreadAngle -= BonusSpreadAngle; //subtract so we can add everything at the end
+        BonusSpreadAngle += amount;
+        weaponScript.SpreadAngle += BonusSpreadAngle;
+    }
+
+    public void AddBonusBulletAmount(int amount)
+    {
+        weaponScript.BulletAmount -= BonusBulletAmount;
+        BonusBulletAmount += amount;
+        weaponScript.BulletAmount += BonusBulletAmount;
     }
     //end of inventory functions
 

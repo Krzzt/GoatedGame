@@ -10,11 +10,11 @@ public class SpearWeapon : MeleeWeapon
     {
         get
         {
-            return shotDelay;
+            return ShotDelay;
         }
         set
         {
-            shotDelay = value;
+            ShotDelay = value;
         }
     }
     public override void Shoot(int bulletCount)
