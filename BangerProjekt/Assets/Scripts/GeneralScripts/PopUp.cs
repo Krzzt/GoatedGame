@@ -16,8 +16,16 @@ public class PopUp : MonoBehaviour
     public static void Create(Vector3 position, string ThingToSay, Color PopUpColor, int PopUpSize) //used to create a popup. You need to add: The position of the popup, the text that should be displayed (damage in this case),if it is a crit or not, and the color of the popup
     {
         GameObject tempPopUp = GameObject.Find("PopUpPrefab"); //find the loaded in reference
-        GameObject newPopUp = Instantiate(tempPopUp, position, Quaternion.identity); //instantiate a new one
-        newPopUp.GetComponent<PopUp>().Setup(ThingToSay, PopUpColor, PopUpSize); //do the rest of the setup
+		if (tempPopUp)
+		{
+			GameObject newPopUp = Instantiate(tempPopUp, position, Quaternion.identity); //instantiate a new one
+			newPopUp.GetComponent<PopUp>().Setup(ThingToSay, PopUpColor, PopUpSize); //do the rest of the setup
+		}
+		else
+		{
+			Debug.Log("No PopUpPrefab present");
+		}
+
     }
 
 
