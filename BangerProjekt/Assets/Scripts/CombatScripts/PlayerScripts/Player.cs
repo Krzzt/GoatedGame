@@ -73,6 +73,8 @@ public class Player : Unit
 	//Start of Item Variables -----------
 	public static event Action<AbilityItem> NewAbility;
 	public static event Action ToggleInventory;
+	public static event Action ToggleShop;
+	public static event Action TogglePauseMenu;
 	//End of Item Variables ------------
 
 	//Interaction Event
@@ -348,10 +350,9 @@ public class Player : Unit
 			CancelInvoke("CountdownImmunityFrames");
 		}
 	}
-	public void toggleInventory()
-	{
-		ToggleInventory?.Invoke();
-	}
+	public void toggleInventory() { ToggleInventory?.Invoke(); }
+	public void toggleShop() { ToggleShop?.Invoke(); }
+	public void togglePauseMenu() { TogglePauseMenu?.Invoke(); }
 	public int CalcTotalDamage()
 	{
 		return (int)Math.Round(weaponScript.Damage * BonusDamage);
