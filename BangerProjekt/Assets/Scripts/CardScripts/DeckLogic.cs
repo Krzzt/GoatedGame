@@ -12,13 +12,13 @@ public class DeckLogic : MonoBehaviour
 {
 	public static DeckLogic Instance;
 
-	private List<Card> entireDeck = new List<Card>();
-	private List<Card> drawPile = new List<Card>();
-	private List<Card> cardsInHand = new List<Card>();
-	private List<Card> discardPile = new List<Card>();
+	public List<Card> EntireDeck { get; private set; } = new List<Card>();
+	public List<Card> DrawPile { get; private set; } = new List<Card>();
+	public List<Card> CardsInHand { get; private set; } = new List<Card>();
+	public List<Card> DiscardPile { get; private set; } = new List<Card>();
 	private List<Card> activeCards = new List<Card>();
 
-	[SerializeField] private const int MAX_CARDS = 13; //13 is hard cap
+	public const int MAX_CARDS = 13; //13 is hard cap, also public because setting it isnt possible
 	[SerializeField] private int drawAmount;
 	private AllCards allCardList;
 
@@ -29,6 +29,7 @@ public class DeckLogic : MonoBehaviour
 	public int CurrencyAmount { get; set; }
 
 	private TMP_Text currencyText;
+
 	private void Awake()
 	{
 		if (Instance == null) Instance = this;
@@ -36,7 +37,7 @@ public class DeckLogic : MonoBehaviour
 
 
 		allCardList = gameObject.GetComponent<AllCards>(); // gameObject with small g since this Object holds both
-		drawPile.AddRange(entireDeck);
+		DrawPile.AddRange(EntireDeck);
 		ShuffleDrawPile();
 		//DrawCards(drawAmount); //we fill the hand with cards
 	}
@@ -48,6 +49,7 @@ public class DeckLogic : MonoBehaviour
 		ShopHover.purchaseCard += AddCard;
 		LayerManager.newLayer += StartTurn;
 		CardInHand.CardPlayed += PlayCard;
+		RoomScript.RoomCleared += OnRoomClearCardEffects;
 	}
 
 	private void OnDisable()
@@ -57,44 +59,49 @@ public class DeckLogic : MonoBehaviour
 		ShopHover.purchaseCard -= AddCard;
 		LayerManager.newLayer -= StartTurn;
 		CardInHand.CardPlayed -= PlayCard;
+		RoomScript.RoomCleared -= OnRoomClearCardEffects;
+	}
 
+	public void OnDestroy()
+	{
+		Instance = null;
 	}
 
 	public void AddCard(Card newCard)
 	{
-		entireDeck.Add(newCard);
-		drawPile.Add(newCard);
+		EntireDeck.Add(newCard);
+		DrawPile.Add(newCard);
 		ShuffleDrawPile(); //because we added a new card to the drawpile, we shuffle it again so the new card can appear at any point
 						   //but the discard pile stays where it is
 	}
 	public void DrawCards(int amount)
 	{
-		for (int i = 0; i < amount && cardsInHand.Count < MAX_CARDS && (drawPile.Count > 0 || discardPile.Count > 0); i++) //for every amount, we draw 1 Card. Alternatively, stop if the hand is "full"
+		for (int i = 0; i < amount && CardsInHand.Count < MAX_CARDS && (DrawPile.Count > 0 || DiscardPile.Count > 0); i++) //for every amount, we draw 1 Card. Alternatively, stop if the hand is "full"
 		{
-			if (drawPile.Count <= 0) //if the drawPile is empty
+			if (DrawPile.Count <= 0) //if the drawPile is empty
 			{
 				RecycleDiscardPile(); //Recycle the Discard Pile
 			}
-			cardsInHand.Add(drawPile[0]);  //we draw a card by adding it to our HandList and removing index 0 from the draw List
-			drawPile.RemoveAt(0);
+			CardsInHand.Add(DrawPile[0]);  //we draw a card by adding it to our HandList and removing index 0 from the draw List
+			DrawPile.RemoveAt(0);
 		}
 		//DebugHand();
 	}
 
 	public void RecycleDiscardPile() //to shuffle the discard pile back into the drawPile
 	{
-		drawPile.AddRange(discardPile); //this adds the entire discardPile List to the drawPile List (List.AddRange)
-		discardPile.Clear(); //this clears the discardPile List
+		DrawPile.AddRange(DiscardPile); //this adds the entire discardPile List to the drawPile List (List.AddRange)
+		DiscardPile.Clear(); //this clears the discardPile List
 		ShuffleDrawPile();
 	}
 
 	public void ShuffleDrawPile()
 	{
-		for (int i = 0; i < drawPile.Count - 1; i++)
+		for (int i = 0; i < DrawPile.Count - 1; i++)
 		{
-			int randomIndex = UnityEngine.Random.Range(0, drawPile.Count - i);
-			drawPile.Add(drawPile[randomIndex]);
-			drawPile.RemoveAt(randomIndex);
+			int randomIndex = UnityEngine.Random.Range(0, DrawPile.Count - i);
+			DrawPile.Add(DrawPile[randomIndex]);
+			DrawPile.RemoveAt(randomIndex);
 			//Okay lets explain this process
 			//We want to shuffle our drawPile. To do this, we search 1 random index between 0 and the last one (-i)
 			//The card at this index gets moved to last position by adding it (so its last in the list) and removing its instance at said index
@@ -115,7 +122,7 @@ public class DeckLogic : MonoBehaviour
 		//}
 
 		//also check for currency and stuff
-		Card card = cardsInHand[cardIDinHand];
+		Card card = CardsInHand[cardIDinHand];
 		if (CurrencyAmount < card.CostToPlay) return;
 		CurrencyAmount -= card.CostToPlay;
 		foreach (Pair<CardEffect, string> pair in card.CardEffects)
@@ -125,8 +132,19 @@ public class DeckLogic : MonoBehaviour
 		activeCards.Add(card);
 		DiscardCard(cardIDinHand);
 		if (currencyText) currencyText.SetText("Currency: " + CurrencyAmount + "/" + roundCurrency);
+		SetCardUI();
 
+	}
 
+	public void OnRoomClearCardEffects()
+	{
+		foreach (Card card in activeCards)
+		{
+			foreach (Pair<CardEffect, string> pair in card.CardEffects)
+			{
+				pair.First.OnRoomClear();
+			}
+		}
 	}
 
 	public void ResetCardEffects()
@@ -144,39 +162,38 @@ public class DeckLogic : MonoBehaviour
 
 	public void DiscardCard(int IDtoDiscard)
 	{
-		Card cardToDiscard = cardsInHand[IDtoDiscard];
-		discardPile.Add(cardToDiscard);
-		cardsInHand.RemoveAt(IDtoDiscard); //to prevent deleting a copy instead of the right one if 2 of the same kind are in 1 hand
-		SetCardUI();
+		Card cardToDiscard = CardsInHand[IDtoDiscard];
+		DiscardPile.Add(cardToDiscard);
+		CardsInHand.RemoveAt(IDtoDiscard); //to prevent deleting a copy instead of the right one if 2 of the same kind are in 1 hand
 	}
 
 	public void DiscardHand()
 	{
-		while (cardsInHand.Count > 0) DiscardCard(0); //always delete 0 should work
+		while (CardsInHand.Count > 0) DiscardCard(0); //always delete 0 should work
 	}
 	public void DebugHand() //this is a Debug function to just show every card in hand by name
 	{
-		for (int i = 0; i < cardsInHand.Count; i++)
+		for (int i = 0; i < CardsInHand.Count; i++)
 		{
-			Debug.Log("Card " + i + ": " + cardsInHand[i].Name);
+			Debug.Log("Card " + i + ": " + CardsInHand[i].Name);
 		}
 	}
 
 	private void SaveCards()
 	{
-		SaveManager.currentSave.CardsInHand = cardsInHand;
-		SaveManager.currentSave.EntireDeck = entireDeck;
-		SaveManager.currentSave.DrawPile = drawPile;
-		SaveManager.currentSave.DiscardPile = discardPile;
+		SaveManager.currentSave.CardsInHand = CardsInHand;
+		SaveManager.currentSave.EntireDeck = EntireDeck;
+		SaveManager.currentSave.DrawPile = DrawPile;
+		SaveManager.currentSave.DiscardPile = DiscardPile;
 	}
 
 	private void LoadCards()
 	{
-		cardsInHand = SaveManager.currentSave.CardsInHand;
-		entireDeck = SaveManager.currentSave.EntireDeck;
-		drawPile = SaveManager.currentSave.DrawPile;
-		discardPile = SaveManager.currentSave.DiscardPile;
-		if (discardPile.Count <= 0) ShuffleDrawPile(); //if nothing is discarded, its a new game so shuffle (and if its not it doesnt matter anyways)
+		CardsInHand = SaveManager.currentSave.CardsInHand;
+		EntireDeck = SaveManager.currentSave.EntireDeck;
+		DrawPile = SaveManager.currentSave.DrawPile;
+		DiscardPile = SaveManager.currentSave.DiscardPile;
+		if (DiscardPile.Count <= 0) ShuffleDrawPile(); //if nothing is discarded, its a new game so shuffle (and if its not it doesnt matter anyways)
 	}
 
 
@@ -204,7 +221,7 @@ public class DeckLogic : MonoBehaviour
 			Destroy(card);
 		}
 		int counter = 0;
-		foreach (Card card in cardsInHand)
+		foreach (Card card in CardsInHand)
 		{
 			GameObject cardObject = Instantiate(cardPrefab, GameObject.FindWithTag("CardSelect").GetComponentInChildren<LayoutGroup>().transform);
 			cardObject.name = "Card_" + counter;

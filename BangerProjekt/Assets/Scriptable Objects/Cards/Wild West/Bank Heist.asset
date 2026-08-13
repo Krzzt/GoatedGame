@@ -18,7 +18,7 @@ MonoBehaviour:
   <Description>k__BackingField: More Money per Chest
   <CardImage>k__BackingField: {fileID: 0}
   <LayerOfCard>k__BackingField: {fileID: 11400000, guid: 0fabe26fb7db2b149b44f8d10c84ea67, type: 2}
-  <CostToPlay>k__BackingField: 0
+  <CostToPlay>k__BackingField: 1
   <CardEffects>k__BackingField:
   - <First>k__BackingField: {fileID: 11400000, guid: 1c6e6602152486b44b8b38a7a2464851, type: 2}
     <Second>k__BackingField: 7

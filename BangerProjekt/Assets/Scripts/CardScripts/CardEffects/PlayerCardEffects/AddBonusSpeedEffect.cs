@@ -14,6 +14,8 @@ public class AddBonusSpeedEffect : CardEffect
 
 	public override void RevertEffect(string effect)
 	{
+		value = float.Parse(effect, info.NumberFormat);
+
 		Player.Instance.BonusMoveSpeed -= value;
 	}
 }

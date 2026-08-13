@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e426954fab93b54f1b424c6a76e51dd1, type: 3}
+  m_Name: Sheriff Badge
+  m_EditorClassIdentifier: 
+  <FireRate>k__BackingField: 0.4
+  <BulletAmount>k__BackingField: 1
+  <Damage>k__BackingField: 0.2
+  <Defense>k__BackingField: 0
+  <HealthBonus>k__BackingField: 0
+  <CritChance>k__BackingField: 0.2
+  <CritDamage>k__BackingField: 0.5
+  <ID>k__BackingField: 9
+  <ItemTag>k__BackingField: 1
+  <ItemName>k__BackingField: Sheriff Badge
+  <Icon>k__BackingField: {fileID: 0}
+  <ItemRarity>k__BackingField: 0
+  <Description>k__BackingField: Looks pretty cool
+  <Cost>k__BackingField: 0

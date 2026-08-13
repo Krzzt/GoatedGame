@@ -28,7 +28,7 @@ public class RoomScript : MonoBehaviour
 
     private Transform spawnpointContainer; //The container for all the spawn points. (No need to set it for each room since every room should have it, so it gets created)
     private Transform obstacleContainer;
-    private Transform LootPoint;
+    public Transform LootPoint { get; set; }
     private List<Obstacle> allAvailableObstacles;
     public bool IsReady {get; set;} = false;
 
@@ -90,7 +90,7 @@ public class RoomScript : MonoBehaviour
         }
         else if (LootPoint)//normal room gets normal chest while boss gets something cooler ig (except for startroom loser)
         {
-            GameObject newLootChest = Instantiate(GameManager.Instance.LootChest, LootPoint.position, Quaternion.identity, LootPoint);
+            GameObject newLootChest = Instantiate(GameManager.Instance.LootChestPrefab, LootPoint.position, Quaternion.identity, LootPoint);
         }
    }
 

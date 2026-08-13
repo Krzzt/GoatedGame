@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70be2f99dc455a845a5d4d56dfbf5e20, type: 3}
+  m_Name: Quick Draw
+  m_EditorClassIdentifier: 
+  <FireRate>k__BackingField: 0
+  <BulletAmount>k__BackingField: 0
+  <Damage>k__BackingField: 0
+  <Defense>k__BackingField: 0
+  <HealthBonus>k__BackingField: 0
+  <ID>k__BackingField: 8
+  <ItemTag>k__BackingField: 3
+  <ItemName>k__BackingField: Quick Draw
+  <Icon>k__BackingField: {fileID: 0}
+  <ItemRarity>k__BackingField: 0
+  <Description>k__BackingField: Pew Pew fast for a few seconds
+  <Cost>k__BackingField: 0
+  <AbilityCooldown>k__BackingField: 15
+  <AbilityEffectList>k__BackingField:
+  - <First>k__BackingField: {fileID: 11400000, guid: 7e56e71a8cfac15cba7f6bdf4eb224e9, type: 2}
+    <Second>k__BackingField: 6;1.5

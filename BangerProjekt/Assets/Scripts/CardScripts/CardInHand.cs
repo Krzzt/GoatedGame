@@ -25,6 +25,7 @@ public class CardInHand : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 	void Awake()
 	{
 		bigView = gameObject.transform.parent.parent.GetChild(2).gameObject; //xd
+		gameObject.transform.Find("ShopCostImage").gameObject.SetActive(false);
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)

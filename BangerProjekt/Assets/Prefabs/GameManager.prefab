@@ -46,21 +46,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d922c3ed170067369b0a48165ca2c5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPrefabs:
-  - {fileID: 7034089278888224272, guid: 7900ebf5f95e0204e92ebaea3d5a0fe9, type: 3}
-  - {fileID: 7034089278888224272, guid: a0d743504c5d6a9469c2397f50bf5d93, type: 3}
+  <RoomPrefabs>k__BackingField:
+  - {fileID: 7034089278888224272, guid: de80075cbb11ee6448707a59c3656abc, type: 3}
   - {fileID: 7034089278888224272, guid: 6337a499b5218cf47a42d5d28a6a05a0, type: 3}
+  - {fileID: 7034089278888224272, guid: a0d743504c5d6a9469c2397f50bf5d93, type: 3}
   - {fileID: 7034089278888224272, guid: 4642a45c63e49b14f90f2bd30a645247, type: 3}
+  - {fileID: 7034089278888224272, guid: 7900ebf5f95e0204e92ebaea3d5a0fe9, type: 3}
   - {fileID: 7034089278888224272, guid: 6bdfe4312428fd347b5387e3f4a553d6, type: 3}
   - {fileID: 7034089278888224272, guid: 90071d0fdbd860248955fbefb2ccbd21, type: 3}
-  - {fileID: 7034089278888224272, guid: de80075cbb11ee6448707a59c3656abc, type: 3}
-  rooms: []
-  availableDoors: []
-  usedDoors: []
-  startRoomPrefab: {fileID: 210702645912464137, guid: 76d0d363167ccf806b5b8cb02a2bfdcc, type: 3}
-  numOfRoomsInspector: 10
+  <Rooms>k__BackingField: []
+  <AvailableDoors>k__BackingField: []
+  <UsedDoors>k__BackingField: []
+  <StartRoomPrefab>k__BackingField: {fileID: 210702645912464137, guid: 76d0d363167ccf806b5b8cb02a2bfdcc, type: 3}
+  baseRoomCount: 7
   tries: 0
-  maxTries: 300
+  <MaxTries>k__BackingField: 10000000
   <BossPortal>k__BackingField: {fileID: 8418496669349777609, guid: d3cdea6cbb297f23aa57be71ff9147a3, type: 3}
 --- !u!114 &6513762326970411520
 MonoBehaviour:
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a62141f4c891d44957642cfb08734f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  permanentObjects:
+  <PermanentObjects>k__BackingField:
   - Player
   - GameManager
   - PopUpPrefab
@@ -314,6 +314,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Layers>k__BackingField:
   - {fileID: 11400000, guid: 0fabe26fb7db2b149b44f8d10c84ea67, type: 2}
+--- !u!1 &5682626211519459778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3187106066568194212}
+  - component: {fileID: 5258428761038213606}
+  m_Layer: 0
+  m_Name: PickupManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3187106066568194212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5682626211519459778}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3454671811885023407}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5258428761038213606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5682626211519459778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 590cffe7765bbdfafa9d1d95f0cad2c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DropChance: 1
+  pickupPrefab: {fileID: 6933032603654902607, guid: ccb29caaaefcb5c44baa24124ad78950, type: 3}
+  PickupList:
+  - {fileID: 11400000, guid: 692dd1fdc5fe56d749b3da66745b3af6, type: 2}
+  - {fileID: 11400000, guid: 8647f7a97ff52a2c0bb4b1f695e4efc4, type: 2}
+  - {fileID: 11400000, guid: 908841c74822bdf56a94885a7434b505, type: 2}
 --- !u!1 &5865127424437426435
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,6 +430,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e643f4846bcbd1b44a9288ff56c58627, type: 2}
   - {fileID: 11400000, guid: a1d7bfb99b6318043b0ce33cd2f15cc3, type: 2}
   - {fileID: 11400000, guid: 2aceb7892fb3120458bc3fdc300dfe33, type: 2}
+  - {fileID: 11400000, guid: a1d7bfb99b6318043b0ce33cd2f15cc3, type: 2}
+  - {fileID: 11400000, guid: 66207dca06fa436028ed9e5b47c8e42a, type: 2}
 --- !u!1 &6198578848231318724
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +532,7 @@ Transform:
   - {fileID: 264385820731906617}
   - {fileID: 7406350790636198479}
   - {fileID: 5666479420537975498}
+  - {fileID: 3187106066568194212}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7883330233744813798
@@ -495,4 +548,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GameFont>k__BackingField: {fileID: 11400000, guid: e3a99922838e77649a024f1543af470c, type: 2}
-  <LootChest>k__BackingField: {fileID: 7365225781240671842, guid: e59f07af595f6c04181197bf8e1f224f, type: 3}
+  <LootChestPrefab>k__BackingField: {fileID: 7365225781240671842, guid: e59f07af595f6c04181197bf8e1f224f, type: 3}

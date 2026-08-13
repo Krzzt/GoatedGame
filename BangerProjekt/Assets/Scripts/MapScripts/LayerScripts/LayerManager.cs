@@ -11,9 +11,9 @@ public class LayerManager : MonoBehaviour
     [field:SerializeField] public static Layer CurrentLayer {get; set;}
     [field: SerializeField] public static int CurrentLayerNumber { get; set; } = 0;
     public static Action newLayer;
-    private AllLayers AllLayerScript;
+    public AllLayers AllLayerScript { get; set; }
 
-    [SerializeField] private List<String> permanentObjects;
+    [field: SerializeField] public List<String> PermanentObjects { get; set; }
 
     private void Awake()
     {
@@ -40,7 +40,15 @@ public class LayerManager : MonoBehaviour
         SaveManager.LoadingGame += LoadLayer;
     }
 
-    private void OnDisable()
+	public void OnDestroy()
+	{
+		Instance = null;
+		CurrentLayer = null;
+		CurrentLayerNumber = 0;
+
+	}
+
+	private void OnDisable()
     {
         SaveManager.SavingGame -= SaveLayer;
         SaveManager.LoadingGame -= LoadLayer;
@@ -69,13 +77,19 @@ public class LayerManager : MonoBehaviour
         {
             CurrentLayer = AllLayerScript.Layers[0]; //if nothing is found, default to the first in the allLayerScript
         }
-
+		SetNewLayerChest();
         if (CurrentLayerNumber > 1) {GenerateNewLayer();}
         newLayer?.Invoke();
 
         //Debug.Log("Layer sent?");
     }
 
+	public static void SetNewLayerChest()
+	{
+		LootChest.MinCredits = GameManager.START_MIN_CREDITS; //formula
+		LootChest.MaxCredits = GameManager.START_MAX_CREDITS; //formula but more
+		//maybe set the chance to drop stuff?
+	}
     public static List<GameObject> GetEnemyListFromLayer()
     {
         return CurrentLayer.SpawnableEnemies;
@@ -106,7 +120,7 @@ public class LayerManager : MonoBehaviour
         bool isSaved = false;
         foreach(GameObject obj in allRootObjects)
         {
-            foreach(string objName in permanentObjects)
+            foreach(string objName in PermanentObjects)
             {
                 if (obj.name == objName)
                 {

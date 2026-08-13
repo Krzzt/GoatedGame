@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72dd18066cafe174f9161791689bb699, type: 3}
+  m_Name: Strength
+  m_EditorClassIdentifier: 
+  ID: 0
+  Name: Strength
+  PickupImage: {fileID: -1788901288813878447, guid: d4744181950b23942b55a3cf7ea24731, type: 3}
+  durationInSeconds: 10
+  doesRevert: 1
+  PickupEffects:
+  - <First>k__BackingField: {fileID: 11400000, guid: 3ce7554f29c9b088394f2110340b5cb0, type: 2}
+    <Second>k__BackingField: 0.5

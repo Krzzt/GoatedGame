@@ -4,20 +4,21 @@ using UnityEngine;
 public class InventoryLogic : MonoBehaviour
 {
 	[field: SerializeField] public static Item[] ItemsEquipped { get; set; } = new Item[(int)Enums.SlotTag.None]; //Serialized for testing
-	[field: SerializeField] public static int InventorySlots { get; set; } = 18; //amount of slots in the inv
+	public const int STANDARD_INVENTORY_SLOTS = 18;
+	[field: SerializeField] public static int InventorySlots { get; set; } = STANDARD_INVENTORY_SLOTS; //amount of slots in the inv
 	[field: SerializeField] public Inventory InventoryBlueprint { get; set; }
 	public static Inventory ActiveInventory;
 	public static Action<Item> SendItem;
 	public static Action<Item, bool> ChangeItemPlayerStats;
 	public static Action<GameObject> SendNewWeapon;
 	public static InventoryLogic Instance;
-	private AllItems allItemList;
+	public AllItems AllItemList { get; private set; }
 
 
 	private void Awake()
 	{
 		ActiveInventory = Instantiate(InventoryBlueprint);
-		allItemList = gameObject.GetComponent<AllItems>();
+		AllItemList = gameObject.GetComponent<AllItems>();
 	}
 
 	void Start()
@@ -28,8 +29,9 @@ public class InventoryLogic : MonoBehaviour
 			ItemsEquipped[i] = null;
 			//reset all items, after that we can load them from save
 		}
-		ObtainItem(allItemList.Items[1]); //free dash
-		ObtainItem(allItemList.Items[1]); //free dash
+		
+		ObtainItem(AllItemList.Items[1]); //free dash
+		ObtainItem(AllItemList.Items[1]); //free dash
 		EquipItem(ActiveInventory.slots[0]); // This is the only line that matters if you start with a save file (so if you start from Title Screen)
 		/*ObtainItem(allItemList.Items[3]); //free Revolver??
         ObtainItem(allItemList.Items[3]); //free Revolver??
@@ -50,6 +52,14 @@ public class InventoryLogic : MonoBehaviour
 		SaveManager.SavingGame -= SaveInventory;
 		SaveManager.LoadingGame -= LoadInventory;
 		ShopHover.purchaseItem -= ObtainItem;
+	}
+
+	public void OnDestroy()
+	{
+		Instance = null;
+		ItemsEquipped = new Item[(int)Enums.SlotTag.None];
+		InventorySlots = STANDARD_INVENTORY_SLOTS;
+		ActiveInventory = null;
 	}
 
 	public static void ObtainItem(Item itemToGet)

@@ -18,7 +18,7 @@ MonoBehaviour:
   <Description>k__BackingField: +2 bulletAmount, FireRate way up, damage Way down
   <CardImage>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   <LayerOfCard>k__BackingField: {fileID: 11400000, guid: 0fabe26fb7db2b149b44f8d10c84ea67, type: 2}
-  <CostToPlay>k__BackingField: 0
+  <CostToPlay>k__BackingField: 1
   <CardEffects>k__BackingField:
   - <First>k__BackingField: {fileID: 11400000, guid: 118352c403d0c1fd5848c4b563e0e23b, type: 2}
     <Second>k__BackingField: 2

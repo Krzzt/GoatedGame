@@ -35,7 +35,7 @@ public class Unit : MonoBehaviour
             damageAmount = Mathf.RoundToInt(damageAmount * (1 - DamageReduction)); // calculates damage ammount based on Damage Reduction
             CurrentHealth -= damageAmount;
         }
-            if (crit == 1)
+        if (crit == 1)
         {
             PopUp.Create(gameObject.transform.position + new Vector3(0.3f, 1.5f, 0), damageAmount.ToString(), Color.white, 5);
         }

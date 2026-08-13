@@ -21,9 +21,11 @@ public class EnemySpawner : MonoBehaviour
     public static event Action<int> NewEnemiesRemaining;
     public static event Action<int, int> NewWaveText;
     public static event Action LastWave;
+
+	public static float EnemyHealthModifier = 1.0f;
     void Start()
     {
-        InvokeRepeating("CheckForNextWave",0,0.2f); //checks for next wave / end of room every .2 seconds
+        InvokeRepeating("CheckForNextWave",1,0.2f); //checks for next wave / end of room every .2 seconds
     }
     private void OnEnable()
     {

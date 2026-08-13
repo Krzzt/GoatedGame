@@ -7,7 +7,7 @@ public class GameOverScript : MonoBehaviour
 {
     public void Retry()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("TitleScreen");
     }
 
     public void GiveUp()

@@ -15,16 +15,16 @@ public class ShopManager : MonoBehaviour
     [field:SerializeField] private GameObject cardPrefab;
     [field:SerializeField] private GameObject itemViewPrefab;
 
-	public static readonly List<int> rarityCosts = new List<int>
+	public static readonly List<Pair<int,int>> rarityCosts = new List<Pair<int,int>>
 	{
-		25, //common
-		50, //uncommon
-		100, //rare
-		200, //Epic
-		400, //Legendary
-		800 //mythic
+		new Pair<int, int>(18,22), //common
+		new Pair<int, int>(28,32), //uncommon
+		new Pair<int, int>(38,42), //rare
+		new Pair<int, int>(55,65), //Epic
+		new Pair<int, int>(75,85), //Legendary
+		new Pair<int, int>(90,110) //mythic
 	};
-
+    
 
 
 
@@ -37,9 +37,21 @@ public class ShopManager : MonoBehaviour
         LayerManager.newLayer -= NewLayerOrRefresh;
     }
 
+    public void ToggleShop()
+    {
+        shopPanel.SetActive(!shopPanel.activeSelf);
+        if (shopPanel.activeSelf)
+        {
+            Time.timeScale = 0;
+        } else
+        {
+            Time.timeScale = 1;
+        }
+    }
+
     public void NewLayerOrRefresh() //This is called on a new layer and if we have shop Rerolls implemented someday
     {
-
+        
         Layer layer = LayerManager.CurrentLayer;
          if (layer == null)
          {
@@ -72,17 +84,19 @@ public class ShopManager : MonoBehaviour
             foreach(Card card in cards)
             { //Make the cards look fancy and put them on the table with the correct info and a shop hover
             GameObject GUIcard = Instantiate(cardPrefab, table, false);
-            GUIcard.name = "Card_" + ++cardNumber;
-            GUIcard.transform.Find("CardBackgroundImage").GetComponent<Image>().sprite = LayerManager.CurrentLayer.CardBackground[(int)card.CardRarity + 1]; //+1 because 0 is the backside
-            GUIcard.transform.Find("CardEffectImage").GetComponent<Image>().sprite = card.CardImage;
-            GUIcard.transform.Find("CardName").GetComponent<TMP_Text>().SetText(card.Name);
-            GUIcard.transform.Find("CardDescription").GetComponent<TMP_Text>().SetText(card.Description);
-			GUIcard.transform.Find("CurrencyCostImage").GetChild(0).GetComponent<TMP_Text>().SetText(rarityCosts[(int)card.CardRarity].ToString());
-            GUIcard.transform.AddComponent<ShopHover>();
-            GUIcard.GetComponent<ShopHover>().DetailView = detailView;
-            GUIcard.GetComponent<ShopHover>().Card = card;
+            ShopHover cardScript = GUIcard.transform.AddComponent<ShopHover>();
+            cardScript.DetailView = detailView;
+            cardScript.Card = card;
+			cardScript.SetCardCost();
             GUIcard.transform.localScale = new Vector3(1, 1, 1); //set them to the right scale, just in case the prefab is not
-            }
+			GUIcard.name = "Card_" + ++cardNumber;
+			GUIcard.transform.Find("CardBackgroundImage").GetComponent<Image>().sprite = LayerManager.CurrentLayer.CardBackground[(int)card.CardRarity + 1]; //+1 because 0 is the backside
+			GUIcard.transform.Find("CardEffectImage").GetComponent<Image>().sprite = card.CardImage;
+			GUIcard.transform.Find("CardName").GetComponent<TMP_Text>().SetText(card.Name);
+			GUIcard.transform.Find("CardDescription").GetComponent<TMP_Text>().SetText(card.Description);
+			GUIcard.transform.Find("CurrencyCostImage").GetChild(0).GetComponent<TMP_Text>().SetText(card.CostToPlay.ToString());
+			GUIcard.transform.Find("ShopCostImage").GetChild(0).GetComponent<TMP_Text>().SetText(cardScript.CardCost.ToString());
+		}
         }
 
         void PlaceItemsOnShelf(List<Item> items) //Lets place those items in the shelf

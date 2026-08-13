@@ -18,10 +18,11 @@ MonoBehaviour:
   - {fileID: 437035353976409979, guid: aa7548240ba266c8c873b5599d1b0c05, type: 3}
   - {fileID: 8725753387697175322, guid: 9beefe6043d080d3aa66cd1c14cd42da, type: 3}
   - {fileID: 7227868134851093625, guid: 764000bbf8cae4ab8baee0b25a7a44d7, type: 3}
-  - {fileID: 4079822654776461014, guid: f838cfeccc192688abc82b6710c2f7ae, type: 3}
+  - {fileID: 4079822654776461014, guid: 16297735564f16e41bcebb8ec6ad322e, type: 3}
   - {fileID: 5505321039380933999, guid: fd5ad72112cb563d2a499fccaff769b2, type: 3}
   - {fileID: 3380231589268893130, guid: 632fa43691d2d9cc0bfd72db7317d831, type: 3}
   - {fileID: 5456600339760424930, guid: 6141758f1bf97bdcd889421fe54a0870, type: 3}
+  - {fileID: 437035353976409979, guid: cc3af7fb01d40c19fb338551872362d8, type: 3}
   <SpawnableExtraRooms>k__BackingField: []
   <SpawnableBosses>k__BackingField:
   - {fileID: 8757438703509313758, guid: 177e67783e0a844f58faa437eb700843, type: 3}
@@ -31,6 +32,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 16221f76cb5367393856a07afac0487d, type: 2}
   <PossibleItems>k__BackingField:
   - {fileID: 11400000, guid: f181f1f0fce92dc49bde8d6204706418, type: 2}
+  - {fileID: 11400000, guid: a1d7bfb99b6318043b0ce33cd2f15cc3, type: 2}
+  - {fileID: 11400000, guid: 66207dca06fa436028ed9e5b47c8e42a, type: 2}
+  - {fileID: 11400000, guid: b8f053ef6f6e6c23da125a641cd49df4, type: 2}
   <PossibleCards>k__BackingField:
   - {fileID: 11400000, guid: 9243acba1c7b6fc439130d6a8638bf77, type: 2}
   - {fileID: 11400000, guid: a970a5f833209e2439fc4d78ba8a415d, type: 2}

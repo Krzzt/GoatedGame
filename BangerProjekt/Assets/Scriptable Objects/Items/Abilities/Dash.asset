@@ -23,6 +23,9 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: -6753520581118053319, guid: b5405f9efebe87d4a93b638c59109002, type: 3}
   <ItemClasses>k__BackingField: 
   <ItemRarity>k__BackingField: 0
-  <Description>k__BackingField: Whoosh
-  <Cost>k__BackingField: 0
+  <Description>k__BackingField: Wheee
+  <Cost>k__BackingField: 10
   <AbilityCooldown>k__BackingField: 2
+  <AbilityEffectList>k__BackingField:
+  - <First>k__BackingField: {fileID: 11400000, guid: 11683e5c729056703968cef1fb9b6d7d, type: 2}
+    <Second>k__BackingField: 0.15;3

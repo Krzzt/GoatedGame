@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using System.Text;
 using Image = UnityEngine.UI.Image;
 using System;
+using Random = UnityEngine.Random;
 
 public class ShopHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -15,8 +16,17 @@ public class ShopHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public static event Action<Item> purchaseItem;
     public static event Action<Card> purchaseCard;
 
+	[field:SerializeField] public int CardCost { get; set; }
 
-    public void OnPointerEnter(PointerEventData eventData)
+
+
+	public void SetCardCost()
+	{
+		Pair<int, int> minAndMaxCost = ShopManager.rarityCosts[(int)Card.CardRarity];
+		CardCost = Random.Range(minAndMaxCost.First, minAndMaxCost.Second + 1) * LayerManager.CurrentLayerNumber;
+		//because max exclusive
+	}
+	public void OnPointerEnter(PointerEventData eventData)
     {
         if (Item != null)
         { //Set all the good shit of an Item
@@ -63,14 +73,14 @@ public class ShopHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
          }
          else if (Card != null)
          {
-             if(GameManager.credits < ShopManager.rarityCosts[(int)Card.CardRarity])
+             if(GameManager.credits < CardCost)
              {
                 Debug.Log("Not enough credits to purchase " + Card.name); //TODO: this as well
                 return;
              }
              purchaseCard?.Invoke(Card); //Send out the Event to actually give the player the card
              DestroyChild(); //THE CHILD MUST DIE
-             GameManager.Instance.ChangeCredits(-ShopManager.rarityCosts[(int)Card.CardRarity]); //remove the credits for the purchase
+             GameManager.Instance.ChangeCredits(-CardCost); //remove the credits for the purchase
              Destroy(gameObject); //remove the card from the shop after purchase
          }
          else

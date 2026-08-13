@@ -65,7 +65,7 @@ public class ObstacleScript : MonoBehaviour
     {
         if (InventoryLogic.ItemsEquipped[(int)Enums.SlotTag.Ability].ItemName == "Carnivore" || InventoryLogic.ItemsEquipped[(int)Enums.SlotTag.Ability].ItemName == "Herbivore")
         {
-            player.Heal(Obstacle.HP);
+            player.HealUnit(Obstacle.HP);
             Destroy(this.gameObject);
         }
     }

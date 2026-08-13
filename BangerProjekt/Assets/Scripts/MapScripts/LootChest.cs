@@ -8,6 +8,7 @@ public class LootChest : MonoBehaviour
 	[field: SerializeField] public static int MaxCredits { get; set; }
 
 
+
 	private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

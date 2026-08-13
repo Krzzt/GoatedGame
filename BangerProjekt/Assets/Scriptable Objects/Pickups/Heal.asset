@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72dd18066cafe174f9161791689bb699, type: 3}
+  m_Name: Heal
+  m_EditorClassIdentifier: 
+  ID: 1
+  Name: Health
+  PickupImage: {fileID: -6317635223205573835, guid: e7d0414fceddee44bb2dd3d34b4bdac1, type: 3}
+  durationInSeconds: 0
+  doesRevert: 0
+  PickupEffects:
+  - <First>k__BackingField: {fileID: 11400000, guid: ac60617fdbdfa6c0a8a3230b37536bbd, type: 2}
+    <Second>k__BackingField: 10

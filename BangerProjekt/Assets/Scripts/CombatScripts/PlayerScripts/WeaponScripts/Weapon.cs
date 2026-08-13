@@ -7,59 +7,59 @@ using UnityEngine.InputSystem;
 
 public abstract class Weapon : MonoBehaviour
 {
-    protected GameObject bulletPrefab; //the bullet you shoot as a prefab
-    public Transform ShootingPoint{get;set;} //the point you shoot from
-    public GameObject ShootingMiddle{get;set;} //a point in the middle of the character, to rotate the shooting point around the player
-    //also this is a GameObject and not just the transform because it gets buggy with just the transform (idk why tho)
+	protected GameObject bulletPrefab; //the bullet you shoot as a prefab
+	public Transform ShootingPoint { get; set; } //the point you shoot from
+	public GameObject ShootingMiddle { get; set; } //a point in the middle of the character, to rotate the shooting point around the player
+												   //also this is a GameObject and not just the transform because it gets buggy with just the transform (idk why tho)
 
-    [field: SerializeField] public float FireRate{get;set;} //your FireRate in shots per second 
-    // //the cooldown until you can shoot again --> 1/FireRate
-       
-    
-    [field: SerializeField] public int ShotSpeed{get;set;}
+	[field: SerializeField] public float FireRate { get; set; } //your FireRate in shots per second
+																// //the cooldown until you can shoot again --> 1/FireRate
 
 
- 
-    [field: SerializeField] public int Damage{get;set;}
-    public float DamageMult { get; set; } = 1f;
-    [field: SerializeField] public float LifeSteal{get;set;} // dont mind me nibbling on your neck
-    [field: SerializeField] public int BulletBounces{get;set;}
-    [field: SerializeField] public int BulletAmount{get;set;}
-    public int BulletPierce{get;set;} //the pierce this bullet still has left
-    protected int bulletsLeft; //the amount in your magazine
+	[field: SerializeField] public int ShotSpeed { get; set; }
 
-    public bool CanShoot{get;set;}
-    private PlayerInput playerInput;
-    private InputAction fire;
-    private bool holdingTrigger = false;
 
-    [field:SerializeField] public int SpreadAngle {get; set;}
-    //if you shoot more than 1 bullet at a time (like at the same time), this decides how high the spread for a bullet is (its not random but exact)
-    //if this is e.g set to 3 and you fire 4 bullets, the first one goes straight, the second one 3 degrees to the right, the third one 3 degrees to the left
-    //and the fourth one 6 degrees to the right etc.
-    [field:SerializeField] public float ShotDelay {get; set;} //if BulletAmount is higher than 1, this variable is important
-    //also important to note that the player can increase their bulletAmount by other means than weapon choice (like Cards, Items etc.)
-    //if this is set to 0, every shot is shot at the same time (with spread decided by the spreadAngle)
-    //if this is set to e.g 0.1, the delay between the shots in a "magazine" (u have infinite ammo but just need to reload like with a revolver)
-    //the shots will come with small cooldown of 0.1. After that, the FireRate or as it is now called "reloadSpeed" comes into play to reload your new bulletAmount
-    //so this acts as a kind of "second cooldown" for some weapons that want to use a magazine mechanic
-    
-    [field:SerializeField] public float CritChance{get;set;} // crit chance
-    [field:SerializeField] public float CritDamage{get;set;} // crit Damage
 
-    [field:SerializeField] public WeaponItem CorrespondingItem {get; set;}
-    private void Awake()
-    {
-        playerInput = GameObject.FindWithTag("Player").GetComponent<PlayerInput>();
-        if(playerInput != null)
-        {
-            fire = playerInput.actions.FindAction("Fire");
-        }
-        CanShoot = true;
-        ShootingMiddle = GameObject.Find("ShootingMiddle"); //we find by name to not bloat the tags aaaaaaaa help names are so bad aaaaaa
-        ShootingPoint = ShootingMiddle.transform.GetChild(0);
-        SetItemStats();
-    }
+	[field: SerializeField] public int Damage { get; set; }
+	public float DamageMult { get; set; } = 1f;
+	[field: SerializeField] public float LifeSteal { get; set; } // dont mind me nibbling on your neck
+	[field: SerializeField] public int BulletBounces { get; set; }
+	[field: SerializeField] public int BulletAmount { get; set; }
+	public int BulletPierce { get; set; } //the pierce this bullet still has left
+	protected int bulletsLeft; //the amount in your magazine
+
+	public bool CanShoot { get; set; }
+	private PlayerInput playerInput;
+	private InputAction fire;
+	private bool holdingTrigger = false;
+
+	[field: SerializeField] public int SpreadAngle { get; set; }
+	//if you shoot more than 1 bullet at a time (like at the same time), this decides how high the spread for a bullet is (its not random but exact)
+	//if this is e.g set to 3 and you fire 4 bullets, the first one goes straight, the second one 3 degrees to the right, the third one 3 degrees to the left
+	//and the fourth one 6 degrees to the right etc.
+	[field: SerializeField] public float ShotDelay { get; set; } //if BulletAmount is higher than 1, this variable is important
+																 //also important to note that the player can increase their bulletAmount by other means than weapon choice (like Cards, Items etc.)
+																 //if this is set to 0, every shot is shot at the same time (with spread decided by the spreadAngle)
+																 //if this is set to e.g 0.1, the delay between the shots in a "magazine" (u have infinite ammo but just need to reload like with a revolver)
+																 //the shots will come with small cooldown of 0.1. After that, the FireRate or as it is now called "reloadSpeed" comes into play to reload your new bulletAmount
+																 //so this acts as a kind of "second cooldown" for some weapons that want to use a magazine mechanic
+
+	[field: SerializeField] public float CritChance { get; set; } // crit chance
+	[field: SerializeField] public float CritDamage { get; set; } // crit Damage
+
+	[field: SerializeField] public WeaponItem CorrespondingItem { get; set; }
+	private void Awake()
+	{
+		playerInput = GameObject.FindWithTag("Player").GetComponent<PlayerInput>();
+		if (playerInput != null)
+		{
+			fire = playerInput.actions.FindAction("Fire");
+		}
+		CanShoot = true;
+		ShootingMiddle = GameObject.Find("ShootingMiddle"); //we find by name to not bloat the tags aaaaaaaa help names are so bad aaaaaa
+		ShootingPoint = ShootingMiddle.transform.GetChild(0);
+		SetItemStats();
+	}
 
 	private void Start()
 	{
@@ -68,72 +68,73 @@ public abstract class Weapon : MonoBehaviour
 	private void OnEnable()
 	{
 		fire.started += FiringStart;
-        fire.canceled += FiringStopped;
+		fire.canceled += FiringStopped;
 	}
 	void OnDisable()
 	{
 		fire.started -= FiringStart;
-        fire.canceled -= FiringStopped;
+		fire.canceled -= FiringStopped;
 	}
 
-	private void FiringStart(InputAction.CallbackContext context) {holdingTrigger = true;}
-    private void FiringStopped(InputAction.CallbackContext context) {holdingTrigger = false;}
+	private void FiringStart(InputAction.CallbackContext context) { holdingTrigger = true; }
+	private void FiringStopped(InputAction.CallbackContext context) { holdingTrigger = false; }
 
 
 	private void Update() //we check for the shooting in Update because we need to register clicks (depends on frames)
-    {
-        if (CanShoot && holdingTrigger)
-        {
-            if (ShotDelay > 0)
-            {
-                Shoot(1); //one bullet at a time (maybe needs to be changed later)
-            }
-            else
-            {
-                Shoot(BulletAmount + Player.Instance.BonusBulletAmount);   
-            }
+	{
+		if (CanShoot && holdingTrigger)
+		{
+			if (ShotDelay > 0)
+			{
+				Shoot(1); //one bullet at a time (maybe needs to be changed later)
+			}
+			else
+			{
+				Shoot(BulletAmount + Player.Instance.BonusBulletAmount);
+			}
 
-        }
-        //could maybe be improved (performance wise) if we get a function that only triggers onMouseDown
-    }
+		}
+		//could maybe be improved (performance wise) if we get a function that only triggers onMouseDown
+	}
 
 
 
-    public abstract void Shoot(int bulletCount); //we need to specify how many Bullets we shoot
+	public abstract void Shoot(int bulletCount); //we need to specify how many Bullets we shoot
 
-    public void SetItemStats()
-    {
-        bulletPrefab = CorrespondingItem.BulletPrefab;
-        Damage += CorrespondingItem.Damage;
-        FireRate += CorrespondingItem.FireRate;
-        ShotSpeed += CorrespondingItem.ShotSpeed;
-        BulletAmount += CorrespondingItem.BulletAmount;
-        SpreadAngle += CorrespondingItem.SpreadAngle;
-        ShotDelay += CorrespondingItem.ShotDelayOrRange;
-        bulletsLeft = BulletAmount;
-        CritDamage += CorrespondingItem.CritDamage;
-        CritChance += CorrespondingItem.CritChance;
-        LifeSteal += CorrespondingItem.LifeSteal;
-        //we add everywhere in case the player shit gets called first to add the fucking stats (i dont think it could happen and even if, the stats would affect the old weapon, but fuck it)
-        BulletBounces += CorrespondingItem.BulletBounces;
-    }
-    
+	public void SetItemStats()
+	{
+		bulletPrefab = CorrespondingItem.BulletPrefab;
+		Damage += (int)CorrespondingItem.Damage;
+		FireRate += CorrespondingItem.FireRate;
+		ShotSpeed += CorrespondingItem.ShotSpeed;
+		BulletAmount += CorrespondingItem.BulletAmount;
+		SpreadAngle += CorrespondingItem.SpreadAngle;
+		ShotDelay += CorrespondingItem.ShotDelayOrRange;
+		bulletsLeft = BulletAmount;
+		CritDamage += CorrespondingItem.CritDamage;
+		CritChance += CorrespondingItem.CritChance;
+		LifeSteal += CorrespondingItem.LifeSteal;
+		//we add everywhere in case the player shit gets called first to add the fucking stats (i dont think it could happen and even if, the stats would affect the old weapon, but fuck it)
+		BulletBounces += CorrespondingItem.BulletBounces;
+		BulletPierce += CorrespondingItem.BulletPierce;
+	}
 
-    public IEnumerator StartShotDelayCooldown()
-    {
-        CanShoot = false;
+
+	public IEnumerator StartShotDelayCooldown()
+	{
+		CanShoot = false;
 		float bonusShotDelayIncrease = 1 + ((Player.Instance.BonusFireRate - 1) / 3f);
-        yield return new WaitForSeconds(1f / (ShotDelay * bonusShotDelayIncrease));
-        CanShoot = true;
-    }
+		yield return new WaitForSeconds(1f / (ShotDelay * bonusShotDelayIncrease));
+		CanShoot = true;
+	}
 
-    public IEnumerator StartReloadCooldown()
-    {
-        CanShoot = false;
-        yield return new WaitForSeconds(1f / (FireRate * Player.Instance.BonusFireRate));
-        bulletsLeft = BulletAmount + Player.Instance.BonusBulletAmount;
-        CanShoot = true;
-    }
+	public IEnumerator StartReloadCooldown()
+	{
+		CanShoot = false;
+		yield return new WaitForSeconds(1f / (FireRate * Player.Instance.BonusFireRate));
+		bulletsLeft = BulletAmount + Player.Instance.BonusBulletAmount;
+		CanShoot = true;
+	}
 	private void OnDestroy()
 	{
 		holdingTrigger = false;

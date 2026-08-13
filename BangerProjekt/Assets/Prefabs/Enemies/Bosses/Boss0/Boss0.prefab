@@ -99,7 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 200
-  <MoveSpeed>k__BackingField: 2
+  <Defense>k__BackingField: 0
+  <DamageReduction>k__BackingField: 0
+  <MoveSpeed>k__BackingField: 4
   <InitialMoveSpeed>k__BackingField: 2
   xpObject: {fileID: 3385395565852105219, guid: 1001d61beaa204204bd3341064bdedaa, type: 3}
   xpValue: 30

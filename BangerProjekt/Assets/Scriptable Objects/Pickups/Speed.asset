@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72dd18066cafe174f9161791689bb699, type: 3}
+  m_Name: Speed
+  m_EditorClassIdentifier: 
+  ID: 2
+  Name: Speed
+  PickupImage: {fileID: -6753520581118053319, guid: b5405f9efebe87d4a93b638c59109002, type: 3}
+  durationInSeconds: 10
+  doesRevert: 1
+  PickupEffects:
+  - <First>k__BackingField: {fileID: 11400000, guid: 148f355f79d948848b94f3fe96120e08, type: 2}
+    <Second>k__BackingField: 0.3

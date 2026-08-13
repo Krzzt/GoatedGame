@@ -14,6 +14,7 @@ public class AddBonusZoomEffect : CardEffect
 
 	public override void RevertEffect(string effect)
 	{
+		value = int.Parse(effect);
 		Player.Instance.BonusZoom -= value;
 	}
 }

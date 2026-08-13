@@ -39,9 +39,10 @@ public class PlayerBullet : MonoBehaviour
 	public float CritCalculate() // starts the Crit roulet
 	{
 		int temp = Random.Range(1, 101);
-		if (temp <= weaponScript.CritChance)
+		if (temp <= weaponScript.CritChance * playerScript.BonusCritChance)
 		{
 			float CritValue = 1 + weaponScript.CritDamage / 100f;
+			CritValue *= playerScript.BonusCritDamage;
 			return CritValue; // returns the crit damage as a 1.x multiplier
 		}
 		else return 1; //1 means a multiplier of 1.0, so normal DMG

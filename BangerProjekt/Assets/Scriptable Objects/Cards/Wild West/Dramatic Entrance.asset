@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b27c9fd9eff6d11d281dbcd47d063780, type: 3}
+  m_Name: Dramatic Entrance
+  m_EditorClassIdentifier: 
+  <ID>k__BackingField: 8
+  <CardRarity>k__BackingField: 2
+  <Name>k__BackingField: Dramatic Entrance
+  <Description>k__BackingField: Temporary 200% Bonus Damage, but goes down by 20%
+    per room cleared
+  <CardImage>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  <LayerOfCard>k__BackingField: {fileID: 11400000, guid: 0fabe26fb7db2b149b44f8d10c84ea67, type: 2}
+  <CostToPlay>k__BackingField: 1
+  <CardEffects>k__BackingField:
+  - <First>k__BackingField: {fileID: 11400000, guid: f46d64a2d2976ff4eb5a1c2f7b51853e, type: 2}
+    <Second>k__BackingField: 2;0.2

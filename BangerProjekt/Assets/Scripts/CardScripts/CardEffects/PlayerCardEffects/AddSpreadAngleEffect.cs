@@ -16,6 +16,8 @@ public class AddSpreadAngleEffect : CardEffect
 
 	public override void RevertEffect(string effect)
 	{
+		value = float.Parse(effect, info.NumberFormat);
+
 		Player.Instance.BonusSpreadAngle -= value;
 	}
 }

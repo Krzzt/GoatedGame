@@ -14,20 +14,21 @@ public class Player : Unit
 	private Weapon weaponScript;
 	private UseAbilities abilityScript;
 	[SerializeField] private GameObject fistPrefab;
-	[SerializeField] private GameObject GameOverScreen;
+	[field:SerializeField] public GameObject GameOverScreen { get; set; }
 
 	//Start of Card variables --------------------------------
 
 	//End of Card variables ---------------------------------
 
 	//Start of level variables ------------------------------
-	[field: SerializeField] public int Level;
-	[field: SerializeField] public int CurrentExp = 0;
-	[field: SerializeField] public int RequiredExp = 50;
+	public int Level { get; private set; } = 1;
+	public int CurrentExp { get; private set; } = 0;
+	public int RequiredExp { get; private set; } = 50;
 	//End of level variables -------------------------------
 	//Start of LifeSteal variables
 	private bool IsStealingALife;
 	private int LifeStealAmount = 1;
+	private float lifeStealCooldown = 0.1f;
 	//End of LifeSteal variables
 
 	//Start of general Player variables ----------------------
@@ -48,7 +49,9 @@ public class Player : Unit
 	[field: SerializeField] public float BonusSpreadAngle { get; set; }
 	[field: SerializeField] public int BonusBulletAmount { get; set; }
 	[field: SerializeField] public float BonusShotSpeed { get; set; }
-	[field:SerializeField] public float BonusMoveSpeed { get; set; }
+	[field: SerializeField] public float BonusMoveSpeed { get; set; }
+	[field: SerializeField] public float BonusCritChance { get; set; }
+	[field: SerializeField] public float BonusCritDamage { get; set; }
 
 	private int bonusZoom;
 	public int BonusZoom
@@ -60,7 +63,7 @@ public class Player : Unit
 		set
 		{
 			GameObject.FindWithTag("MainCamera").GetComponent<Camera>().orthographicSize -= bonusZoom;
-			bonusZoom += value;
+			bonusZoom = value;
 			GameObject.FindWithTag("MainCamera").GetComponent<Camera>().orthographicSize += bonusZoom;
 		}
 	}
@@ -97,6 +100,7 @@ public class Player : Unit
 		weaponScript = GameObject.FindWithTag("Weapon").GetComponent<Weapon>(); //gameObject with small g = this.GameObject
 		abilityScript = gameObject.GetComponent<UseAbilities>();
 		playerInput = this.GetComponent<PlayerInput>();
+		GameOverScreen.SetActive(false);
 		base.Awake();
 	}
 
@@ -142,6 +146,12 @@ public class Player : Unit
 		InteractEvent?.Invoke();
 	}
 
+	public void OnDestroy()
+	{
+		Instance = null;
+		playerInput = null;
+	}
+
 	//End of Unity specific functions ----------------------------
 
 
@@ -150,18 +160,20 @@ public class Player : Unit
 	{
 		if (IsImmune) return;
 		if (amount <= 0) return;
-		//This damage currently does not involve something like immunity frames or shit like that
-		//also every enemy damages you on collision, if you hug them forever, you only take damage once!
-		base.DamageUnit(amount, crit);
+		if (CurrentHealth > 0)
+		{
+			amount = Mathf.RoundToInt(amount * (1 - DamageReduction)); // calculates damage ammount based on Damage Reduction
+			CurrentHealth -= amount;
+		}
 		AddImmunityFrames(ImmuFramesOnHit);
 		PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), amount.ToString(), Color.red, 5);
 		//Update the Healthbar if existent
 		if (CurrentHealth <= 0) Die();
 	}
 
-	public void Heal(int amount)
+	public override void HealUnit(int amount)
 	{
-		HealUnit(amount);
+		base.HealUnit(amount);
 		//Update the healthbar if existent
 	}
 
@@ -176,9 +188,9 @@ public class Player : Unit
 		}
 	}
 
-	public IEnumerator StartLifestealCooldown() // Starting the 0.1 Secound Cooldown
+	public IEnumerator StartLifestealCooldown() // Starting the Cooldown
 	{
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(lifeStealCooldown);
 		IsStealingALife = false; // removing the LifeStealCD
 	}
 	public void Die()
@@ -219,54 +231,7 @@ public class Player : Unit
 	}
 
 	//end of exp related functions -----------------------
-	//start of Pickup related functions ------------------
-	public void AddBuff(int pickupType, float pickupDuration)
-	{
-		switch (pickupType) // determinate the typ of pickup
-		{
-			case 0: // Speed
-					//print(MoveSpeed);
-				MoveSpeed *= 1.5f; //multiplying the players speed for the duration of the buff
-								   //print(MoveSpeed);
-				StartCoroutine(EndBuff(pickupType, pickupDuration));
-				break;
-			case 1: // Strength
-					//print(weaponScript.Damage);
-				weaponScript.DamageMult++; //multiplying the players weapon dmg for the duration of the buff
-				StartCoroutine(EndBuff(pickupType, pickupDuration));
-				//print(weaponScript.Damage);
-				break;
-			case 2: // Hp
-				CurrentHealth += 20; // adding hp
-				break;
 
-		}
-
-	}
-	public IEnumerator EndBuff(int pickupType, float pickupDuration)
-	{
-		yield return new WaitForSeconds(pickupDuration); // removing buff on time over
-
-		switch (pickupType)
-		{
-			case 0:
-				MoveSpeed /= 1.5f; // removing the speed buff
-				if (MoveSpeed < InitialMoveSpeed)
-				{
-					MoveSpeed = InitialMoveSpeed;
-				}
-				//print(MoveSpeed);
-				break;
-			case 1:
-				weaponScript.DamageMult--; // removing the weapons dmg buff
-										   //print(weaponScript.Damage);
-				break;
-				//case 2: doesnt exist because its a one time heal
-
-		}
-	}
-
-	//end of Pickup related functions -------------------
 	//start of inventory functions -----------------------
 	public void ChangeItemStats(Item itemToChangeStats, bool addSub)
 	{
@@ -279,14 +244,20 @@ public class Player : Unit
 		{
 			BonusDamage += itemToChangeStats.Damage;
 			BonusFireRate += itemToChangeStats.FireRate;
-			//defense not implemented
+			BonusBulletAmount += itemToChangeStats.BulletAmount;
+			BonusCritChance += itemToChangeStats.CritChance;
+			BonusCritDamage += itemToChangeStats.CritDamage;
+			Defense += itemToChangeStats.Defense;
 			AddMaxHealth(itemToChangeStats.HealthBonus);
 		}
 		else
 		{
-			BonusDamage += itemToChangeStats.Damage;
-			BonusFireRate += itemToChangeStats.FireRate;
-			//defense not implemented
+			BonusDamage -= itemToChangeStats.Damage;
+			BonusFireRate -= itemToChangeStats.FireRate;
+			BonusBulletAmount -= itemToChangeStats.BulletAmount;
+			BonusCritChance -= itemToChangeStats.CritChance;
+			BonusCritDamage -= itemToChangeStats.CritDamage;
+			Defense -= itemToChangeStats.Defense;
 			AddMaxHealth(-itemToChangeStats.HealthBonus);
 			//if equipment adds / subtracts more stats, this has to be added here
 		}
@@ -301,15 +272,12 @@ public class Player : Unit
 
 	public void NewWeapon(GameObject newWeaponItem)
 	{
-		//Debug.Log("NewWeapon called");
 		if (!newWeaponItem)
 		{
 			newWeaponItem = fistPrefab;
 		}
-		//Debug.Log("Destroying: " +GameObject.FindWithTag("Weapon").name);
 		Destroy(GameObject.FindWithTag("Weapon")); //the weapon gets fucking blasted
 		GameObject newWeaponObject = Instantiate(newWeaponItem, gameObject.transform);
-		//Debug.Log("newWeaponObject = " + newWeaponObject.name);
 		weaponScript = newWeaponObject.GetComponent<Weapon>();
 		//both 0 to just add the extra damage
 		//simply adding that shit (might need to get a function later)
@@ -341,6 +309,8 @@ public class Player : Unit
 		BonusShotSpeed += PlayerClass.StartingBonusShotSpeed;
 		BonusMoveSpeed += PlayerClass.StartingBonusMoveSpeed;
 		BonusSpreadAngle = 1f; //standard 100%
+		BonusCritChance += PlayerClass.StartingBonusCritChance;
+		BonusCritDamage += PlayerClass.StartingBonusCritDamage;
 	}
 	//End of Saving/Loading Function
 
@@ -361,6 +331,7 @@ public class Player : Unit
 	public void AddImmunityFrames(int amount)
 	{
 		CurrImmunityFrames += amount;
+		IsImmune = true; //we prevent same frame hits with this
 		CancelInvoke("CountdownImmunityFrames"); //if it already runs, we dont want double countdown
 		InvokeRepeating("CountdownImmunityFrames", 0, 0.02f); //fixed frames being 50/sec
 	}
