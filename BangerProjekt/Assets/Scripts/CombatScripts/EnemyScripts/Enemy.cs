@@ -27,7 +27,7 @@ public class Enemy : Unit
 	public new void Awake()
 	{
 		base.Awake();
-		AddMaxHealth((int)((EnemySpawner.EnemyHealthModifier - 1) * MaxHealth));
+		AddMaxHealth((int)((GameManager.EnemyHealthModifier - 1) * MaxHealth));
 		pathToPlayer = new NavMeshPath();
 		RB = gameObject.GetComponent<Rigidbody2D>();
 		playerObject = GameObject.FindWithTag("Player");

@@ -20,6 +20,7 @@ public class LayerManager : MonoBehaviour
         AllLayerScript = gameObject.GetComponent<AllLayers>(); //Both is in the LayerManager
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+		CurrentLayerNumber = 0;
 
     }
 

@@ -9,7 +9,7 @@ using TMPro;
 using NavMeshPlus.Components;
 using UnityEngine.SceneManagement;
 using NavMeshPlus.Extensions;
-using System;
+using System.IO;
 
 [TestFixture]
 public class EnemyPlayModeTests
@@ -21,11 +21,16 @@ public class EnemyPlayModeTests
 	GameObject dummySurfaceManager;
 	NavMeshSurface dummySurface;
 
-	[SetUp]
-	public void Setup()
+	[UnitySetUp]
+	public IEnumerator Setup()
 	{
-		SceneManager.LoadScene("PlayTestScene");
+		if (File.Exists(Application.dataPath + "/saves/saveFile.json"))
+		{
+			File.Delete(Application.dataPath + "/saves/saveFile.json");
+		}
+		yield return SceneManager.LoadSceneAsync("PlayTestScene", LoadSceneMode.Single);
 		dummySurfaceManager = new GameObject();
+		dummySurfaceManager.transform.localEulerAngles = new Vector3(-90, 0, 0);
 		dummySurface = dummySurfaceManager.AddComponent<NavMeshSurface>();
 		dummySurfaceManager.AddComponent<CollectSources2d>();
 		dummySurface.BuildNavMesh();
@@ -39,6 +44,7 @@ public class EnemyPlayModeTests
 	{
 
 		dummyEnemy = new GameObject();
+		dummyEnemy.AddComponent<Rigidbody2D>();
 		dummyEnemyScript = dummyEnemy.AddComponent<BasicEnemy>();
 		dummyEnemy.transform.position = new Vector3(2, 2, 0);
 		dummyEnemyScript.AddMaxHealth(20);

@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 	[field: SerializeField] public TMP_FontAsset GameFont { get; set; }
 	[field: SerializeField] public GameObject LootChestPrefab { get; set; }
 
+	public static float EnemyHealthModifier = 1.0f;
+
 	void Awake()
 	{
 		Time.timeScale = 1.0f; //for good measure if the game starts, to not be in a paused state from GameOver or something else
@@ -79,6 +81,7 @@ public class GameManager : MonoBehaviour
 		isSeeded = false;
 		seedSet = false;
 		credits = 0;
+		EnemyHealthModifier = 1.0f;
 	}
 	private void SaveGameManager()
 	{
