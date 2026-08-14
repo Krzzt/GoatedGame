@@ -13,8 +13,8 @@ public class RoomManager : MonoBehaviour
 	[field: SerializeField] public List<GameObject> RoomPrefabs { get; set; } //List of all room prefabs available. Does not change during runtime (yet?)
 	[field: SerializeField] public List<GameObject> Rooms { get; set; } //List of all rooms in the current layer
 	[field: SerializeField] public List<GameObject> AvailableDoors { get; set; } //List of all doors in the current layer
-	[field:SerializeField] public List<GameObject> UsedDoors { get; set; } //List of all doors who have a valid room aligned
-	[field:SerializeField] public GameObject StartRoomPrefab { get; set; } //The starting room prefab (Open for changes if necessary)
+	[field: SerializeField] public List<GameObject> UsedDoors { get; set; } //List of all doors who have a valid room aligned
+	[field: SerializeField] public GameObject StartRoomPrefab { get; set; } //The starting room prefab (Open for changes if necessary)
 	[SerializeField] private int baseRoomCount = 10; //Base amount of rooms (we use this for our formula)
 	[SerializeField] private int tries = 0; //Number of current tries (To prevent infinite Loops)
 	[field: SerializeField] public int MaxTries { get; set; } = 10000000; //Number of max Tries before the Loop breaks (To prevent infinite Loops)
@@ -104,7 +104,7 @@ public class RoomManager : MonoBehaviour
 	public void GenerateRooms() //Helper methode to be overriden that can be called from the inspector (Since it isn't possible to do so with a methode that has Parameters)
 	{
 		if (LayerManager.CurrentLayerNumber <= 1) return;
-		meshSurface.BuildNavMesh(); //after everything is generated, build the NavMesh for the Enemies
+		meshSurface.BuildNavMesh();
 		GenerateRooms(Random.Range(baseRoomCount, baseRoomCount + 3) + (int)Math.Floor(LayerManager.CurrentLayerNumber / 2f) * 3 + (LayerManager.CurrentLayerNumber % 2)); //I use this to be able to default to the number set in the inspector if the call was not from an outside source.
 	}
 	public void GenerateRooms(int numOfRooms) //might later be called by something else, hence public and the Parameter(Optional)

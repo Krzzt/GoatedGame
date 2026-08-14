@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 	public static bool isSeeded = false;
 	public static bool seedSet = false;
 	public static int credits = 0; // Yay Money. WOOOOOO. (Name pending)
+
+	[SerializeField] private Class backupClass; //class that gets loaded if no save is found
 	public static GameManager Instance = null;
 	public static Action CreditsChanged;
 	[field: SerializeField] public TMP_FontAsset GameFont { get; set; }
@@ -102,6 +104,10 @@ public class GameManager : MonoBehaviour
 	public void Load()
 	{
 		SaveManager.LoadGame();
+		if (!SaveManager.currentSave.PlayerClass)
+		{
+			SaveManager.currentSave.PlayerClass = backupClass;
+		}
 	}
 
 	public void ChangeCredits(int amount)

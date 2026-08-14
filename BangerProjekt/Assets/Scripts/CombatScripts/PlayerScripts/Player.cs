@@ -296,6 +296,12 @@ public class Player : Unit
 
 	private void LoadStats()
 	{
+		StartCoroutine(WaitToLoadStats());
+	}
+
+	private IEnumerator WaitToLoadStats()
+	{
+		yield return new WaitUntil(() => SaveManager.currentSave.PlayerClass);
 		KillCount = SaveManager.currentSave.EnemiesKilled;
 		Level = SaveManager.currentSave.Level;
 		PlayerClass = SaveManager.currentSave.PlayerClass;

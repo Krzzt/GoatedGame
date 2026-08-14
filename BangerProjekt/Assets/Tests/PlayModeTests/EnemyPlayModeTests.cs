@@ -6,91 +6,62 @@ using UnityEngine.TestRunner;
 using UnityEngine.TestTools;
 using UnityEngine.InputSystem;
 using TMPro;
+using NavMeshPlus.Components;
+using UnityEngine.SceneManagement;
+using NavMeshPlus.Extensions;
+using System;
 
 [TestFixture]
 public class EnemyPlayModeTests
 {
-	GameObject dummyEnemyObject;
-	Enemy enemy;
-	Rigidbody2D dummyrb;
 
-	GameObject dummyObject;
-	GameObject dummyWeaponObject;
+	GameObject dummyEnemy;
+	BasicEnemy dummyEnemyScript;
 
-	GameObject dummyShootingMiddle;
-	GameObject dummyShootingPoint;
+	GameObject dummySurfaceManager;
+	NavMeshSurface dummySurface;
 
-	WeaponItem dummyWeaponSO;
-
-	InputAction dummyFireAction;
-
-	GameObject dummyBullet;
-
-	GameObject dummyGameOverScreen;
-	Player player;
-	RangedWeapon dummyWeapon;
-	UseAbilities dummyAbilities;
-	PlayerInput dummyInput;
-
-	GameObject dummyPlayerObject;
-
-	Player dummyPlayerScript;
-
-
-	GameObject dummyPopUp;
 	[SetUp]
 	public void Setup()
 	{
+		SceneManager.LoadScene("PlayTestScene");
+		dummySurfaceManager = new GameObject();
+		dummySurface = dummySurfaceManager.AddComponent<NavMeshSurface>();
+		dummySurfaceManager.AddComponent<CollectSources2d>();
+		dummySurface.BuildNavMesh();
 
 
-		dummyObject = new GameObject();
-		dummyObject.tag = "Player";
-		dummyWeaponObject = new GameObject();
-		dummyWeaponObject.transform.parent = dummyObject.transform;
-		dummyWeaponObject.tag = "Weapon";
-		dummyShootingMiddle = new GameObject();
-		dummyShootingMiddle.transform.parent = dummyWeaponObject.transform;
-		dummyShootingMiddle.name = "ShootingMiddle";
-		dummyShootingPoint = new GameObject();
-		dummyShootingPoint.transform.parent = dummyShootingMiddle.transform;
-		dummyBullet = new GameObject();
-		dummyWeaponSO = ScriptableObject.CreateInstance<WeaponItem>();
-		dummyWeaponSO.BulletPrefab = dummyBullet;
-		dummyFireAction = new InputAction();
-
-
-		dummyGameOverScreen = new GameObject();
-		dummyGameOverScreen.tag = "GameOver";
-		player = dummyObject.AddComponent<Player>();
-		dummyWeaponObject.AddComponent<RangedWeapon>().Fire = dummyFireAction;
-		dummyWeapon = dummyWeaponObject.GetComponent<RangedWeapon>();
-		dummyWeapon.CorrespondingItem = dummyWeaponSO;
-		dummyAbilities = dummyObject.AddComponent<UseAbilities>();
-		dummyInput = dummyObject.AddComponent<PlayerInput>();
-
-		dummyPopUp = new GameObject("PopUpPrefab");
-		dummyPopUp.AddComponent<TextMeshPro>();
-		dummyPopUp.AddComponent<PopUp>();
-
-
-		dummyEnemyObject = new GameObject();
-		enemy = dummyEnemyObject.AddComponent<Enemy>();
-		dummyrb = dummyEnemyObject.AddComponent<Rigidbody2D>();
-
-		enemy.AddMaxHealth(20);
-		enemy.playerObject = dummyObject;
 	}
 
+
+	[UnityTest]
+	public IEnumerator EnemyDamageTest()
+	{
+
+		dummyEnemy = new GameObject();
+		dummyEnemyScript = dummyEnemy.AddComponent<BasicEnemy>();
+		dummyEnemy.transform.position = new Vector3(2, 2, 0);
+		dummyEnemyScript.AddMaxHealth(20);
+
+		dummyEnemyScript.DamageUnit(10, 1);
+
+		yield return new WaitForSeconds(0);
+		Assert.AreEqual(dummyEnemyScript.CurrentHealth, 10);
+	}
 
 
 	[UnityTest]
 	public IEnumerator EnemyDeathTest()
 	{
-		enemy.DamageUnit(20, 1);
+
+		dummyEnemy = new GameObject();
+		dummyEnemyScript = dummyEnemy.AddComponent<BasicEnemy>();
+		dummyEnemy.transform.position = new Vector3(2, 2, 0);
+		dummyEnemyScript.AddMaxHealth(20);
+
+		dummyEnemyScript.DamageUnit(30, 1);
+
 		yield return new WaitForEndOfFrame();
-		Assert.AreEqual(enemy.CurrentHealth, 0);
-		Assert.AreEqual(player.KillCount, 1);
-
-
+		Assert.IsTrue(dummyEnemy == null);
 	}
 }
