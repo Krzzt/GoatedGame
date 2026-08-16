@@ -145,6 +145,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TogglePause"",
+                    ""type"": ""Button"",
+                    ""id"": ""beb57304-1457-4cb1-aa70-98d7cdccf83d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -420,6 +429,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Toggle Shop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9b89e4e-9b72-4854-8aaa-7cccee402f18"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""TogglePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0bfe8c14-cec3-4d02-a313-827639982871"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""TogglePause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -944,41 +975,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             ""name"": ""Unchangeable"",
             ""id"": ""674731a7-9a55-4ee0-86c5-fd678a4188bb"",
-            ""actions"": [
-                {
-                    ""name"": ""TogglePause"",
-                    ""type"": ""Button"",
-                    ""id"": ""8c41f03e-543c-4dd0-906c-256a852cc42c"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""6cce4651-922f-457b-b114-38e0cf910d06"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""TogglePause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b9d11999-6cbd-4415-9a08-8aae8b32e732"",
-                    ""path"": ""<Gamepad>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""TogglePause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
+            ""actions"": [],
+            ""bindings"": []
         }
     ],
     ""controlSchemes"": [
@@ -1052,6 +1050,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_OpenInventory = m_Player.FindAction("Open Inventory", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_ToggleShop = m_Player.FindAction("Toggle Shop", throwIfNotFound: true);
+        m_Player_TogglePause = m_Player.FindAction("TogglePause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1066,7 +1065,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         // Unchangeable
         m_Unchangeable = asset.FindActionMap("Unchangeable", throwIfNotFound: true);
-        m_Unchangeable_TogglePause = m_Unchangeable.FindAction("TogglePause", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -1155,6 +1153,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_OpenInventory;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_ToggleShop;
+    private readonly InputAction m_Player_TogglePause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1190,6 +1189,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/ToggleShop".
         /// </summary>
         public InputAction @ToggleShop => m_Wrapper.m_Player_ToggleShop;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/TogglePause".
+        /// </summary>
+        public InputAction @TogglePause => m_Wrapper.m_Player_TogglePause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1234,6 +1237,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ToggleShop.started += instance.OnToggleShop;
             @ToggleShop.performed += instance.OnToggleShop;
             @ToggleShop.canceled += instance.OnToggleShop;
+            @TogglePause.started += instance.OnTogglePause;
+            @TogglePause.performed += instance.OnTogglePause;
+            @TogglePause.canceled += instance.OnTogglePause;
         }
 
         /// <summary>
@@ -1263,6 +1269,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ToggleShop.started -= instance.OnToggleShop;
             @ToggleShop.performed -= instance.OnToggleShop;
             @ToggleShop.canceled -= instance.OnToggleShop;
+            @TogglePause.started -= instance.OnTogglePause;
+            @TogglePause.performed -= instance.OnTogglePause;
+            @TogglePause.canceled -= instance.OnTogglePause;
         }
 
         /// <summary>
@@ -1495,7 +1504,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // Unchangeable
     private readonly InputActionMap m_Unchangeable;
     private List<IUnchangeableActions> m_UnchangeableActionsCallbackInterfaces = new List<IUnchangeableActions>();
-    private readonly InputAction m_Unchangeable_TogglePause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Unchangeable".
     /// </summary>
@@ -1507,10 +1515,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
         public UnchangeableActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "Unchangeable/TogglePause".
-        /// </summary>
-        public InputAction @TogglePause => m_Wrapper.m_Unchangeable_TogglePause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1537,9 +1541,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_UnchangeableActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_UnchangeableActionsCallbackInterfaces.Add(instance);
-            @TogglePause.started += instance.OnTogglePause;
-            @TogglePause.performed += instance.OnTogglePause;
-            @TogglePause.canceled += instance.OnTogglePause;
         }
 
         /// <summary>
@@ -1551,9 +1552,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnchangeableActions" />
         private void UnregisterCallbacks(IUnchangeableActions instance)
         {
-            @TogglePause.started -= instance.OnTogglePause;
-            @TogglePause.performed -= instance.OnTogglePause;
-            @TogglePause.canceled -= instance.OnTogglePause;
         }
 
         /// <summary>
@@ -1701,6 +1699,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnToggleShop(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "TogglePause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTogglePause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
@@ -1787,12 +1792,5 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// <seealso cref="UnchangeableActions.RemoveCallbacks(IUnchangeableActions)" />
     public interface IUnchangeableActions
     {
-        /// <summary>
-        /// Method invoked when associated input action "TogglePause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnTogglePause(InputAction.CallbackContext context);
     }
 }

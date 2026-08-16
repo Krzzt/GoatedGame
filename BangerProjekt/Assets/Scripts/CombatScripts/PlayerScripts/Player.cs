@@ -14,7 +14,7 @@ public class Player : Unit
 	private Weapon weaponScript;
 	private UseAbilities abilityScript;
 	[SerializeField] private GameObject fistPrefab;
-	[field:SerializeField] public GameObject GameOverScreen { get; set; }
+	[field: SerializeField] public GameObject GameOverScreen { get; set; }
 
 	//Start of Card variables --------------------------------
 
@@ -70,12 +70,13 @@ public class Player : Unit
 	[field: SerializeField] public int BonusPierce { get; set; }
 	//End of Bonus Stat Variables -----------
 
-	//Start of Item Variables -----------
+	//Start of Item Variables and Actions -----------
 	public static event Action<AbilityItem> NewAbility;
 	public static event Action ToggleInventory;
 	public static event Action ToggleShop;
 	public static event Action TogglePauseMenu;
-	//End of Item Variables ------------
+	public static event Action Die;
+	//End of Item Variables and Actions ------------
 
 	//Interaction Event
 	public static PlayerInput playerInput { get; set; } //static way to get the player input from wherever its needed. Much more efficient than searching for the player.
@@ -168,7 +169,7 @@ public class Player : Unit
 		AddImmunityFrames(ImmuFramesOnHit);
 		PopUp.Create(transform.position + new Vector3(0.3f, 1.5f, 0), amount.ToString(), Color.red, 5);
 		//Update the Healthbar if existent
-		if (CurrentHealth <= 0) Die();
+		if (CurrentHealth <= 0) Die?.Invoke();
 	}
 
 	public override void HealUnit(int amount)
@@ -192,11 +193,6 @@ public class Player : Unit
 	{
 		yield return new WaitForSeconds(lifeStealCooldown);
 		IsStealingALife = false; // removing the LifeStealCD
-	}
-	public void Die()
-	{
-		GameOverScreen.SetActive(true);
-		Time.timeScale = 0;
 	}
 
 	//End of HP related functions --------------------------------

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,15 +16,11 @@ public class MainCanvasReferenceSheet : MonoBehaviour
 	[field: SerializeField] public GameObject ShopButtonOutOfShop { get; set; }
 	[field: SerializeField] public GameObject ShopButtonInShop { get; set; }
 	[field: SerializeField] public GameObject GameOverScreen { get; set; }
+	[field: SerializeField] public GameObject PauseMenu { get; set; }
 
 
 	[field: Header("In Scene References")]
 	[field: SerializeField] public UIManager UiManager { get; set; }
-
-	public void ToggleShop()
-	{
-		UiManager.ToggleShop();
-	}
 
 
 }

@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "BangerProjekt.sln"
+    "dotnet.defaultSolution": "BangerProjekt.sln",
+    "editor.formatOnSave": true
 }

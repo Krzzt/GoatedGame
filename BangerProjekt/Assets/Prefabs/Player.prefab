@@ -495,7 +495,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6547559521655480698}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_TargetAssemblyTypeName: Player, ScriptAssembly
         m_MethodName: togglePauseMenu
         m_Mode: 1
         m_Arguments:
@@ -506,8 +506,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 8c41f03e-543c-4dd0-906c-256a852cc42c
-    m_ActionName: Unchangeable/TogglePause[/Keyboard/escape]
+    m_ActionId: beb57304-1457-4cb1-aa70-98d7cdccf83d
+    m_ActionName: Player/TogglePause[/Keyboard/k]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player

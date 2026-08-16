@@ -1,36 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
+using Codice.Client.Common.GameUI;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+
 public class UIManager : MonoBehaviour
 {
-	 public static UIManager Instance;
-    //WAVE RELATED
-    private TMP_Text waveText;
-    private TMP_Text enemiesAliveText;
-    private GameObject skipButton;
-    //END OF WAVE RELATED
-
-    //ABILITY RELATED
-    private Image abilityFill;
-    private Image abilityImage;
-    //END OF ABILITY RELATED
-
-    //INVENTORY RELATED
-    private GameObject inventory;
-    //END OF INVENTORY RELATED
-	private GameObject shop;
-	private GameObject shopButton;
+	public static UIManager Instance;
 	private MainCanvasReferenceSheet referenceSheet;
 
-    //Credits Text
-    private TMP_Text creditsText;
+	//WAVE RELATED
+	private TMP_Text waveText;
+	private TMP_Text enemiesAliveText;
+	private GameObject skipButton;
+	//END OF WAVE RELATED
+
+	//ABILITY RELATED
+	private Image abilityFill;
+	private Image abilityImage;
+	//END OF ABILITY RELATED
+
+	//INVENTORY RELATED
+	private GameObject inventory;
+	//END OF INVENTORY RELATED
+
+	//SHOP RELATED
+	private GameObject shop;
+	private GameObject shopButton;
+
+	//END OF SHOP RELATED
+
+	//PAUSE RELATED
+	private GameObject pause;
+	private GameObject gameOver;
+
+	//Credits Text
+	private TMP_Text creditsText;
 	//End of Credits Text
 
+	private InputAction pauseAction;
 
 	private void Awake()
 	{
@@ -50,117 +62,158 @@ public class UIManager : MonoBehaviour
 		shop = referenceSheet.ShopRelated;
 		shopButton = referenceSheet.ShopButtonOutOfShop;
 		shopButton.GetComponent<Button>().onClick.AddListener(() => this.ToggleShop());
+
+		pause = referenceSheet.PauseMenu;
+		gameOver = referenceSheet.GameOverScreen;
+
+		pauseAction = Player.playerInput.actions.FindAction("TogglePause");
+#if UNITY_EDITOR
+		if (pauseAction != null)
+		{
+			pauseAction.ChangeBinding(0).WithPath("<Keyboard>/k");
+			Debug.Log("<color=yellow>Pause Key Changed to:</color> " + pauseAction.GetBindingDisplayString());
+		}
+#endif
+
 	}
 	private void OnEnable()
-    {
-        RoomScript.StartWaves += SetWaveVisible;
-        RoomScript.RoomCleared += SetWaveInvisible;
-        EnemySpawner.NewWaveText += SetWaveText;
-        EnemySpawner.NewEnemiesRemaining += SetEnemiesAliveText;
-        EnemySpawner.LastWave += DisableButton;
-        UseAbilities.SetAbilityUI += SetAbilityFill;
-        Player.NewAbility += SetAbilityImage;
-        GameManager.CreditsChanged += SetCreditText;
-        Player.ToggleInventory += ToggleInventory;
+	{
+		RoomScript.StartWaves += SetWaveVisible;
+		RoomScript.RoomCleared += SetWaveInvisible;
+		EnemySpawner.NewWaveText += SetWaveText;
+		EnemySpawner.NewEnemiesRemaining += SetEnemiesAliveText;
+		EnemySpawner.LastWave += DisableButton;
+		UseAbilities.SetAbilityUI += SetAbilityFill;
+		Player.NewAbility += SetAbilityImage;
+		GameManager.CreditsChanged += SetCreditText;
+		Player.ToggleInventory += ToggleInventory;
 		Player.ToggleShop += ToggleShop;
-    }
-    public void SetWaveText(int currWave, int maxWave)
-    {
-        waveText.SetText("Wave " + currWave + "/" + maxWave);
-    }
+		Player.TogglePauseMenu += TogglePause;
+		Player.Die += PlayerDied;
+	}
+	public void SetWaveText(int currWave, int maxWave)
+	{
+		waveText.SetText("Wave " + currWave + "/" + maxWave);
+	}
 
-    public void SetWaveVisible(int dontCare)
-    {
-        if (waveText && enemiesAliveText && skipButton)
-        {
-            waveText.gameObject.SetActive(true);
-            enemiesAliveText.gameObject.SetActive(true);
-            SetEnemiesAliveText(0); //reset it yes
-            skipButton.SetActive(true);
-        }
-    }
+	public void SetWaveVisible(int dontCare)
+	{
+		if (waveText && enemiesAliveText && skipButton)
+		{
+			waveText.gameObject.SetActive(true);
+			enemiesAliveText.gameObject.SetActive(true);
+			SetEnemiesAliveText(0); //reset it yes
+			skipButton.SetActive(true);
+		}
+	}
 
-    public void DisableButton()
-    {
-        if (skipButton) skipButton.SetActive(false);
+	public void DisableButton()
+	{
+		if (skipButton) skipButton.SetActive(false);
 
-    }
+	}
 
-    public void SetWaveInvisible()
-    {
-        if (waveText && enemiesAliveText && skipButton)
-        {
-            waveText.gameObject.SetActive(false);
-            enemiesAliveText.gameObject.SetActive(false);
-            skipButton.SetActive(false);
-        }
+	public void SetWaveInvisible()
+	{
+		if (waveText && enemiesAliveText && skipButton)
+		{
+			waveText.gameObject.SetActive(false);
+			enemiesAliveText.gameObject.SetActive(false);
+			skipButton.SetActive(false);
+		}
 
-    }
+	}
 
-    public void SetEnemiesAliveText(int amount)
-    {
-        enemiesAliveText.SetText("Enemies Remaining: " + amount);
-    }
+	public void SetEnemiesAliveText(int amount)
+	{
+		enemiesAliveText.SetText("Enemies Remaining: " + amount);
+	}
 
-    public void SetAbilityFill(float fillAmount)
-    {
-        if (abilityFill) abilityFill.fillAmount = fillAmount;
+	public void SetAbilityFill(float fillAmount)
+	{
+		if (abilityFill) abilityFill.fillAmount = fillAmount;
 
-    }
+	}
 
-    public void SetAbilityImage(AbilityItem item)
-    {
-        abilityImage.sprite = item.Icon;
-    }
+	public void SetAbilityImage(AbilityItem item)
+	{
+		abilityImage.sprite = item.Icon;
+	}
 
-    public void SetCreditText()
-    {
-        creditsText.SetText("Credits: " + GameManager.credits);
-    }
+	public void SetCreditText()
+	{
+		creditsText.SetText("Credits: " + GameManager.credits);
+	}
 
-    public void ChangeInput(InputAction inputToChange)
-    {
-        var rebindOperation = inputToChange.PerformInteractiveRebinding().WithCancelingThrough("<Keyboard>/escape"); //cancelled with escape
-        rebindOperation.OnMatchWaitForAnother(0.1f); //to wait shortly after the input is pressed
-        rebindOperation.Start();
-    }
+	public void ChangeInput(InputAction inputToChange)
+	{
+		var rebindOperation = inputToChange.PerformInteractiveRebinding().WithCancelingThrough("<Keyboard>/escape"); //cancelled with escape
+		rebindOperation.OnMatchWaitForAnother(0.1f); //to wait shortly after the input is pressed
+		rebindOperation.Start();
+	}
 
-    public void ToggleInventory()
-    {
-        inventory.SetActive(!inventory.activeSelf);
+	public void ToggleInventory()
+	{
+		inventory.SetActive(!inventory.activeSelf);
 
-        if (inventory.activeSelf)
-        {
-            Player.playerInput.actions.FindAction("Fire").Disable();
-            Player.playerInput.actions.FindAction("Interact").Disable();
+		if (inventory.activeSelf)
+		{
+			Player.playerInput.actions.FindAction("Fire").Disable();
+			Player.playerInput.actions.FindAction("Interact").Disable();
 			Player.playerInput.actions.FindAction("Toggle Shop").Disable();
 			shopButton.SetActive(false);
-        }
-        else
-        {
-            Player.playerInput.actions.FindAction("Fire").Enable();
-            Player.playerInput.actions.FindAction("Interact").Enable();
+		}
+		else
+		{
+			Player.playerInput.actions.FindAction("Fire").Enable();
+			Player.playerInput.actions.FindAction("Interact").Enable();
 			Player.playerInput.actions.FindAction("Toggle Shop").Enable();
 			shopButton.SetActive(true);
-        }
-    }
+		}
+	}
 
 	public void ToggleShop()
 	{
 		shop.SetActive(!shop.activeSelf);
 
-        if (shop.activeSelf)
-        {
-            Player.playerInput.actions.FindAction("Fire").Disable();
-            Player.playerInput.actions.FindAction("Interact").Disable();
+		if (shop.activeSelf)
+		{
+			Player.playerInput.actions.FindAction("Fire").Disable();
+			Player.playerInput.actions.FindAction("Interact").Disable();
 			Player.playerInput.actions.FindAction("Open Inventory").Disable();
-        }
-        else
-        {
-            Player.playerInput.actions.FindAction("Fire").Enable();
-            Player.playerInput.actions.FindAction("Interact").Enable();
+		}
+		else
+		{
+			Player.playerInput.actions.FindAction("Fire").Enable();
+			Player.playerInput.actions.FindAction("Interact").Enable();
 			Player.playerInput.actions.FindAction("Open Inventory").Enable();
-        }
+		}
+	}
+
+
+	public void TogglePause()
+	{
+		pause.SetActive(!pause.activeSelf);
+		if (pause.activeSelf)
+		{
+			Time.timeScale = 0;
+			Player.playerInput.actions.FindAction("Fire").Disable();
+			Player.playerInput.actions.FindAction("Interact").Disable();
+			Player.playerInput.actions.FindAction("Open Inventory").Disable();
+		}
+		else
+		{
+			Time.timeScale = 1;
+			Player.playerInput.actions.FindAction("Fire").Enable();
+			Player.playerInput.actions.FindAction("Interact").Enable();
+			Player.playerInput.actions.FindAction("Open Inventory").Enable();
+		}
+	}
+
+	public void PlayerDied()
+	{
+		Time.timeScale = 0;
+		gameOver.SetActive(true);
 	}
 
 }
