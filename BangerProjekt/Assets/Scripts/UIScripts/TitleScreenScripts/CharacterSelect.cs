@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class CharacterSelect : MonoBehaviour
 {
     private SaveState newSaveState;
-    [SerializeField] private Class classSelected;
+    [SerializeField] public Class ClassSelected { get; private set; }
     [SerializeField] private int seedSelected;
     [field: SerializeField] public List<Class> AllClasses { get; set; }
 
@@ -32,12 +32,15 @@ public class CharacterSelect : MonoBehaviour
     {
         seedInput = GameObject.Find("SeedInput").GetComponent<InputField>();  //set by name AAAAAAAAAAA
         SelectClass(AllClasses[0]); //placeholder for safety
+
     }
-    public void SelectClass(Class classToPick)
+
+
+	public void SelectClass(Class classToPick)
     {
-        classSelected = classToPick;
-        newSaveState = new SaveState(classSelected);
-        selectedText.SetText("Selected Class: " + classSelected.Name);
+        ClassSelected = classToPick;
+        newSaveState = new SaveState(ClassSelected);
+        selectedText.SetText("Selected Class: " + ClassSelected.Name);
     }
 
     public void SetSeed(string input)
@@ -59,11 +62,11 @@ public class CharacterSelect : MonoBehaviour
     }
     public void StartGame()
     {
-        if (!classSelected)
+        if (!ClassSelected)
         {
-            classSelected = AllClasses[0]; // if no class selected, just take the first one (placeholder ig)
+            ClassSelected = AllClasses[0]; // if no class selected, just take the first one (placeholder ig)
         }
-        newSaveState.PlayerClass = classSelected;
+        newSaveState.PlayerClass = ClassSelected;
         if (seedSelected != 0)
         {
             newSaveState.Seed = seedSelected;

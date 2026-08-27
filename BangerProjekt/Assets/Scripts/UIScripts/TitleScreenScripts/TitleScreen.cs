@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class TitleScreen : MonoBehaviour
 {
-   [SerializeField] private GameObject charSelectObject;
+   [field: SerializeField] public GameObject CharSelectObject {  get; set; }
 
 
     private void Awake()
     {
-        charSelectObject.SetActive(false);
+        CharSelectObject.SetActive(false);
     }
     public void LoadCharSelect()
     {
-        charSelectObject.SetActive(true);
+        CharSelectObject.SetActive(true);
         gameObject.SetActive(false);
     }
 

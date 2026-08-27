@@ -1366,7 +1366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &457783880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1468,7 +1468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 781191fc77fba70478e4ebaf4eb94841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  classSelected: {fileID: 0}
   seedSelected: 0
   <AllClasses>k__BackingField:
   - {fileID: 11400000, guid: 7a61e12e3f5f13649811cca8fc9d12c8, type: 2}
@@ -1730,12 +1729,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 457783884}
-        m_TargetAssemblyTypeName: CharacterSelect, Assembly-CSharp
+        m_TargetAssemblyTypeName: CharacterSelect, ScriptAssembly
         m_MethodName: SelectClass
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 7a61e12e3f5f13649811cca8fc9d12c8, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Class, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Class, ScriptAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Cowboy
@@ -1938,12 +1937,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 457783884}
-        m_TargetAssemblyTypeName: CharacterSelect, Assembly-CSharp
+        m_TargetAssemblyTypeName: CharacterSelect, ScriptAssembly
         m_MethodName: SelectClass
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 882881dd095680a498cca8735d2620c0, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Class, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Class, ScriptAssembly
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Knight
